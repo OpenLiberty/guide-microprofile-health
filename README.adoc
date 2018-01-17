@@ -7,7 +7,7 @@
 //   IBM Corporation
 :projectid: mp-health
 :page-layout: guide
-:page-duration: 15 minutes
+:page-duration: 20 minutes
 :page-description: Learn how to use MicroProfile Health API in an application
 :page-tags: ['Health' , 'MicroProfile' , 'REST']
 :page-permalink: /guides/{projectid}
