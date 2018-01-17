@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive>
+    <dir sourceOnDisk="/Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/target/classes" targetInArchive="/WEB-INF/classes"/>
+    <dir sourceOnDisk="/Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/src/main/webapp" targetInArchive="/"/>
+</archive>

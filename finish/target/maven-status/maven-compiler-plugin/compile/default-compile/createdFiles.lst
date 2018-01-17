@@ -1,0 +1,13 @@
+io/openliberty/guides/microprofile/util/InventoryUtil.class
+io/openliberty/guides/rest/PropertiesResource.class
+io/openliberty/guides/rest/SystemApplication.class
+io/openliberty/guides/microprofile/util/JsonMessages.class
+io/openliberty/guides/config/CustomConfigSource$1.class
+io/openliberty/guides/microprofile/InventoryApplication.class
+io/openliberty/guides/microprofile/InventoryManager.class
+io/openliberty/guides/microprofile/util/JsonMessages$1.class
+io/openliberty/guides/microprofile/InventoryResource.class
+io/openliberty/guides/config/CustomConfigSource.class
+io/openliberty/guides/microprofile/InventoryConfig.class
+io/openliberty/guides/microprofile/InventoryHealth.class
+io/openliberty/guides/rest/PropertiesHealth.class
