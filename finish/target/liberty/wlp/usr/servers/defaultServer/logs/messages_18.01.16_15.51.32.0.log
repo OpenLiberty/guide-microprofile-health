@@ -1,0 +1,52 @@
+********************************************************************************
+product = Open Liberty 17.0.0.3 (wlp-1.0.18.cl170320170927-1854)
+wlp.install.dir = /Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/target/liberty/wlp/
+java.home = /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre
+java.version = 1.8.0_131
+java.runtime = Java(TM) SE Runtime Environment (1.8.0_131-b11)
+os = Mac OS X (10.12.6; x86_64) (en_CA)
+process = 54139@ahmads-mbp.war.can.ibm.com
+********************************************************************************
+[16/01/18 15:51:18:754 EST] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0001I: The server defaultServer has been launched.
+[16/01/18 15:51:19:582 EST] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           I CWWKE0002I: The kernel started after 1.105 seconds
+[16/01/18 15:51:19:619 EST] 00000019 com.ibm.ws.kernel.feature.internal.FeatureManager            I CWWKF0007I: Feature update started.
+[16/01/18 15:51:20:586 EST] 00000012 com.ibm.ws.app.manager.internal.monitor.DropinMonitor        A CWWKZ0058I: Monitoring dropins for applications. 
+[16/01/18 15:51:20:854 EST] 0000001f com.ibm.ws.tcpchannel.internal.TCPChannel                    I CWWKO0219I: TCP Channel defaultHttpEndpoint has been started and is now listening for requests on host *  (IPv6) port 9080.
+[16/01/18 15:51:21:214 EST] 00000026 com.ibm.ws.app.manager.AppMessageHelper                      I CWWKZ0018I: Starting application io.openliberty.guides.microprofile.health.
+[16/01/18 15:51:21:410 EST] 00000025 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: health.
+[16/01/18 15:51:21:413 EST] 00000025 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module health has been bound to default_host.
+[16/01/18 15:51:21:414 EST] 00000025 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://ahmads-mbp.war.can.ibm.com:9080/health/
+[16/01/18 15:51:21:449 EST] 00000026 org.jboss.weld.Version                                       I WELD-000900: 2.4.3 (Final)
+[16/01/18 15:51:21:451 EST] 00000028 com.ibm.ws.session.WASSessionCore                            I SESN8501I: The session manager did not find a persistent storage location; HttpSession objects will be stored in the local application server's memory.
+[16/01/18 15:51:21:454 EST] 00000028 com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/health
+[16/01/18 15:51:21:466 EST] 00000028 com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[16/01/18 15:51:21:962 EST] 00000026 SystemOut                                                    O /Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/CustomConfigSource.json
+[16/01/18 15:51:22:044 EST] 00000026 com.ibm.ws.webcontainer.osgi.webapp.WebGroup                 I SRVE0169I: Loading Web Module: Liberty Project.
+[16/01/18 15:51:22:045 EST] 00000026 com.ibm.ws.webcontainer                                      I SRVE0250I: Web Module Liberty Project has been bound to default_host.
+[16/01/18 15:51:22:045 EST] 00000026 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0016I: Web application available (default_host): http://ahmads-mbp.war.can.ibm.com:9080/
+[16/01/18 15:51:22:046 EST] 00000026 com.ibm.ws.app.manager.AppMessageHelper                      A CWWKZ0001I: Application io.openliberty.guides.microprofile.health started in 0.832 seconds.
+[16/01/18 15:51:22:047 EST] 0000002e com.ibm.ws.session.WASSessionCore                            I SESN0176I: A new session context will be created for application key default_host/
+[16/01/18 15:51:22:047 EST] 0000002e com.ibm.ws.util                                              I SESN0172I: The session manager is using the Java default SecureRandom implementation for session ID generation.
+[16/01/18 15:51:22:069 EST] 00000019 com.ibm.ws.kernel.feature.internal.FeatureManager            A CWWKF0012I: The server installed the following features: [servlet-3.1, jndi-1.0, mpHealth-1.0, json-1.0, cdi-1.2, jsonp-1.0, mpConfig-1.1, jaxrs-2.0, jaxrsClient-2.0].
+[16/01/18 15:51:22:070 EST] 00000019 com.ibm.ws.kernel.feature.internal.FeatureManager            I CWWKF0008I: Feature update completed in 2.489 seconds.
+[16/01/18 15:51:22:070 EST] 00000019 com.ibm.ws.kernel.feature.internal.FeatureManager            A CWWKF0011I: The server defaultServer is ready to run a smarter planet.
+[16/01/18 15:51:22:250 EST] 0000001b com.ibm.ws.webcontainer.osgi.mbeans.PluginGenerator          I SRVE9103I: A configuration file for a web server plugin was automatically generated for this server at /Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/target/liberty/wlp/usr/servers/defaultServer/logs/state/plugin-cfg.xml.
+[16/01/18 15:51:23:332 EST] 0000001c com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [com.ibm.ws.microprofile.health] [/health] [HealthCheckServlet]: Initialization successful.
+[16/01/18 15:51:23:447 EST] 0000001c SystemOut                                                    O /Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/CustomConfigSource.json
+[16/01/18 15:51:23:862 EST] 00000029 .jaxrs20.cdi.component.JaxRsFactoryImplicitBeanCDICustomizer W CWWKW1001W: The scope PerRequest of JAXRS-2.0 Resource PropertiesResource does not match the CDI scope javax.enterprise.context.ApplicationScoped. Liberty gets resource instance from CDI.
+[16/01/18 15:51:23:864 EST] 00000029 .jaxrs20.cdi.component.JaxRsFactoryImplicitBeanCDICustomizer W CWWKW1001W: The scope PerRequest of JAXRS-2.0 Resource InventoryResource does not match the CDI scope javax.enterprise.context.ApplicationScoped. Liberty gets resource instance from CDI.
+[16/01/18 15:51:23:902 EST] 00000029 .ibm.ws.jaxrs.2.0.common:1.0.18.cl170320170927-1854(id=117)] I Setting the server's publish address to be /system/
+[16/01/18 15:51:23:940 EST] 00000029 com.ibm.ws.webcontainer.servlet                              I SRVE0242I: [io.openliberty.guides.microprofile.health] [/] [io.openliberty.guides.rest.SystemApplication]: Initialization successful.
+[16/01/18 15:51:24:168 EST] 0000002a SystemOut                                                    O /Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/CustomConfigSource.json
+[16/01/18 15:51:24:209 EST] 0000002b SystemOut                                                    O /Users/ahmadayyoub/mp-health-draft/guide-microprofile-health/finish/CustomConfigSource.json
+[16/01/18 15:51:24:211 EST] 0000002b .ibm.ws.microprofile.health.services.impl.HealthExecutorImpl W CWMH0051W: The class com.ibm.ws.microprofile.health.impl.HealthCheckResponseImpl implementing HealthCheckResponse in the io.openliberty.guides.microprofile.health application in module io.openliberty.guides.microprofile.health.war, reported a DOWN outcome DOWN with data Optional[{}].
+[16/01/18 15:51:24:464 EST] 0000000f com.ibm.ws.kernel.launch.internal.ServerCommandListener      A CWWKE0055I: Server shutdown requested on Tuesday, January 16, 2018 at 3:51 PM. The server defaultServer is shutting down.
+[16/01/18 15:51:24:466 EST] 00000037 com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl  A CWWKE1100I: Waiting for up to 30 seconds for the server to quiesce.
+[16/01/18 15:51:24:471 EST] 00000038 com.ibm.ws.tcpchannel.internal.TCPChannel                    I CWWKO0220I: TCP Channel defaultHttpEndpoint has stopped listening for requests on host *  (IPv6) port 9080.
+[16/01/18 15:51:24:472 EST] 00000038 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): http://ahmads-mbp.war.can.ibm.com:9080/health/
+[16/01/18 15:51:24:473 EST] 00000038 com.ibm.ws.http.internal.VirtualHostImpl                     A CWWKT0017I: Web application removed (default_host): http://ahmads-mbp.war.can.ibm.com:9080/
+[16/01/18 15:51:24:476 EST] 00000037 com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl  I CWWKE1101I: Server quiesce complete.
+[16/01/18 15:51:24:493 EST] 0000002e com.ibm.ws.webcontainer.servlet                              I SRVE0253I: [io.openliberty.guides.microprofile.health] [/] [io.openliberty.guides.rest.SystemApplication]: Destroy successful.
+[16/01/18 15:51:24:503 EST] 0000002e com.ibm.ws.app.manager.AppMessageHelper                      A CWWKZ0009I: The application io.openliberty.guides.microprofile.health has stopped successfully.
+[16/01/18 15:51:24:510 EST] 00000037 com.ibm.ws.webcontainer.servlet                              I SRVE0253I: [com.ibm.ws.microprofile.health] [/health] [HealthCheckServlet]: Destroy successful.
+[16/01/18 15:51:24:737 EST] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0036I: The server defaultServer stopped after 6.26 seconds.
