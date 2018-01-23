@@ -26,9 +26,9 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 // end::requiredAnnotation[]
 
 // tag::PropertiesHealth[]
-public class PropertiesHealth implements HealthCheck {
+public class PropertiesHealth implements HealthCheck 
   // end::PropertiesHealth[]
-
+  {
   // tag::healthResponse[]
   @Override
   public HealthCheckResponse call() {
