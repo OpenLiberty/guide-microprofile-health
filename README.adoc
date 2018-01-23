@@ -34,20 +34,20 @@ is currently not available (i.e. on maintenance). The health check outcome for a
 in the application is `UP` if all services are up. Otherwise, if any service is down, the outcome
 is `DOWN` and the response code will be `503`.
 
-You will use MicroProfile Health API to report the states of `InventoryResource` and `PropertiesResource`
+You will implement health check to report the states of `InventoryResource` and `PropertiesResource`
 RESTful services. Then you will write tests to validate the states of these services.
 
-You can find the health check results which contain the states of the two services above at
-this endpoint:
-```
-http://localhost:9080/health
-```
-You can also find the two RESTful services that already made up for you from here:
+You can find the two RESTful services that already made up for you from here:
 ```
 http://localhost:9080/system/properties
 ```
 ```
 http://localhost:9080/inventory/hosts
+```
+You can also find the health check results which contain the states of the two services above at
+this endpoint:
+```
+http://localhost:9080/health
 ```
 
 Note:
@@ -107,9 +107,6 @@ Now, navigate back to the `start` directory to begin.
 
 == Adding MicroProfile Health API
 
-You will make the two services,`PropertiesResource` and `InventoryResource`, report their state
-using MicroProfile Health API.
-
 Start by adding the MicroProfile API for health check in your `pom.xml` found in `start` directory:
 
 [source, xml, indent=0]
@@ -121,7 +118,7 @@ include::finish/pom.xml[tags=health]
 // Reporting PropertiesResource State
 // =================================================================================================
 
-=== Reporting PropertiesResource State
+== Reporting PropertiesResource State
 
 Create a class `PropertiesHealth.java` in `/start/src/main/java/io/openliberty/guides/rest/`
 and import Microprofile Health:
@@ -162,7 +159,7 @@ include::finish/src/main/java/io/openliberty/guides/system/PropertiesHealth.java
 // Reporting InventoryResource State
 // =================================================================================================
 
-=== Reporting InventoryResource State
+== Reporting InventoryResource State
 
 You will make this service report its state depending on:
 
