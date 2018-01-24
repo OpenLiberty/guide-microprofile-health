@@ -11,7 +11,6 @@
  *******************************************************************************/
 // end::copyright[]
 
-// tag::customConfig[]
 package io.openliberty.guides.config;
 
 import org.eclipse.microprofile.config.spi.Converter;
@@ -24,4 +23,3 @@ public class CustomEmailConverter implements Converter<Email> {
     return new Email(value);
   }
 }
-// end::customConfig[]

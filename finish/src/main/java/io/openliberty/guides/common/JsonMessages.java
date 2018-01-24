@@ -41,15 +41,12 @@ public enum JsonMessages {
                .build();
   }
 
-  // tag::serviceInMaintenance[]
   public static JsonObject serviceInMaintenance(String service) {
     return Json.createObjectBuilder()
                .add(service, "Service is temporarily down for maintenance")
                .build();
   }
-  // end::serviceInMaintenance[]
 
-  // tag::returnMessage[]
   public static JsonObject returnMessage(String service, Email devEmail) {
 
     JsonObject contact = Json.createObjectBuilder()
@@ -60,6 +57,5 @@ public enum JsonMessages {
                .add("Status", serviceInMaintenance(service))
                .add("Contact", contact).build();
   }
-  // end::returnMessage[]
 
 }
