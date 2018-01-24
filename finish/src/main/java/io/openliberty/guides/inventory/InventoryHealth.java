@@ -10,6 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::comment[]
+// tag::InventoryHealth[]
 package io.openliberty.guides.inventory;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -20,21 +21,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import io.openliberty.guides.inventory.util.InventoryUtil;
 
-// tag::healthCheck[]
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
-// end::healthCheck[]
 
 @Health
 @ApplicationScoped
 public class InventoryHealth implements HealthCheck {
-  // tag::config[]
   @Inject
   InventoryConfig config;
-  // end::config[]
 
-  // tag::isHealthy[]
   public boolean isHealthy() {
     if (config.isInMaintenance()) {
       return false;
@@ -49,9 +45,7 @@ public class InventoryHealth implements HealthCheck {
     }
     return true;
   }
-  // end::isHealthy[]
 
-  // tag::HealthCheckResponse[]
   @Override
   public HealthCheckResponse call() {
     if (!isHealthy()) {
@@ -61,5 +55,6 @@ public class InventoryHealth implements HealthCheck {
     return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
                               .up().build();
   }
-  // end::HealthCheckResponse[]
+
 }
+// end::InventoryHealth[]

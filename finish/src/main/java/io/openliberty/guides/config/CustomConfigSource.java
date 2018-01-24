@@ -11,7 +11,6 @@
  *******************************************************************************/
 // end::copyright[]
 
-// tag::customConfig[]
 package io.openliberty.guides.config;
 
 import javax.json.stream.JsonParser;
@@ -107,4 +106,3 @@ public class CustomConfigSource implements ConfigSource {
     return result;
   }
 }
-// end::customConfig[]

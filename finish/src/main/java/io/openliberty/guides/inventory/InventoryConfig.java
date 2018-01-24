@@ -11,7 +11,7 @@
  *******************************************************************************/
 // end::copyright[]
 
-// tag::config[]
+// tag::InventoryConfig[]
 package io.openliberty.guides.inventory;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,42 +24,29 @@ import io.openliberty.guides.config.Email;
 @ApplicationScoped
 public class InventoryConfig {
 
-  // tag::port-number[]
   @Inject
   @ConfigProperty(name = "io_openliberty_guides_port_number")
   private int portNumber;
-  // end::port-number[]
 
-  // tag::build-in-converter[]
   @Inject
   @ConfigProperty(name = "io_openliberty_guides_inventory_inMaintenance")
   private Provider<Boolean> inMaintenance;
-  // end::build-in-converter[]
 
-  // tag::custom-converter[]
   @Inject
   @ConfigProperty(name = "io_openliberty_guides_email")
   private Provider<Email> email;
-  // end::custom-converter[]
 
-  // tag::getPortNumber[]
   public int getPortNumber() {
     return portNumber;
   }
-  // end::getPortNumber[]
 
-  // tag::isInMaintenance[]
   public boolean isInMaintenance() {
     return inMaintenance.get();
   }
-  // end::isInMaintenance[]
 
-  // tag::getEmail[]
   public Email getEmail() {
     return email.get();
   }
-  // end::getEmail[]
 
 }
-
-// end::config[]
+// end::InventoryConfig[]

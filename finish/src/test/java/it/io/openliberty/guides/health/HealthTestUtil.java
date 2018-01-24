@@ -10,6 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::comment[]
+// tag::HealthTestUtil[]
 package it.io.openliberty.guides.health;
 
 import static org.junit.Assert.*;
@@ -30,7 +31,6 @@ import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 
 public class HealthTestUtil {
 
-  // tag::connectToHealthEnpoint[]
   public static JsonArray connectToHealthEnpoint(int expectedResponseCode) {
     String url = "http://localhost:9080/health";
     Client client = ClientBuilder.newClient().register(JsrJsonpProvider.class);
@@ -43,9 +43,7 @@ public class HealthTestUtil {
     client.close();
     return servicesStates;
   }
-  // end::connectToHealthEnpoint[]
 
-  // tag::getActualState[]
   public static String getActualState(String service,
       JsonArray servicesStates) {
     String state = "";
@@ -58,10 +56,8 @@ public class HealthTestUtil {
     }
     return state;
   }
-  // end::getActualState[]
 
-  // tag::changeInventoryProperty[]
-  public static void changeInventoryProperty(String oldLine, String newLine) {
+  public static void changeInventoryProperty(String oldValue, String newValue) {
     try {
       String fileName = System.getProperty("user.dir").split("target")[0]
           + "/resource/CustomConfigSource.json";
@@ -72,7 +68,7 @@ public class HealthTestUtil {
         oldContent += line + "\r\n";
       }
       reader.close();
-      newContent = oldContent.replaceAll(oldLine, newLine);
+      newContent = oldContent.replaceAll(oldValue, newValue);
       FileWriter writer = new FileWriter(fileName);
       writer.write(newContent);
       writer.close();
@@ -80,13 +76,11 @@ public class HealthTestUtil {
       e.printStackTrace();
     }
   }
-  // end::changeInventoryProperty[]
 
-  // tag::cleanUp[]
   public static void cleanUp() {
     changeInventoryProperty(HealthTest.INV_MAINTENANCE + "\": true",
                             HealthTest.INV_MAINTENANCE + "\": false");
   }
-  // end::cleanUp[]
 
 }
+// end::HealthTestUtil[]

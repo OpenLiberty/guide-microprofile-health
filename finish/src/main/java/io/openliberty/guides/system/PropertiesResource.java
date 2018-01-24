@@ -10,6 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
+// tag::PropertiesResource[]
 package io.openliberty.guides.system;
 
 // JAX-RS
@@ -34,10 +35,8 @@ import io.openliberty.guides.system.SystemConfig;
 @Path("properties")
 public class PropertiesResource {
 
-  // tag::config-injection[]
   @Inject
   SystemConfig systemConfig;
-  // end::config-injection[]
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
@@ -58,3 +57,4 @@ public class PropertiesResource {
   }
 
 }
+// end::PropertiesResource[]

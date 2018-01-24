@@ -10,6 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
+// tag::InventoryResource[]
 package io.openliberty.guides.inventory;
 
 // CDI
@@ -25,9 +26,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-// tag::JsonMessages[]
+
 import io.openliberty.guides.common.JsonMessages;
-// end::JsonMessages[]
 import io.openliberty.guides.inventory.InventoryConfig;
 
 @RequestScoped
@@ -36,12 +36,9 @@ public class InventoryResource {
   @Inject
   InventoryManager manager;
 
-  // tag::config[]
   @Inject
   InventoryConfig config;
-  // end::config[]
 
-  // tag::getPropertiesForHost[]
   @GET
   @Path("{hostname}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -51,9 +48,7 @@ public class InventoryResource {
         ? JsonMessages.serviceInMaintenance(InventoryResource.class.getSimpleName())
         : manager.get(hostname, config.getPortNumber());
   }
-  // end::getPropertiesForHost[]
 
-  // tag::listContents[]
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public JsonObject listContents() {
@@ -61,5 +56,6 @@ public class InventoryResource {
         ? JsonMessages.serviceInMaintenance(InventoryResource.class.getSimpleName())
         : manager.list();
   }
-  // end::listContents[]
+
 }
+// end::InventoryResource[]

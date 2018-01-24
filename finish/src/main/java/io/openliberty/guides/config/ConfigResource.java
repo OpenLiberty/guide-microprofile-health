@@ -30,10 +30,8 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 @Path("/")
 public class ConfigResource {
 
-  // tag::config[]
   @Inject
   private Config config;
-  // end::config[]
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
