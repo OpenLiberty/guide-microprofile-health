@@ -54,8 +54,6 @@ public class EndpointTest {
     client.close();
   }
 
-  // tag::tests[]
-  // tag::testSuite[]
   @Test
   public void testSuite() {
     this.testEmptyInventory();
@@ -63,9 +61,7 @@ public class EndpointTest {
     this.testSystemPropertiesMatch();
     this.testUnknownHost();
   }
-  // end::testSuite[]
 
-  // tag::testEmptyInventory[]
   public void testEmptyInventory() {
     Response response = this.getResponse(baseUrl + INVENTORY_HOSTS);
     this.assertResponse(baseUrl, response);
@@ -79,9 +75,7 @@ public class EndpointTest {
 
     response.close();
   }
-  // end::testEmptyInventory[]
 
-  // tag::testHostRegistration[]
   public void testHostRegistration() {
     this.visitLocalhost();
 
@@ -102,9 +96,7 @@ public class EndpointTest {
 
     response.close();
   }
-  // end::testHostRegistration[]
 
-  // tag::testSystemPropertiesMatch[]
   public void testSystemPropertiesMatch() {
     Response invResponse = this.getResponse(baseUrl + INVENTORY_HOSTS);
     Response sysResponse = this.getResponse(baseUrl + SYSTEM_PROPERTIES);
@@ -130,9 +122,7 @@ public class EndpointTest {
     invResponse.close();
     sysResponse.close();
   }
-  // end::testSystemPropertiesMatch[]
 
-  // tag::testUnknownHost[]
   public void testUnknownHost() {
     Response response = this.getResponse(baseUrl + INVENTORY_HOSTS);
     this.assertResponse(baseUrl, response);
@@ -150,10 +140,6 @@ public class EndpointTest {
     badResponse.close();
   }
 
-  // end::testUnknownHost[]
-  // end::tests[]
-  // tag::helpers[]
-  // tag::javadoc[]
   /**
    * <p>
    * Returns response information from the specified URL.
@@ -163,12 +149,11 @@ public class EndpointTest {
    *          - target URL.
    * @return Response object with the response from the specified URL.
    */
-  // end::javadoc[]
+
   private Response getResponse(String url) {
     return client.target(url).request().get();
   }
 
-  // tag::javadoc[]
   /**
    * <p>
    * Asserts that the given URL has the correct response code of 200.
@@ -179,13 +164,12 @@ public class EndpointTest {
    * @param response
    *          - response received from the target URL.
    */
-  // end::javadoc[]
+
   private void assertResponse(String url, Response response) {
     assertEquals("Incorrect response code from " + url, 200,
                  response.getStatus());
   }
 
-  // tag::javadoc[]
   /**
    * Asserts that the specified JVM system property is equivalent in both the
    * system and inventory services.
@@ -199,7 +183,7 @@ public class EndpointTest {
    * @param actual
    *          - actual name.
    */
-  // end::javadoc[]
+
   private void assertProperty(String propertyName, String hostname,
       String expected, String actual) {
     assertEquals("JVM system property [" + propertyName + "] "
@@ -207,11 +191,10 @@ public class EndpointTest {
         + "the inventory service for " + hostname, expected, actual);
   }
 
-  // tag::javadoc[]
   /**
    * Makes a simple GET request to inventory/localhost.
    */
-  // end::javadoc[]
+
   private void visitLocalhost() {
     Response response = this.getResponse(baseUrl + SYSTEM_PROPERTIES);
     this.assertResponse(baseUrl, response);
@@ -221,6 +204,5 @@ public class EndpointTest {
         + "/localhost").request().get();
     targetResponse.close();
   }
-  // end::helpers[]
+
 }
-// end::testClass[]
