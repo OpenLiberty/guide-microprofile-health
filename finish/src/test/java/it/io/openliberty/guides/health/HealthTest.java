@@ -10,6 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::comment[]
+// tag::HealthTest[]
 package it.io.openliberty.guides.health;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class HealthTest {
-  // tag::data[]
+
   private JsonArray servicesStates;
   private HashMap<String, String> dataWhenServicesUP, dataWhenInventoryDown;
   public static final String INV_MAINTENANCE = "io_openliberty_guides_inventory_inMaintenance";
@@ -36,17 +37,13 @@ public class HealthTest {
     dataWhenInventoryDown.put("PropertiesResource", "UP");
     dataWhenInventoryDown.put("InventoryResource", "DOWN");
   }
-  // end::data[]
 
-  // tag::testIfServicesStatesUp[]
   @Test
   public void testIfServicesStatesUp() {
     servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
     checkServicesStates(dataWhenServicesUP, servicesStates);
   }
-  // end::testIfServicesStatesUp[]
 
-  // tag::testIfInventoryTemporarilyDown[]
   @Test
   public void testIfInventoryTemporarilyDown() {
     servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
@@ -56,9 +53,7 @@ public class HealthTest {
     servicesStates = HealthTestUtil.connectToHealthEnpoint(503);
     checkServicesStates(dataWhenInventoryDown, servicesStates);
   }
-  // end::testIfInventoryTemporarilyDown[]
 
-  // tag::checkServicesStates[]
   private void checkServicesStates(HashMap<String, String> testData,
       JsonArray servicesStates) {
     testData.forEach((service, expectedState) -> {
@@ -68,13 +63,11 @@ public class HealthTest {
     });
 
   }
-  // end::checkServicesStates[]
 
-  // tag::After[]
   @After
   public void teardown() {
     HealthTestUtil.cleanUp();
   }
-  // end::After[]
 
 }
+// end::HealthTest[]
