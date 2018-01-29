@@ -24,16 +24,16 @@ Learn how to provide and check the health of a microservice using MicroProfile H
 == What you'll learn
 
 You will learn how to add Microprofile Health Check to report the health of
-a RESTful service. The great benefit from adding a health check is that it helps in machine to
+a RESTful application. The great benefit from adding a health check is that it helps in machine to
 machine communications, monitoring and knowing which services are performing in the application.
 
 A health check is a method for assessing the states of the services in an application to know the overall performance. The state of a service is either `UP` or `DOWN`.
 When the state is `UP`, the service is available. However, when it is `DOWN`, the service
-is currently not available (i.e. on maintenance). The overall outcome of the application is `UP` only when the checks of all the services are `UP`. 
+is currently not available (i.e. in maintenance). The overall outcome of the application is `UP` only when the checks of all the services are `UP`. 
 
 MicroProfile Health Check provides an endpoint that you can get the health check results as a JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome is `UP`, otherwise, a status code of `503` if it is `DOWN`.
 
-You will add health checks to report the states of `PropertiesResource` and `InventoryResource`
+You will add health checks to report the states of the `PropertiesResource` and `InventoryResource`
 RESTful services in an inventory management application. This application and the two services in it are provided for you in this guide. If you want to learn how to create a RESTful application, see 
 https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
 
@@ -72,7 +72,7 @@ mvn install liberty:start-server
 
 Point your browser to MicroProfile Health Check endpoint: `\http://localhost:9080/health`. From here, you can see the health of the two services as well as the overall health outcome of the applicaiton. As shown, there are two checks. One that shows the state of `PropertiesResource` service and the other shows the state of `InventoryResource` service. They are both in `UP` state as you may expect and because of that the overall outcome of the application is `UP`. 
 
-You can also verify states of the two RESTful services that by pointing to their endpoints:
+You can also verify states of the two RESTful services by pointing to their endpoints:
 
 ```
 http://localhost:9080/system/properties
@@ -122,11 +122,11 @@ Create `PropertiesHealth.java` class in `/start/src/main/java/io/openliberty/gui
 include::finish/src/main/java/io/openliberty/guides/system/PropertiesHealth.java[tags=PropertiesHealth]
 ----
 
-The `org.eclipse.microprofile` package contains the required Microprofile Health Check classes.
+The `org.eclipse.microprofile` package contains the required MicroProfile Health Check classes.
 
 The `@Health` annotation indicates that this class will be read for reporting the state of
 a desired service to `/health` endpoint. The `@ApplicationScoped` annotation is
-required because the service must stay active within the lifetime of the application for the
+required because the health check service must stay active within the lifetime of the application for the
 state to be reported.
 
 This class implements the `HealthCheck` interface, which means you must override the `call()`
@@ -136,7 +136,7 @@ The healthy state of the `PropertiesResource` service is simulated by reading th
 host. If the system property `wlp.server.name` is `defaultServer`, then the state is `UP`, otherwise, it
 is `DOWN`.
 
-In addition, you need to pass the service name `PropertiesResource` as an argument to the `named()`
+Lastly, you need to pass the service name `PropertiesResource` as an argument to the `named()`
 method to indicate that this is the service being reported.
 
 // =================================================================================================
@@ -152,7 +152,7 @@ Create a class `InventoryHealth.java` in `/start/src/main/java/io/openliberty/gu
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java[tags=InventoryHealth]
 ----
 
-This service reports its healthy state depending on two things:
+This service reports its healthy state depending on two conditions:
 
 1. A property of type boolean found in `/start/CustomConfigSource.json`:
 
@@ -171,13 +171,13 @@ As you can see, adding health check to this service is similar as in the previou
 However, there are minor adjustments and additions.
 
 The `@Inject` annotation is used to initialize the `InventoryConfig` object. This object will allow
-you to read the property in `CustomConfigSource.json` file. You can learn more about `@Inject` from
-https://github.com/OpenLiberty/draft-guide-rest-cdi[Creating a RESTful web service with contexts and dependency injection].
+you to read the property in the `CustomConfigSource.json` file. You can learn more about the `@Inject` annotation from
+https://github.com/OpenLiberty/draft-guide-rest-cdi[Handling dependencies with RESTful web services].
 
 The `isHealthy()` method returns a boolean that determines the health of `InventoryResource` service.
-It does the two things that were mentions above. This method is used as the condition in `call()` method. The state of `InventoryResource` service is `UP` if `isHealthy` returns `true` and vice versa.
+It checkes the two conditions that were mentioned above. This method is used as the condition in `call()` method. The state of `InventoryResource` service is `UP` if `isHealthy` returns `true` and vice versa.
 
-Now, open `InventoryResource` in `/start/src/main/java/io/openliberty/guides/inventory/`
+Now, open `InventoryResource` in `/start/src/main/java/io/openliberty/guides/inventory/` to add a condition to this service.
 
 [source, java, indent=0]
 ----
@@ -185,15 +185,15 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 ----
 
 The service reports the system properties for a hostname through calling
-`getPropertiesForHost()` method. This can only happen if the `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`. Otherwise the service responds with the message, `Service is temporarily down for maintenance`. The configuration condition check `config.isInMaintenance()` is the key here. The `isHealthy()` method in `InventoryHealth` class is also using this condition to report the state of `InventoryResource` service. If the service reports the system properties as desired, then the health of this service is `UP`. If the service is down for maintenance, then its health is `DOWN'.
+`getPropertiesForHost()` method. This can only happen if the `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`. Otherwise the service responds with the message, `Service is temporarily down for maintenance`. If the service reports the system properties as desired, then the health of this service is `UP`. If the service is down for maintenance, then its health is `DOWN'. With this condtion set on the service, the second condition in the `isHealthy()` method of the `InventoryHealth` class is relying on it. 
 
-This is the same simulation is implemented for the for `listContents()` method which lists the stored hosts.
+The same condition is implemented for the `listContents()` method which lists the stored hosts.
 
-The `serviceInMaintenance()` method from the imported class `JsonMessages` is already provided for
+The `serviceInMaintenance()` method from the class `JsonMessages` is provided for
 you to be used in this guide. To learn more about this class, read
 https://github.com/OpenLiberty/draft-guide-microprofile-config[Configuring Microservices using MicroProfile Config].
-This method in this class just respond with a `JsonObject` containing a message telling the user
-that the service is currently on maintenance. You just need to pass the name of the service to it.
+This method is used in this class to respond a Json Object containing a message telling the user
+that the service is currently down for maintenance. You just need to pass the name of the service to it.
 
 // =================================================================================================
 // Building and running the application
@@ -220,11 +220,11 @@ reporting the state of the two services at the following URL:
 
 * `\http://localhost:9080/health`
 
-Now, try to make the `InventoryResource` service in maintenance (i.e. temporarily down) by changing the
-property `io_openliberty_guides_inventory_inMaintenance` value to `true` found under
+Now, try to turn the `InventoryResource` service down (i.e. in maintenance) by changing the
+property `io_openliberty_guides_inventory_inMaintenance` value to `true`. This property is found in
 `/finish/CustomConfigSource.json`. Refresh the browser. You will see the state of the
 `InventoryResource` is currently `DOWN` and because of that the overall outcome is `DOWN`. You can
-verify that by point your browser to inventory service. As you can see, the service is responding
+verify that by pointing your browser to the inventory service endpoint. As you can see, the service is responding
 with a message telling you that it is in maintenance.
 
 If you make changes to the code, use the Maven package goal to rebuild the application and have
