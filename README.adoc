@@ -23,7 +23,7 @@ Learn how to provide and check the health of a microservice using MicroProfile H
 
 == What you'll learn
 
-You will learn how to add Microprofile Health Check to report the health of
+You will learn how to use Microprofile Health feature to report the health of
 a RESTful application. The great benefit from adding a health check is that it helps in machine to
 machine communications, monitoring and knowing which services are performing in the application.
 
@@ -73,14 +73,8 @@ mvn install liberty:start-server
 Point your browser to MicroProfile Health Check endpoint: `\http://localhost:9080/health`. From here, you can see the health of the two services as well as the overall health outcome of the applicaiton. As shown, there are two checks. One that shows the state of `PropertiesResource` service and the other shows the state of `InventoryResource` service. They are both in `UP` state as you may expect and because of that the overall outcome of the application is `UP`. 
 
 You can also verify states of the two RESTful services by pointing to their endpoints:
-
-```
-http://localhost:9080/system/properties
-```
-
-```
-http://localhost:9080/inventory/hosts
-```
+- http://localhost:9080/system/properties refers to the PropertiesResource service that retrieves the information for a specific host
+- http://localhost:9080/inventory/hosts refers to the InventoryResource service that retrieves the information for a list of all previously registered hosts
 
 Once you are done checking out the application, stop the Open Liberty server:
 
@@ -154,16 +148,9 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This service reports its healthy state depending on two conditions:
 
-1. A property of type boolean found in `/start/CustomConfigSource.json`:
+1. A property of type boolean found in `/start/CustomConfigSource.json`. This property is used this file to manipulate on the state of the service. This file is provided for you in this guide. If you want to learn how to configure this file, see https://github.com/OpenLiberty/draft-guide-microprofile-config[Configuring Microservices using MicroProfile Config].
 
-    "io.openliberty.guides.microprofile.inventory.inMaintenance": false
-
-
-[TIP]
-    This property in the file is provided for you in this guide.
-    If you want to learn how to configure this file, see
-    https://github.com/OpenLiberty/draft-guide-microprofile-config[Configuring Microservices using MicroProfile Config].
-    You will use this file to manipulate on the state of the service. 
+    "io.openliberty.guides.microprofile.inventory.inMaintenance": false 
 
 2. `PropertiesResource` service availability (i.e. returns 200 response code).
 
@@ -187,7 +174,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 The service reports the system properties for a hostname through calling
 `getPropertiesForHost()` method. This can only happen if the `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`. Otherwise the service responds with the message, `Service is temporarily down for maintenance`. If the service reports the system properties as desired, then the health of this service is `UP`. If the service is down for maintenance, then its health is `DOWN'. With this condtion set on the service, the second condition in the `isHealthy()` method of the `InventoryHealth` class is relying on it. 
 
-The same condition is implemented for the `listContents()` method which lists the stored hosts.
+The same condition is applied for the `listContents()` method in this service. This method lists the stored hosts.
 
 The `serviceInMaintenance()` method from the class `JsonMessages` is provided for
 you to be used in this guide. To learn more about this class, read
@@ -255,7 +242,7 @@ include::finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java[ta
 
 The @Before and @After annotations are placed on methods that execute before and after every test
 case. These methods are generally used to perform any setup and teardown tasks.
-In this case, the `setup()` method initializes the fields. they are the `JsonArray` that hold the states
+In this case, the `setup()` method initializes the fields. They are the `JsonArray` that hold the states
 of the services, the two maps for storing the states when the services are up and when they are
 down and the constant to hold the property that will be read. `The teardown()` method simply resets
 the property's value.
