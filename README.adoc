@@ -23,7 +23,7 @@ Learn how to provide and check the health of a microservice using MicroProfile H
 
 == What you'll learn
 
-You will learn how to use Microprofile Health feature to report the health of
+You will learn how to use MicroProfile Health feature to report the health of
 a RESTful application. The great benefit from adding a health check is that it helps in machine to
 machine communications, monitoring and knowing which services are performing in the application.
 
@@ -34,7 +34,7 @@ is currently not available (i.e. in maintenance). The overall outcome of the app
 The MicroProfile Health feature provides an endpoint that you can get the health check results as a JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome is `UP`, otherwise, a status code of `503` if it is `DOWN`.
 
 You will add health checks to report the states of the `PropertiesResource` and `InventoryResource`
-RESTful services in an inventory management application. This application and the two services in it are provided for you in this guide. If you want to learn how to create a RESTful application, see 
+RESTful services in an inventory manager application. This application and the two services in it are provided for you in this guide. If you want to learn how to create a RESTful application, see 
 https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
 
 // =================================================================================================
@@ -172,7 +172,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 ----
 
 The service reports the system properties for a hostname through calling
-`getPropertiesForHost()` method. This can only happen if the `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`. Otherwise the service responds with the message, `Service is temporarily down for maintenance`. If the service reports the system properties as desired, then the health of this service is `UP`. If the service is down for maintenance, then its health is `DOWN'. With this condtion set on the service, the second condition in the `isHealthy()` method of the `InventoryHealth` class is relying on it. 
+`getPropertiesForHost()` method. This can only happen if the `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`. Otherwise the service responds with the message, `Service is temporarily down for maintenance`. If the service reports the system properties as desired, then the health of this service is `UP`. If the service is down for maintenance, then its health is `DOWN'. Notice the second condition in the `isHealthy()` method of the `InventoryHealth` class is relying on this setting. 
 
 The same condition is applied for the `listContents()` method in this service. This method lists the stored hosts.
 
@@ -229,9 +229,8 @@ To stop the Open Liberty server, run the Maven liberty:stop-server goal:
 
 == Testing Services States
 
-You will write two test methods `testIfServicesStatesUp()` and `testIfInventoryTemporarilyDown()` to
-validate the state of `PropertiesResource` and `InventoryResource` services. You will also use a
-test helper class `HealthTestUtil` that is already provided for you to perform these two tests.
+You will write two test methods `testIfApplicationIsUp()` and `testIfInventoryServiceIsDown()` to
+validate the state of the Inventory Manager Application among with the `PropertiesResource` and `InventoryResource` services. 
 
 Begin by creating a test class src/test/java/it/io/openliberty/guides/health/HealthTest.java:
 
@@ -252,7 +251,7 @@ application after adding health checks.
 
 * The `testIfApplicationIsUp()` method checks if the application outcome is currently `UP`. This means both services' healthy states are `UP`.  This test uses these helper methods:
 
-    *** `connectToHealthEnpoint()` method sends a request to `\http://localhost:9080/health` then
+    *** `connectToHealthEndpoint()` method sends a request to `\http://localhost:9080/health` then
     verifies the `200` response code is returned. This method also reads the response as `JsonArray` which contains the states
     of the two services. The `JsonArray` is used to compare with the expected service states. 
 
@@ -288,7 +287,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
 == Great work! You're done!
 
-You have learned how to add a health check to report the states of microservices such as REST in an
+You have learned how to add health checks to report the states of microservices in an
 application. Then you wrote tests to validate that.
 
 include::{common-includes}/finish.adoc[]
