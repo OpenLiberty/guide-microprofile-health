@@ -73,6 +73,7 @@ mvn install liberty:start-server
 Point your browser to MicroProfile Health Check endpoint: `\http://localhost:9080/health`. From here, you can see the health of the two services as well as the overall health outcome of the applicaiton. As shown, there are two checks. One that shows the state of `PropertiesResource` service and the other shows the state of `InventoryResource` service. They are both in `UP` state as you may expect and because of that the overall outcome of the application is `UP`. 
 
 You can also verify states of the two RESTful services by pointing to their endpoints:
+
 - http://localhost:9080/system/properties refers to the PropertiesResource service that retrieves the information for a specific host
 - http://localhost:9080/inventory/hosts refers to the InventoryResource service that retrieves the information for a list of all previously registered hosts
 
