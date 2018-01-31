@@ -31,7 +31,7 @@ The MicroProfile Health feature provides an endpoint that you can get the health
 JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
 is `UP`, otherwise, a status code of `503` if it is `DOWN`.
 
-The health check is used to assess the states of the services in an application. The state of a service
+The health check is used to assess the state of a service in an application. The state of a service
 is either `UP` or `DOWN`. When the state is `UP`, the service is available. However,
 when it is `DOWN`, the service is currently not available (i.e. in maintenance).
 The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
