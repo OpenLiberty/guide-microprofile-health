@@ -46,6 +46,12 @@ RESTful services in an inventory manager application. This application and the t
 are provided for you in this guide. If you want to learn how to create a RESTful application, see
 https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
 
+After starting the application, you will be able to access two microservices to test their availability:
+
+* `\http://localhost:9080/system/properties` retrieves the information for a specific host
+
+* `\http://localhost:9080/inventory/hosts` retrieves the information for a list of all previously registered hosts
+
 // =================================================================================================
 // Getting Started
 // =================================================================================================
