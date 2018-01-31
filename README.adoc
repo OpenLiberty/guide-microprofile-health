@@ -92,13 +92,6 @@ applicaiton. As shown, there are two checks. One that shows the state of `system
 service and the other shows the state of `inventory` service. They are both in `UP` state
 as you may expect and because of that the overall outcome of the application is `UP`.
 
-You can also invoke the two RESTful services by pointing to their endpoints:
-
-- http://localhost:9080/system/properties refers to the `system` service that retrieves
-the information for a specific host
-- http://localhost:9080/inventory/hosts refers to the `inventory` service that retrieves
-the information for a list of all previously registered hosts
-
 Once you are done checking out the application, stop the Open Liberty server:
 
 ```
