@@ -27,7 +27,7 @@ You will learn how to use MicroProfile Health feature to report the health of
 a RESTful application. The great benefit from adding a health check is that it helps in machine to
 machine communications, monitoring and knowing which services are performing in the application.
 
-The MicroProfile Health feature provides an endpoint that you can get the health check results as a
+The MicroProfile Health is a feature that provides an endpoint that you can get the health check results as a
 JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
 is `UP`, otherwise, a status code of `503` if it is `DOWN`.
 
