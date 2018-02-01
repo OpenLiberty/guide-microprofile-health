@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017 IBM Corporation and others.
+ * Copyright (c) 2017, 2018 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,9 @@ import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
 import javax.json.Json;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Map;
 import java.io.StringReader;
 
 import java.io.BufferedReader;
@@ -27,7 +29,7 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 public class CustomConfigSource implements ConfigSource {
 
   String fileLocation = System.getProperty("user.dir").split("target")[0]
-      + "resource/CustomConfigSource.json";
+      + "/../resources/CustomConfigSource.json";
   Map<String, String> map = setProperties();
 
   @Override
