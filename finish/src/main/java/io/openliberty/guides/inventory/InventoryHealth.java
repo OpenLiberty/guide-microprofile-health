@@ -35,11 +35,9 @@ public class InventoryHealth implements HealthCheck {
     if (config.isInMaintenance()) {
       return false;
     }
-    String url = InventoryUtil.buildUri("localhost", config.getPortNumber())
-                              .toString();
+    String url = InventoryUtil.buildUri("localhost", config.getPortNumber()).toString();
     Client client = ClientBuilder.newClient();
-    Response response = client.target(url).request(MediaType.APPLICATION_JSON)
-                              .get();
+    Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
     if (response.getStatus() != 200) {
       return false;
     }
@@ -49,11 +47,9 @@ public class InventoryHealth implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!isHealthy()) {
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                                .down().build();
+      return HealthCheckResponse.named(InventoryResource.class.getSimpleName()).down().build();
     }
-    return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                              .up().build();
+    return HealthCheckResponse.named(InventoryResource.class.getSimpleName()).up().build();
   }
 
 }

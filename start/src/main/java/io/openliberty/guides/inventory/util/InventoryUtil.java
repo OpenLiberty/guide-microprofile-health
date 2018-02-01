@@ -149,8 +149,7 @@ public class InventoryUtil {
    *         service.
    */
   public static URI buildUri(String hostname, int port) {
-    return UriBuilder.fromUri(SYSTEM_PROPERTIES).host(hostname).port(port)
-                     .scheme(PROTOCOL).build();
+    return UriBuilder.fromUri(SYSTEM_PROPERTIES).host(hostname).port(port).scheme(PROTOCOL).build();
   }
 
 }
