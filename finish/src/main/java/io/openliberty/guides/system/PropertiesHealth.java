@@ -26,11 +26,9 @@ public class PropertiesHealth implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
-      return HealthCheckResponse.named(PropertiesResource.class.getSimpleName())
-                                .down().build();
+      return HealthCheckResponse.named(PropertiesResource.class.getSimpleName()).down().build();
     }
-    return HealthCheckResponse.named(PropertiesResource.class.getSimpleName())
-                              .up().build();
+    return HealthCheckResponse.named(PropertiesResource.class.getSimpleName()).up().build();
   }
 }
 // end::PropertiesHealth[]

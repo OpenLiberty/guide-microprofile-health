@@ -42,8 +42,7 @@ public class InventoryResource {
   @GET
   @Path("{hostname}")
   @Produces(MediaType.APPLICATION_JSON)
-  public JsonObject getPropertiesForHost(
-      @PathParam("hostname") String hostname) {
+  public JsonObject getPropertiesForHost(@PathParam("hostname") String hostname) {
     return config.isInMaintenance()
         ? JsonMessages.serviceInMaintenance(InventoryResource.class.getSimpleName())
         : manager.get(hostname, config.getPortNumber());
