@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017 IBM Corporation and others.
+ * Copyright (c) 2017, 2018 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,19 +42,16 @@ public enum JsonMessages {
   }
 
   public static JsonObject serviceInMaintenance(String service) {
-    return Json.createObjectBuilder()
-               .add(service, "Service is temporarily down for maintenance")
+    return Json.createObjectBuilder().add(service, "Service is temporarily down for maintenance")
                .build();
   }
 
   public static JsonObject returnMessage(String service, Email devEmail) {
 
-    JsonObject contact = Json.createObjectBuilder()
-                             .add("Email", devEmail.toString())
+    JsonObject contact = Json.createObjectBuilder().add("Email", devEmail.toString())
                              .add("Name", devEmail.getEmailName())
                              .add("Domain", devEmail.getEmailDomain()).build();
-    return Json.createObjectBuilder()
-               .add("Status", serviceInMaintenance(service))
+    return Json.createObjectBuilder().add("Status", serviceInMaintenance(service))
                .add("Contact", contact).build();
   }
 
