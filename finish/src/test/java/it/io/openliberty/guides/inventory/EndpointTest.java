@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017 IBM Corporation and others.
+ * Copyright (c) 2017, 2018 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,8 @@
 // tag::testClass[]
 package it.io.openliberty.guides.inventory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
@@ -70,8 +71,8 @@ public class EndpointTest {
 
     int expected = 0;
     int actual = obj.getInt("total");
-    assertEquals("The inventory should be empty on application start but it wasn't",
-                 expected, actual);
+    assertEquals("The inventory should be empty on application start but it wasn't", expected,
+                 actual);
 
     response.close();
   }
@@ -86,13 +87,10 @@ public class EndpointTest {
 
     int expected = 1;
     int actual = obj.getInt("total");
-    assertEquals("The inventory should have one entry for localhost", expected,
-                 actual);
+    assertEquals("The inventory should have one entry for localhost", expected, actual);
 
-    boolean localhostExists = obj.getJsonObject("hosts")
-                                 .containsKey("localhost");
-    assertTrue("A host was registered, but it was not localhost",
-               localhostExists);
+    boolean localhostExists = obj.getJsonObject("hosts").containsKey("localhost");
+    assertTrue("A host was registered, but it was not localhost", localhostExists);
 
     response.close();
   }
@@ -104,20 +102,17 @@ public class EndpointTest {
     this.assertResponse(baseUrl, invResponse);
     this.assertResponse(baseUrl, sysResponse);
 
-    JsonObject jsonFromInventory = invResponse.readEntity(JsonObject.class)
-                                              .getJsonObject("hosts")
+    JsonObject jsonFromInventory = invResponse.readEntity(JsonObject.class).getJsonObject("hosts")
                                               .getJsonObject("localhost");
     JsonObject jsonFromSystem = sysResponse.readEntity(JsonObject.class);
 
     String osNameFromInventory = jsonFromInventory.getString("os.name");
     String osNameFromSystem = jsonFromSystem.getString("os.name");
-    this.assertProperty("os.name", "localhost", osNameFromSystem,
-                        osNameFromInventory);
+    this.assertProperty("os.name", "localhost", osNameFromSystem, osNameFromInventory);
 
     String userNameFromInventory = jsonFromInventory.getString("user.name");
     String userNameFromSystem = jsonFromSystem.getString("user.name");
-    this.assertProperty("user.name", "localhost", userNameFromSystem,
-                        userNameFromInventory);
+    this.assertProperty("user.name", "localhost", userNameFromSystem, userNameFromInventory);
 
     invResponse.close();
     sysResponse.close();
@@ -127,14 +122,13 @@ public class EndpointTest {
     Response response = this.getResponse(baseUrl + INVENTORY_HOSTS);
     this.assertResponse(baseUrl, response);
 
-    Response badResponse = client.target(baseUrl + INVENTORY_HOSTS + "/"
-        + "badhostname").request(MediaType.APPLICATION_JSON).get();
+    Response badResponse = client.target(baseUrl + INVENTORY_HOSTS + "/" + "badhostname")
+                                 .request(MediaType.APPLICATION_JSON).get();
 
     JsonObject obj = badResponse.readEntity(JsonObject.class);
 
     boolean isError = obj.containsKey("ERROR");
-    assertTrue("badhostname is not a valid host but it didn't raise an error",
-               isError);
+    assertTrue("badhostname is not a valid host but it didn't raise an error", isError);
 
     response.close();
     badResponse.close();
@@ -166,8 +160,7 @@ public class EndpointTest {
    */
 
   private void assertResponse(String url, Response response) {
-    assertEquals("Incorrect response code from " + url, 200,
-                 response.getStatus());
+    assertEquals("Incorrect response code from " + url, 200, response.getStatus());
   }
 
   /**
@@ -184,11 +177,11 @@ public class EndpointTest {
    *          - actual name.
    */
 
-  private void assertProperty(String propertyName, String hostname,
-      String expected, String actual) {
+  private void assertProperty(String propertyName, String hostname, String expected,
+      String actual) {
     assertEquals("JVM system property [" + propertyName + "] "
-        + "in the system service does not match the one stored in "
-        + "the inventory service for " + hostname, expected, actual);
+        + "in the system service does not match the one stored in " + "the inventory service for "
+        + hostname, expected, actual);
   }
 
   /**
@@ -200,8 +193,8 @@ public class EndpointTest {
     this.assertResponse(baseUrl, response);
     response.close();
 
-    Response targetResponse = client.target(baseUrl + INVENTORY_HOSTS
-        + "/localhost").request().get();
+    Response targetResponse = client.target(baseUrl + INVENTORY_HOSTS + "/localhost").request()
+                                    .get();
     targetResponse.close();
   }
 
