@@ -36,10 +36,10 @@ is either `UP` or `DOWN`. When the state is `UP`, the service is available. Howe
 when it is `DOWN`, the service is currently not available (i.e. in maintenance).
 The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
 
-Before the service reports its states, it should check what it needs or has. Depending on what is
-provided, it can report whether it is healthy or not via the Microprofile Health API implementation.
-A self check can be anything related to the service. It could be a dependency, a successful
-connection to an endpoint, a system property and many others.
+Before the service reports its state, it should check what it has. Depending on what the service
+has or provided to the it, it can report whether it is healthy or not via the Microprofile Health
+API implementation. A self check can be anything related to the service. It could be a dependency,
+a successful connection to an endpoint, a system property and many others.
 
 You will add health checks to report the states of the `system` and `inventory`
 RESTful services in an inventory manager application. This application and the two services in it
@@ -164,11 +164,12 @@ to report the health of the `inventory` service.
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java[tags=InventoryHealth]
 ----
 
-This service reports its healthy state depending on these two self checks:
+This service reports its healthy state depending on two things:
 
-1. A property of type boolean found in `/start/CustomConfigSource.json`. This property is used this
-file to manipulate on the state of the service. This file is provided for you in this guide. If
-you want to learn how to configure this file, see https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
+1. A property of type boolean found in `/start/CustomConfigSource.json`. The property in this
+file is used to manipulate on the state of the service. This file is provided for you in this guide and
+if you want to learn how to configure it, see
+https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
 
     "io.openliberty.guides.microprofile.inventory.inMaintenance": false
 
@@ -187,19 +188,19 @@ It checkes the two conditions that were mentioned above. This method is used as 
 `call()` method. The state of `inventory` service is `UP` if `isHealthy` returns `true`
 and vice versa.
 
-Now, open `inventory` in `/start/src/main/java/io/openliberty/guides/inventory/` to add a
-condition to this service.
+Now, open `inventory` service from `/start/src/main/java/io/openliberty/guides/inventory/InventoryResource`
+to add a condition to it.
 
 [source, java, indent=0]
 ----
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.java[tags=InventoryResource]
 ----
 
-The service reports the system properties for a hostname through calling
-`getPropertiesForHost()` method. This can only happen if the
+The service invokes `getPropertiesForHost()` method to display
+the system properties for a hostname. This can only happen if
 `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`.
 Otherwise the service responds with the message, `Service is temporarily down for maintenance`.
-If the service reports the system properties as desired, then the health of this service is `UP`.
+If the service displays the system properties as desired, then the health of this service is `UP`.
 If the service is down for maintenance, then its health is `DOWN'. Notice the second condition in
 the `isHealthy()` method of the `InventoryHealth` class is relying on this setting.
 
@@ -271,24 +272,24 @@ Begin by creating a test class src/test/java/it/io/openliberty/guides/health/Hea
 include::finish/src/test/java/it/io/openliberty/guides/inventory/HealthTest.java[tags=HealthTest]
 ----
 
-The `static` keyword with curly brackets is used to initializes the static fields. They are the
-`JsonArray` that hold the states of the services, the two maps for storing the states when the
-services are up and when they are down and the constant to hold the property that will be read.
+The `static` keyword with curly brackets is used to initialize the static fields such as the
+`JsonArray` field that hold the states of the services, the two maps for storing the states when the
+services are up and when they are down, and the constant to hold the property that will be read.
 
-The `@After` annotations is placed on methods that execute after every test case. These methods are
+The `@After` annotation is placed on methods that execute after every test case. These methods are
 generally used to perform any teardown tasks. In this case, the `teardown()` method simply resets
 the property's value.
 
 There are few test case methods annotated with `@Test` to test the functionality of the inventory
 application after adding health checks.
 
-* The `testIfServicesAreUp()` method sends a request to `/health` endpoint then
-verifies the `200` response code is returned. After that, it reads the response as `JsonArray` which
-contains the states of the two services. It does that using `connectToHealthEndpoint()` helper
-method. Then, this `JsonArray` is passed to `checkServicesStates()` method to compare and assert
-it with the expected services states. It does that using `getActualState()` helper method which
-returns the state (`UP` or `DOWN`) of a specific service from the `JsonArray` object that is
-passed as an argument. The expected state for both of the services in this test is `UP`.
+* The `testIfServicesAreUp()` method sends a request to `/health` endpoint then it verifies the
+`200` response code is returned. After that, it calls the `connectToHealthEndpoint()` helper method
+to read the response as `JsonArray` which contains the actual states of the two services. Then, this
+`JsonArray` is passed to `checkServicesStates()` method which compares and asserts the `JsonArray`
+with the expected services states. This method uses the helper method `getActualState()` to return
+the actual state of each service from this `JsonArray`. The expected state for both of the services in
+this test is `UP`.
 
 * The `testIfInventoryServiceIsDown()` method follows the similar procedure as in the previous test
 case. It first checks if the services states are `UP`. Next, the
