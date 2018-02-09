@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::comment[]
-// tag::PropertiesHealth[]
+// tag::SystemHealth[]
 package io.openliberty.guides.system;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,13 +22,13 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 @Health
 @ApplicationScoped
 
-public class PropertiesHealth implements HealthCheck {
+public class SystemHealth implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
-      return HealthCheckResponse.named(PropertiesResource.class.getSimpleName()).down().build();
+      return HealthCheckResponse.named(SystemResource.class.getSimpleName()).down().build();
     }
-    return HealthCheckResponse.named(PropertiesResource.class.getSimpleName()).up().build();
+    return HealthCheckResponse.named(SystemResource.class.getSimpleName()).up().build();
   }
 }
-// end::PropertiesHealth[]
+// end::SystemHealth[]
