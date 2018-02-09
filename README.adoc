@@ -36,10 +36,11 @@ is either `UP` or `DOWN`. When the state is `UP`, the service is available. Howe
 when it is `DOWN`, the service is currently not available (i.e. in maintenance).
 The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
 
-Before the service reports its state, it should check what it has. Depending on what the service
-has or provided to the it, it can report whether it is healthy or not via the Microprofile Health
-API implementation. A self check can be anything related to the service. It could be a dependency,
-a successful connection to an endpoint, a system property and many others.
+Before the service reports its state, it should check what it has to be available. Depending on 
+what the service has  or what is provided to it, it can report whether it is healthy or not 
+via the Microprofile Health API implementation. A self check can be anything related to the 
+service. It could be a dependency, a successful connection to an endpoint, a system property
+and many others.
 
 You will add health checks to report the states of the `system` and `inventory`
 RESTful services in an inventory manager application. This application and the two services in it
