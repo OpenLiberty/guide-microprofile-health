@@ -12,44 +12,31 @@
 // end::copyright[]
 package io.openliberty.guides.inventory;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Properties;
+import io.openliberty.guides.inventory.client.SystemClient;
+import io.openliberty.guides.inventory.model.InventoryList;
 
-// CDI
+//CDI
 import javax.enterprise.context.ApplicationScoped;
 
-// JSON-P
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-
-import io.openliberty.guides.inventory.util.InventoryUtil;
-import io.openliberty.guides.common.JsonMessages;
-
+// tag::ApplicationScoped[]
 @ApplicationScoped
+// end::ApplicationScoped[]
 public class InventoryManager {
 
-  private ConcurrentMap<String, JsonObject> inv = new ConcurrentHashMap<>();
+  private InventoryList invList = new InventoryList();
+  private SystemClient systemClient = new SystemClient();
 
-  public JsonObject get(String hostname, int port) {
-    if (InventoryUtil.responseOk(hostname, port)) {
-      JsonObject properties = InventoryUtil.getProperties(hostname, port);
-      inv.putIfAbsent(hostname, properties);
-      return properties;
-    } else {
-      return JsonMessages.SERVICE_UNREACHABLE.getJson();
-    }
+  public Properties get(String hostname, int port) {
+    systemClient.init(hostname, port);
+    Properties properties = systemClient.getProperties();
+    if (properties != null) {
+        invList.addToInventoryList(hostname, properties);
+      }
+    return properties;
   }
 
-  public JsonObject list() {
-    JsonObjectBuilder systems = Json.createObjectBuilder();
-    inv.forEach((host, props) -> {
-      JsonObject systemProps = Json.createObjectBuilder().add("os.name", props.getString("os.name"))
-                                   .add("user.name", props.getString("user.name")).build();
-      systems.add(host, systemProps);
-    });
-    systems.add("hosts", systems);
-    systems.add("total", inv.size());
-    return systems.build();
+  public InventoryList list() {
+    return invList;
   }
 }

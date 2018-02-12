@@ -19,7 +19,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import io.openliberty.guides.inventory.util.InventoryUtil;
+import io.openliberty.guides.inventory.client.SystemClient;
 
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
@@ -35,7 +35,7 @@ public class InventoryHealth implements HealthCheck {
     if (config.isInMaintenance()) {
       return false;
     }
-    String url = InventoryUtil.buildUri("localhost", config.getPortNumber()).toString();
+    String url = SystemClient.buildUrl("http", "localhost", config.getPortNumber(), "/system/properties");
     Client client = ClientBuilder.newClient();
     Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
     if (response.getStatus() != 200) {

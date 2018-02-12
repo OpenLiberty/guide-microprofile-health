@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017, 2018 IBM Corporation and others.
+ * Copyright (c) 2017 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,27 +12,20 @@
 // end::copyright[]
 package io.openliberty.guides.system;
 
-// JAX-RS
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-
-// JSON-P
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-
 // CDI
 import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.GET;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.common.JsonMessages;
-import io.openliberty.guides.system.SystemConfig;
+// JAX-RS
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 @RequestScoped
 @Path("properties")
-public class PropertiesResource {
+public class SystemResource {
 
   // tag::config-injection[]
   @Inject
@@ -41,18 +34,15 @@ public class PropertiesResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public JsonObject getProperties() {
+  public Response getProperties() {
     if (!systemConfig.isInMaintenance()) {
-      JsonObjectBuilder builder = Json.createObjectBuilder();
-
-      System.getProperties().entrySet().stream()
-            .forEach(entry -> builder.add((String) entry.getKey(), (String) entry.getValue()));
-
-      return builder.build();
+      return Response.ok(System.getProperties()).build();
     } else {
-      return JsonMessages.returnMessage("PropertiesResource", systemConfig.getEmail());
+      return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                     .entity("ERROR: Serive is currently in maintenance. Please contact: "
+                         + systemConfig.getEmail().toString())
+                     .build();
     }
-
   }
 
 }
