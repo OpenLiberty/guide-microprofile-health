@@ -24,8 +24,8 @@ Learn how to provide and check the health of a microservice using MicroProfile H
 == What you'll learn
 
 You will learn how to use MicroProfile Health feature to report the health of
-a RESTful application. The great benefit from adding a health check is that it helps in machine to
-machine communications, monitoring and knowing which services are performing in the application.
+a RESTful application. The great benefit from adding a health check is that it allows your RESTful
+service to participate in the decision making process about its health.
 
 The MicroProfile Health feature provides an endpoint that you can get the health check results as a
 JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
@@ -35,10 +35,12 @@ The health check is used to assess the state of a service in an application. The
 is either `UP` or `DOWN`. When the state is `UP`, the service is available. However,
 when it is `DOWN`, the service is currently not available (i.e. in maintenance).
 The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
+It is important to note that a `DOWN` result can be used by a service orchestrator to drive decisions
+about when to replace an instance of a service.
 
-Before the service reports its state, it should check what it has to be available. Depending on 
-what the service has  or what is provided to it, it can report whether it is healthy or not 
-via the Microprofile Health API implementation. A self check can be anything related to the 
+Before the service reports its state, it should check what it has to be available. Depending on
+what the service has  or what is provided to it, it can report whether it is healthy or not
+via the Microprofile Health API implementation. A self check can be anything related to the
 service. It could be a dependency, a successful connection to an endpoint, a system property
 and many others.
 
@@ -51,7 +53,7 @@ After starting the application, you will be able to access two microservices to 
 
 * `\http://localhost:9080/system/properties` retrieves the information for a specific host
 
-* `\http://localhost:9080/inventory/hosts` retrieves the information for a list of all previously registered hosts
+* `\http://localhost:9080/inventory/systems` retrieves the information for a list of all previously registered hosts
 
 // =================================================================================================
 // Getting Started
@@ -126,12 +128,12 @@ Proceed with the two sections below to add health checks to `system` and
 
 === Adding health check to system service
 
-Create `PropertiesHealth.java` class in `/start/src/main/java/io/openliberty/guides/system/` to
+Create `SystemHealth.java` class in `/start/src/main/java/io/openliberty/guides/system/` to
 report the health of the `system` service.
 
 [source, java, indent=0]
 ----
-include::finish/src/main/java/io/openliberty/guides/system/PropertiesHealth.java[tags=PropertiesHealth]
+include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tags=SystemHealth]
 ----
 
 The `org.eclipse.microprofile` package contains the required MicroProfile Health Check classes.
@@ -200,20 +202,14 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 The service invokes `getPropertiesForHost()` method to display
 the system properties for a hostname. This can only happen if
 `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`.
-Otherwise the service responds with the message, `Service is temporarily down for maintenance`.
-If the service displays the system properties as desired, then the health of this service is `UP`.
-If the service is down for maintenance, then its health is `DOWN'. Notice the second condition in
-the `isHealthy()` method of the `InventoryHealth` class is relying on this setting.
+Otherwise the service responds with the message `Service is currently in maintenance` and also
+a `503` response code. If the service displays the system properties as desired, then
+the health of this service is `UP`. If the service is down for maintenance, then its health is
+`DOWN'. Notice the second condition in the `isHealthy()` method of the `InventoryHealth` class
+is relying on this setting.
 
 The same condition is applied for the `listContents()` method in this service. This method lists
 the stored hosts.
-
-The `serviceInMaintenance()` method from the class `JsonMessages` is provided for
-you to be used in this guide. To learn more about this class, read
-https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
-This method is used in this class to respond a Json Object containing a message telling the user
-that the service is currently down for maintenance. You just need to pass the name of the service
-to it.
 
 // =================================================================================================
 // Building and running the application
@@ -266,11 +262,11 @@ You will write two test methods `testIfServicesAreUp()` and `testIfInventoryServ
 validate the state of the Inventory Manager Application among with the `system` and
 `inventory` services.
 
-Begin by creating a test class src/test/java/it/io/openliberty/guides/health/HealthTest.java:
+Begin by creating a test class `start/src/test/java/it/io/openliberty/guides/health/HealthTest.java`:
 
 [source, java, indent=0]
 ----
-include::finish/src/test/java/it/io/openliberty/guides/inventory/HealthTest.java[tags=HealthTest]
+include::finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java[tags=HealthTest]
 ----
 
 The `static` keyword with curly brackets is used to initialize the static fields such as the

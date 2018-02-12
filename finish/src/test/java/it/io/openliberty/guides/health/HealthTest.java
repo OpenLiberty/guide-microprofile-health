@@ -24,17 +24,17 @@ public class HealthTest {
 
   private JsonArray servicesStates;
   private static HashMap<String, String> dataWhenServicesUP, dataWhenInventoryDown;
-  public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_inMaintenance\": false";
-  public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_inMaintenance\": true";
+  public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_inMaintenance\":false";
+  public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_inMaintenance\":true";
 
   static {
     dataWhenServicesUP = new HashMap<String, String>();
     dataWhenInventoryDown = new HashMap<String, String>();
 
-    dataWhenServicesUP.put("PropertiesResource", "UP");
+    dataWhenServicesUP.put("SystemResource", "UP");
     dataWhenServicesUP.put("InventoryResource", "UP");
 
-    dataWhenInventoryDown.put("PropertiesResource", "UP");
+    dataWhenInventoryDown.put("SystemResource", "UP");
     dataWhenInventoryDown.put("InventoryResource", "DOWN");
   }
 
