@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017, 2018 IBM Corporation and others.
+ * Copyright (c) 2017 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,20 +22,26 @@ import io.openliberty.guides.config.Email;
 @RequestScoped
 public class SystemConfig {
 
+  // tag::config[]
   @Inject
   @ConfigProperty(name = "io_openliberty_guides_system_inMaintenance")
   Provider<Boolean> inMaintenance;
+  // end::config[]
 
+  // tag::custom-converter[]
   @Inject
   @ConfigProperty(name = "io_openliberty_guides_email")
   private Provider<Email> email;
+  // end::custom-converter[]
 
   public boolean isInMaintenance() {
     return inMaintenance.get();
   }
 
+  // tag::getEmail[]
   public Email getEmail() {
     return email.get();
   }
+  // end::getEmail[]
 
 }
