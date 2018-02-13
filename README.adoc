@@ -313,4 +313,6 @@ Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 You have learned how to add health checks to report the states of microservices in an
 application. Then you wrote tests to validate that.
 
+Feel free to try one of the related MicroProfile guides. They demonstrate new technologies that you can learn and expand on top what you built in this guide.
+
 include::{common-includes}/finish.adoc[]
