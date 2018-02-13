@@ -59,18 +59,7 @@ After starting the application, you will be able to access two microservices to 
 // Getting Started
 // =================================================================================================
 
-// include::{common-includes}/gitclone.adoc[]
-
-== Getting started
-
-The fastest way to work through this guide is to clone the git repository and use the starting
-project that is provided in the `start` directory. To do this, run the following commands:
-
-[subs="attributes"]
-----
-git clone git@github.com:OpenLiberty/draft-guide-microprofile-health.git
-cd draft-guide-microprofile-health/start
-----
+https://raw.githubusercontent.com/OpenLiberty/guides-common/master/gitclone.adoc
 
 // =================================================================================================
 // Try what you'll build
