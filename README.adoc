@@ -69,7 +69,7 @@ project that is provided in the `start` directory. To do this, run the following
 [subs="attributes"]
 ----
 git clone git@github.com:OpenLiberty/draft-guide-microprofile-health.git
-cd guide-mp-health/start
+cd draft-guide-microprofile-health/start
 ----
 
 // =================================================================================================
