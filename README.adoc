@@ -9,7 +9,7 @@
 :page-layout: guide
 :page-duration: 20 minutes
 :page-description: Learn how to use MicroProfile Health API in an application
-:page-tags: ['HealthCheck' , 'MicroProfile' , `CDI`, `@Health`, `ConfigProperty`,'REST']
+:page-tags: ['HealthCheck' , 'MicroProfile' , `CDI`, `@Health`, `Config` ,`ConfigProperty`,'REST']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
@@ -59,7 +59,16 @@ After starting the application, you will be able to access two microservices to 
 // Getting Started
 // =================================================================================================
 
-https://raw.githubusercontent.com/OpenLiberty/guides-common/master/gitclone.adoc
+== Getting started
+
+The fastest way to work through this guide is to clone the Git repository and use the starting project
+that is provided in the `start` directory. To do this, run the following commands:
+
+[subs="attributes"]
+----
+git clone https://github.com/OpenLiberty/draft-guide-microprofile-health.git
+cd draft-guide-microprofile-health/start
+----
 
 // =================================================================================================
 // Try what you'll build
@@ -117,8 +126,7 @@ Proceed with the two sections below to add health checks to `system` and
 
 === Adding health check to system service
 
-Create `SystemHealth.java` class in `/start/src/main/java/io/openliberty/guides/system/` to
-report the health of the `system` service.
+Create the class `/start/src/main/java/io/openliberty/guides/system/SystemHealth.java`:
 
 [source, java, indent=0]
 ----
@@ -148,8 +156,7 @@ method to indicate that this is the service being reported.
 
 === Adding health check to inventory service
 
-Create a class `InventoryHealth.java` in `/start/src/main/java/io/openliberty/guides/inventory/`
-to report the health of the `inventory` service.
+Create the class `/start/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`:
 
 [source, java, indent=0]
 ----
