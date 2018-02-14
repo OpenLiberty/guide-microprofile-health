@@ -24,8 +24,6 @@ public class HealthTest {
 
   private JsonArray servicesStates;
   private static HashMap<String, String> dataWhenServicesUP, dataWhenInventoryDown;
-  public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_inMaintenance\":false";
-  public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_inMaintenance\":true";
 
   static {
     dataWhenServicesUP = new HashMap<String, String>();
@@ -48,7 +46,7 @@ public class HealthTest {
   public void testIfInventoryServiceIsDown() {
     servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
     checkServicesStates(dataWhenServicesUP, servicesStates);
-    HealthTestUtil.changeInventoryProperty(INV_MAINTENANCE_FALSE, INV_MAINTENANCE_TRUE);
+    HealthTestUtil.changeInventoryProperty(HealthTestUtil.INV_MAINTENANCE_FALSE, HealthTestUtil.INV_MAINTENANCE_TRUE);
     servicesStates = HealthTestUtil.connectToHealthEnpoint(503);
     checkServicesStates(dataWhenInventoryDown, servicesStates);
   }
