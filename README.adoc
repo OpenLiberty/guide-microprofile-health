@@ -187,7 +187,7 @@ It checkes the two conditions that were mentioned above. This method is used as 
 `call()` method. The state of `inventory` service is `UP` if `isHealthy` returns `true`
 and vice versa.
 
-Now, open `inventory` service from `/start/src/main/java/io/openliberty/guides/inventory/InventoryResource`
+Now, open `inventory` service from `/start/src/main/java/io/openliberty/guides/inventory/InventoryResource`:
 
 [source, java, indent=0]
 ----
