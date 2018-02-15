@@ -33,7 +33,7 @@ is `UP`, otherwise, a status code of `503` if it is `DOWN`.
 
 The health check is used to assess the state of a service in an application. The state of a service
 is either `UP` or `DOWN`. When the state is `UP`, the service is available. However,
-when it is `DOWN`, the service is currently not available (i.e. in maintenance).
+when it is `DOWN`, the service is currently not available (or in maintenance).
 The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
 It is important to note that a `DOWN` result can be used by a service orchestrator to drive decisions
 about when to replace an instance of a service.
