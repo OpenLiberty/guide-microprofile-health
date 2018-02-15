@@ -107,18 +107,13 @@ Now, navigate back to the `start` directory to begin.
 
 == Adding health check to RESTful services
 
-Begin by enabling the MicroProfile Health feature in your `pom.xml` file. This feature allows you to
+Begin by navigating to the `pom.xml` file to check the required dependency. The `microprofile-health-api` 
+dependency has been added for you in the `start/pom.xml` file. This dependency allows you to
 use the MicroProfile Health API to provide health checks to your RESTful services.
+The `mpHealth-1.0` feature has been also enabled in the `start/src/main/liberty/config/server.xml` file. 
+This feature provides `/health` endpoint to your application.
 
-Navigate to the start/pom.xml file and add the required dependency:
-
-[source, xml, indent=0]
-----
-include::finish/pom.xml[tags=health]
-----
-
-Proceed with the two sections below to add health checks to `system` and
-`inventory` services.
+Proceed with the two sections below to add health checks to `system` and `inventory` services.
 
 // =================================================================================================
 // Adding health check to system service
