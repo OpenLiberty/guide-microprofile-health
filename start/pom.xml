@@ -102,6 +102,14 @@
       <version>1.1</version>
       <scope>provided</scope>
     </dependency>
+    <!-- tag::health[] -->
+    <dependency>
+      <groupId>org.eclipse.microprofile.health</groupId>
+      <artifactId>microprofile-health-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- end::health[] -->    
   </dependencies>
 
   <build>
