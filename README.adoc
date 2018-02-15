@@ -121,7 +121,7 @@ Proceed with the two sections below to add health checks to `system` and `invent
 
 === Adding health check to system service
 
-Create the class `/start/src/main/java/io/openliberty/guides/system/SystemHealth.java`:
+Create the class `start/src/main/java/io/openliberty/guides/system/SystemHealth.java`:
 
 [source, java, indent=0]
 ----
@@ -151,7 +151,7 @@ method to indicate that this is the service being reported.
 
 === Adding health check to inventory service
 
-Create the class `/start/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`:
+Create the class `start/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`:
 
 [source, java, indent=0]
 ----
@@ -160,7 +160,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This service reports its healthy state depending on two things:
 
-1. A property of type boolean found in `/start/CustomConfigSource.json`. The property in this
+1. A property of type boolean found in `/resources/CustomConfigSource.json`. The property in this
 file is used to manipulate on the state of the service. This file is provided for you in this guide and
 if you want to learn how to configure it, see
 https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
@@ -182,7 +182,7 @@ It checkes the two conditions that were mentioned above. This method is used as 
 `call()` method. The state of `inventory` service is `UP` if isHealthy returns `true` and `DOWN` 
 if isHealthy returns `false`.
 
-Now, open `inventory` service from `/start/src/main/java/io/openliberty/guides/inventory/InventoryResource`:
+Now, open `inventory` service from `start/src/main/java/io/openliberty/guides/inventory/InventoryResource.java`:
 
 [source, java, indent=0]
 ----
