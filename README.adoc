@@ -160,7 +160,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This service reports its healthy state depending on two things:
 
-1. A property of type boolean found in `/resources/CustomConfigSource.json`. The property in this
+1. A property of type boolean found in `resources/CustomConfigSource.json`. The property in this
 file is used to manipulate on the state of the service. This file is provided for you in this guide and
 if you want to learn how to configure it, see
 https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
