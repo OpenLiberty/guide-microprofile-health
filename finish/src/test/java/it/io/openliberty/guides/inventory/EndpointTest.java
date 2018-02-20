@@ -58,8 +58,7 @@ public class EndpointTest {
   // tag::tests[]
   // tag::testSuite[]
   @Test
-  public void testSuite() throws Exception{
-    Thread.sleep(3000);
+  public void testSuite() {
     this.testEmptyInventory();
     this.testHostRegistration();
     this.testSystemPropertiesMatch();
