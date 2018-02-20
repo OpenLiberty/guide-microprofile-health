@@ -8,14 +8,14 @@
 :projectid: mp-health
 :page-layout: guide
 :page-duration: 20 minutes
-:page-description: Learn how to use MicroProfile Health API in an application
+:page-description: Learn how to use the MicroProfile Health API in an application.
 :page-tags: ['HealthCheck' , 'MicroProfile' , `CDI`, `@Health`, `Config` ,`ConfigProperty`,'REST']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 = Adding health reporting to a microservice
 
-Learn how to provide and check the health of a microservice using MicroProfile Health.
+Learn how to check the health of a microservice with MicroProfile Health.
 
 // =================================================================================================
 //  What you'll learn
@@ -23,37 +23,36 @@ Learn how to provide and check the health of a microservice using MicroProfile H
 
 == What you'll learn
 
-You will learn how to use MicroProfile Health feature to report the health of
-a RESTful application. The great benefit from adding a health check is that it allows your RESTful
-service to participate in the decision making process about its health.
+You will learn how to use the MicroProfile Health feature to report the health of
+a RESTful application. A health check allows your RESTful
+service to participate in the decision-making process about its health.
 
-The MicroProfile Health feature provides an endpoint that you can get the health check results as a
+The MicroProfile Health feature provides an endpoint that includes the health check results as a
 JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
-is `UP`, otherwise, a status code of `503` if it is `DOWN`.
+is `UP`. Otherwise, the endpoint returns a status code of `503` if the application outcome is `DOWN`.
 
-The health check is used to assess the state of a service in an application. The state of a service
-is either `UP` or `DOWN`. When the state is `UP`, the service is available. However,
-when it is `DOWN`, the service is currently not available (or in maintenance).
+Use the health check to assess the state of a service in an application. The state of a service
+is either `UP` or `DOWN`. When the state is `UP`, the service is available.
+When the state is `DOWN`, the service is either unavailable or in maintenance.
 The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
-It is important to note that a `DOWN` result can be used by a service orchestrator to drive decisions
+A service orchestrator can use a `DOWN` result to drive decisions
 about when to replace an instance of a service.
 
-Before the service reports its state, it should check what it has to be available. Depending on
-what the service has or what is provided to it, it can report whether it is healthy or not
-via the Microprofile Health API implementation. A self check can be anything related to the
-service. It could be a dependency, a successful connection to an endpoint, availability 
-of resources (e.g. a database), a system property and many others.
+Before the service reports its state, it checks what it needs to make available. Depending on
+what the service has or what is provided to it, it can use the MicroProfile Health API implementation to report whether it is healthy or not. A self-check can be anything related to the
+service, such as a dependency, a successful connection to an endpoint, a system property, a database or another availability 
+of resources, and many more.
 
 You will add health checks to report the states of the `system` and `inventory`
 RESTful services in an inventory manager application. This application and the two services in it
-are provided for you in this guide. If you want to learn how to create a RESTful application, see
+are provided for you. To learn how to create a RESTful application, see
 https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
 
-After starting the application, you will be able to access two microservices to test their availability:
+After you start the application, you can access two microservices to test their availability:
 
-* `http://localhost:9080/system/properties` retrieves the information for a specific host
+* The `http://localhost:9080/system/properties` microservice retrieves the information for a specific host.
 
-* `http://localhost:9080/inventory/systems` retrieves the information for a list of all previously registered hosts
+* The `http://localhost:9080/inventory/systems` microservice retrieves the information for a list of all previously registered hosts.
 
 // =================================================================================================
 // Getting Started
@@ -61,8 +60,8 @@ After starting the application, you will be able to access two microservices to 
 
 == Getting started
 
-The fastest way to work through this guide is to clone the Git repository and use the starting project
-that is provided in the `start` directory. To do this, run the following commands:
+Run the following commands to clone the Git repository and use the starting project
+that is provided in the `start` directory:
 
 [subs="attributes"]
 ----
@@ -76,24 +75,23 @@ cd draft-guide-microprofile-health/start
 
 === Try what you'll build
 
-The `finish` directory in the root of this guide contains the finished
-health check implementation for the services in the application. Feel free to give it a try before
-you proceed with building your own.
+The `finish` directory in the root file contains the finished
+health check implementation for the services in the application. You can try it out before
+you build your own.
 
-To try out the application, first navigate to the `finish` directory and then execute the following
-Maven goals to build the application and run it inside Open Liberty:
+To try the application, first navigate to the `finish` directory and then execute the following
+Maven goals to build the application and run it inside of Open Liberty:
 
 ```
 mvn install liberty:start-server
 ```
 
-Point your browser to MicroProfile Health Check endpoint: `http://localhost:9080/health`. From
-here, you can see the health of the two services as well as the overall health outcome of the
-application. As shown, there are two checks. One that shows the state of `system`
-service and the other shows the state of `inventory` service. They are both in `UP` state
-as you may expect and because of that the overall outcome of the application is `UP`.
+Point your browser to the MicroProfile Health Check endpoint at `http://localhost:9080/health`. From
+the endpoint, you can see the health of the two services as well as the overall health outcome of the
+application. One check shows the state of the `system`
+service, and the other shows the state of the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of the application is `UP`.
 
-Once you are done checking out the application, stop the Open Liberty server:
+When you are done checking out the application, stop the Open Liberty server with the following command:
 
 ```
 mvn liberty:stop-server
@@ -102,26 +100,24 @@ mvn liberty:stop-server
 Now, navigate back to the `start` directory to begin.
 
 // =================================================================================================
-// Adding health check to RESTful services
+// Adding health checks to RESTful services
 // =================================================================================================
 
-== Adding health check to RESTful services
+== Adding health checks to RESTful services
 
 Begin by navigating to the `pom.xml` file to check the required dependency. The `microprofile-health-api` 
-dependency has been added for you in the `start/pom.xml` file. This dependency allows you to
+dependency is located in the `start/pom.xml` file. This dependency allows you to
 use the MicroProfile Health API to provide health checks to your RESTful services.
-The `mpHealth-1.0` feature has been also enabled in the `start/src/main/liberty/config/server.xml` file. 
-This feature provides `http://localhost:9080/health` endpoint to your application.
-
-Proceed with the two sections below to add health checks to `system` and `inventory` services.
+The `mpHealth-1.0` feature is enabled in the `start/src/main/liberty/config/server.xml` file. 
+This feature provides the `http://localhost:9080/health` endpoint to your application.
 
 // =================================================================================================
-// Adding health check to system service
+// Adding a health check to the system service
 // =================================================================================================
 
-=== Adding health check to system service
+=== Adding a health check to the system service
 
-Create the class `start/src/main/java/io/openliberty/guides/system/SystemHealth.java`:
+Create the `start/src/main/java/io/openliberty/guides/system/SystemHealth.java` class:
 
 [source, java, indent=0]
 ----
@@ -130,75 +126,70 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tag
 
 The `org.eclipse.microprofile` package contains the required MicroProfile Health Check classes.
 
-The `@Health` annotation indicates that this class will be read for reporting the state of
-a desired service to `http://localhost:9080/health`. The `@ApplicationScoped` annotation is
+The `@Health` annotation indicates that this class is read to report the state of
+a desired service to the `http://localhost:9080/health` endpoint. The `@ApplicationScoped` annotation is
 required because the health check service must stay active within the lifetime of the application
 for the state to be reported.
 
-This class implements the `HealthCheck` interface, which means you must override the `call()`
+This class implements the `HealthCheck` interface, which requires you to override the `call()`
 method from this interface.
 
-The `system` service should do a self check. As you can see, it is reporting its healthy state
-by reading the system property of the host. If the system property `wlp.server.name` is
-`defaultServer`, then the state is `UP`, otherwise, it is `DOWN`.
+The `system` service self-checks. It reads the system property of the host to report its healthy state.
+If the `wlp.server.name` system property is
+`defaultServer`, the state is `UP`. Otherwise, the state is `DOWN`.
 
-Lastly, you need to pass the service name `system` as an argument to the `named()`
-method to indicate that this is the service being reported.
+Lastly, pass the `system` service name as an argument to the `named()`
+method to indicate the service that is reported.
 
 // =================================================================================================
-// Adding health check to inventory service
+// Adding a health check to the inventory service
 // =================================================================================================
 
-=== Adding health check to inventory service
+=== Adding a health check to the inventory service
 
-Create the class `start/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`:
+Create the `start/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java` class:
 
 [source, java, indent=0]
 ----
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java[tags=InventoryHealth]
 ----
 
-This service reports its healthy state depending on two things:
+This service reports its healthy state by depending on two things:
 
-1. A property of type boolean found in `resources/CustomConfigSource.json`. The property in this
-file is used to manipulate on the state of the service. This file is provided for you in this guide and
-if you want to learn how to configure it, see
+1. A property of type boolean that you can find in the `resources/CustomConfigSource.json` file. The property in this
+file is used to manipulate the state of the service. This file is provided for you. To learn how to configure it, see
 https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
 
     "io.openliberty.guides.microprofile.inventory.inMaintenance": false
 
-2. `system` service availability (i.e. returns 200 response code).
+2. The `system` service availability that returns a `200` response code. Adding a health check to this service is similar to adding one in the previous section but with minor adjustments and additions.
 
-As you can see, adding health check to this service is similar as in the previous section above.
-However, there are minor adjustments and additions.
-
-The `@Inject` annotation is used to initialize the `InventoryConfig` object. This object will allow
-you to read the property in the `CustomConfigSource.json` file. You can learn more about the
+Use the `@Inject` annotation to initialize the `InventoryConfig` object. This object allows
+you to read the property in the `CustomConfigSource.json` file. Learn more about the
 `@Inject` annotation from
 https://openliberty.io/guides/rest-intro.html[Handling dependencies with RESTful web services].
 
-The `isHealthy()` method returns a boolean that determines the health of `inventory` service.
-It checkes the two conditions that were mentioned above. This method is used as the condition in
-`call()` method. The state of `inventory` service is `UP` if isHealthy returns `true` and `DOWN` 
-if isHealthy returns `false`.
+The `isHealthy()` method returns a boolean that determines the health of the `inventory` service.
+This method checks the two previously mentioned conditions. The `call()` method uses the `isHealthy()` method as the condition. The state of the `inventory` service is `UP` if the `isHealthy` method returns `true`, but the state is `DOWN` 
+if `isHealthy` returns `false`.
 
-Now, open `inventory` service from `start/src/main/java/io/openliberty/guides/inventory/InventoryResource.java`:
+Now, open the `inventory` service from the `start/src/main/java/io/openliberty/guides/inventory/InventoryResource.java` file:
 
 [source, java, indent=0]
 ----
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.java[tags=InventoryResource]
 ----
 
-The service invokes `getPropertiesForHost()` method to display
-the system properties for a hostname. This can only happen if
-`io.openliberty.guides.microprofile.inventory.inMaintenance` configuration is set to `false`.
-Otherwise the service responds with the message `Service is currently in maintenance` and also
-a `503` response code. If the service displays the system properties as desired, then
-the health of this service is `UP`. If the service is down for maintenance, then its health is
-`DOWN'. Notice the second condition in the `isHealthy()` method of the `InventoryHealth` class
-is relying on this setting.
+The service invokes the `getPropertiesForHost()` method to display
+the system properties for a hostname. The hostname displays only if you set the
+`io.openliberty.guides.microprofile.inventory.inMaintenance` configuration to `false`.
+Otherwise, the service responds with a `Service is currently in maintenance` message and 
+a `503` response code. If the service displays the system properties, then
+the health of this service is `UP`. If the service is down for maintenance, its health is
+`DOWN'. Notice that the second condition in the `isHealthy()` method of the `InventoryHealth` class
+relies on this setting.
 
-The same condition is applied for the `listContents()` method in this service. This method lists
+The same condition applies to the `listContents()` method in this service. This method lists
 the stored hosts.
 
 // =================================================================================================
@@ -208,90 +199,90 @@ the stored hosts.
 == Building and running the application
 
 To build the application, run the Maven install goal from the command line:
-
+```
   mvn install
+```
 
-This goal builds the application and creates a .war file in the target directory. The goal also
-configures and installs Open Liberty into the target/liberty/wlp directory.
+This goal builds the application and creates a `.war` file in the target directory. The goal also
+configures and installs Open Liberty into the `target/liberty/wlp` directory.
 
-Next, run the Maven liberty:start-server goal:
-
+Next, run the Maven `liberty:start-server` goal:
+```
   mvn liberty:start-server
-
-This goal starts an Open Liberty server instance. Your Maven pom.xml is already configured to
+```
+This goal starts an Open Liberty server instance. Your Maven `pom.xml` file is already configured to
 start the application in this server instance.
 
-Once the server is running, you can find the health endpoint
-reporting the state of the two services at the following URL:
+While the server is running, navigate to the following URL to find the health endpoint
+that reports the state of the two services:
 
 * `http://localhost:9080/health`
 
-Now, try to turn the `inventory` service down (i.e. in maintenance) by changing the
-property `io_openliberty_guides_inventory_inMaintenance` value to `true`. This property is found in
-`resources/CustomConfigSource.json`. Refresh the browser. You will see the state of the
-`inventory` is currently `DOWN` and because of that the overall outcome is `DOWN`. You can
-verify that by pointing your browser to the inventory service
-`http://localhost:9080/inventory/systems`. As you can see, the service
-is responding with a message telling you that it is in maintenance.
+Now, turn the `inventory` service down (i.e. in maintenance) by changing the
+`io_openliberty_guides_inventory_inMaintenance` property value to `true`. Find this property in
+the `resources/CustomConfigSource.json` file. Refresh the browser. The state of the
+`inventory` service is currently `DOWN`, so the overall outcome is `DOWN`.
+To verify the states, point your browser to the
+`http://localhost:9080/inventory/systems` inventory service. The service
+responds with a message that tells you that it is in maintenance.
 
-After you are done trying out your application, go to the `resources/CustomConfigProperties.json` file again and change the property `io_openliberty_guides_system_inMaintenance` from `true` to `false` to set this condition back to its original value.
+After you try out your application, go to the `resources/CustomConfigProperties.json` file again. Change the `io_openliberty_guides_system_inMaintenance` property from `true` to `false` to set this condition back to its original value.
 
-If you make changes to the code, use the Maven package goal to rebuild the application and have
-the running Open Liberty server pick them up automatically:
-
+If you change the code, use the following Maven package goal to rebuild the application.
+The running Open Liberty server automatically picks up the changes.
+```
   mvn package
-
-To stop the Open Liberty server, run the Maven liberty:stop-server goal:
-
-  mvn liberty:stop-server
-
+```
+To stop the Open Liberty server, run the Maven `liberty:stop-server` goal:
+```
+mvn liberty:stop-server
+```
 // =================================================================================================
-// Testing health check
+// Testing health checks
 // =================================================================================================
 
-== Testing health check
+== Testing health checks
 
-You will write two test methods `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()` to
-validate the state of the Inventory Manager Application among with the `system` and
+Write two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
+validate the state of the inventory manager application with the `system` and
 `inventory` services.
 
-Begin by creating a test class `start/src/test/java/it/io/openliberty/guides/health/HealthTest.java`:
+Begin by creating a `start/src/test/java/it/io/openliberty/guides/health/HealthTest.java` test class:
 
 [source, java, indent=0]
 ----
 include::finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java[tags=HealthTest]
 ----
 
-The `static` keyword with curly brackets is used to initialize the static fields such as the
-`JsonArray` field that hold the states of the services, the two maps for storing the states when the
-services are up and when they are down, and the constant to hold the property that will be read.
+Use the `static` keyword with curly brackets to initialize the static fields, such as the
+`JsonArray` field, that hold the states of the services, the two maps for storing the states when the
+services are up and when they are down, and the constant to hold the property that is read.
 
-The `@After` annotation is placed on methods that execute after every test case. These methods are
-generally used to perform any teardown tasks. In this case, the `teardown()` method simply resets
+Place the `@After` annotation on methods that execute after every test case. These methods are
+generally used to perform teardown tasks. In this case, the `teardown()` method simply resets
 the property's value.
 
-There are few test case methods annotated with `@Test` to test the functionality of the inventory
+A few test case methods include the `@Test` annotation on the test functionality of the inventory
 application after adding health checks.
 
-* The `testIfServicesAreUp()` method sends a request to `http://localhost:9080/health` then it
-verifies the `200` response code is returned. After that, it calls the `connectToHealthEndpoint()` helper method
-to read the response as `JsonArray` which contains the actual states of the two services. Then, this
-`JsonArray` is passed to `checkServicesStates()` method which compares and asserts the `JsonArray`
-with the expected services states. This method uses the helper method `getActualState()` to return
-the actual state of each service from this `JsonArray`. The expected state for both of the services in
+* The `testIfServicesAreUp()` method sends a request to `http://localhost:9080/health`. Next, it
+verifies that the `200` response code is returned. After that, it calls the `connectToHealthEndpoint()` helper method
+to read the response as `JsonArray`, which contains the actual states of the two services.
+The `JsonArray` response is passed to the `checkServicesStates()` method, which compares and asserts the `JsonArray`
+response with the expected services states. This method uses the `getActualState()` helper method to return
+the actual state of each service from the `JsonArray` response. The expected state for both of the services in
 this test is `UP`.
 
-* The `testIfInventoryServiceIsDown()` method follows a similar procedure as in the previous test
-case. It first checks if the services' states are `UP`. Next, the
+* The `testIfInventoryServiceIsDown()` method follows a procedure similar to the previous test case. The method first checks if the `services` states are `UP`. Next, the
 `io.openliberty.guides.microprofile.inventory.inMaintenance` property value is changed from
-`false` to `true` in the `CustomConfigSource.json` file. With the property update, we send a
-request to check the services' states again. This time the expected response code should be 503.
-Lastly, we assert if the state of the `inventory` service is `DOWN` and the state of 
+`false` to `true` in the `CustomConfigSource.json` file. With the property update, the method sends a
+request to check the services' states again. This time, the expected response code is `503`.
+Lastly, the method asserts if the state of the `inventory` service is `DOWN` and the state of 
 `system` service is `UP`.
 
 === Running the tests
 
-Go to `start` directory and run `mvn clean install`. You should see two tests pass with the
+Go to the `start` directory and run the `mvn clean install` command. You see two tests pass with the
 following results:
 
 ```
@@ -309,7 +300,7 @@ Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 ```
 
 To see whether the tests detect a failure, change the values of the tests maps inside the `static` curly brackets.
-Re-run the Maven build. You will see a test failure occur.
+Rerun the Maven build. You see a test failure occur.
 
 // =================================================================================================
 // Great work! You're done!
@@ -318,8 +309,8 @@ Re-run the Maven build. You will see a test failure occur.
 == Great work! You're done!
 
 You have learned how to add health checks to report the states of microservices in an
-application. Then you wrote tests to validate that.
+application. Then, you wrote tests to validate that.
 
-Feel free to try one of the related MicroProfile guides. They demonstrate new technologies that you can learn and expand on top what you built in this guide.
+Next, you can try one of the related MicroProfile guides, which you can use to expand on what you just built.
 
 include::{common-includes}/finish.adoc[]
