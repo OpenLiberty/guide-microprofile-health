@@ -81,7 +81,7 @@ public class HealthTestUtil {
       FileWriter writer = new FileWriter(fileName);
       writer.write(newContent);
       writer.close();
-      Thread.sleep(1000);
+      Thread.sleep(600);
     } catch (Exception e) {
       e.printStackTrace();
     }
