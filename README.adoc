@@ -156,12 +156,12 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This service reports its healthy state by depending on two things:
 
-1. A property of type boolean that you can find in the `resources/CustomConfigSource.json` file. The property in this
-file is used to manipulate the state of the service. This file is provided for you. To learn how to configure it, see
-https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
-
-    "io.openliberty.guides.microprofile.inventory.inMaintenance": false
-
+1. Find the provided property of type boolean, shown in the following code, in the `resources/CustomConfigSource.json` file. The InventoryConfig object reads the property in this file, which manipulates the state of the service.
+```
+"io.openliberty.guides.microprofile.inventory.inMaintenance": false
+```
+To learn how to configure the file, see https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
+  
 2. The `system` service availability that returns a `200` response code. Adding a health check to this service is similar to adding one in the previous section but with minor adjustments and additions.
 
 Use the `@Inject` annotation to initialize the `InventoryConfig` object. This object allows
@@ -218,7 +218,7 @@ that reports the state of the two services:
 
 * `http://localhost:9080/health`
 
-Now, turn the `inventory` service down (i.e. in maintenance) by changing the
+Now, turn the `inventory` service down to simulate that it is in maintenance or because something went wrong. Change the
 `io_openliberty_guides_inventory_inMaintenance` property value to `true`. Find this property in
 the `resources/CustomConfigSource.json` file. Refresh the browser. The state of the
 `inventory` service is currently `DOWN`, so the overall outcome is `DOWN`.
