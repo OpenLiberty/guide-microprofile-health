@@ -35,13 +35,17 @@ public class InventoryHealth implements HealthCheck {
     if (config.isInMaintenance()) {
       return false;
     }
-    String url = SystemClient.buildUrl("http", "localhost", config.getPortNumber(), "/system/properties");
-    Client client = ClientBuilder.newClient();
-    Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
-    if (response.getStatus() != 200) {
+    try {
+      String url = SystemClient.buildUrl("http", "localhost", config.getPortNumber(), "/system/properties");
+      Client client = ClientBuilder.newClient();
+      Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
+      if (response.getStatus() != 200) {
+        return false;
+      }
+      return true;
+    }catch (Exception e) {
       return false;
     }
-    return true;
   }
 
   @Override
