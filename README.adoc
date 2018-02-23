@@ -90,6 +90,8 @@ the endpoint, you can see the health of the two services as well as the overall 
 application. One check shows the state of the `system`
 service, and the other shows the state of the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of the application is `UP`.
 
+image::resources/outputExample.png[width=400, align=center]
+
 When you're done checking out the application, stop the Open Liberty server with the following command:
 
 ```
