@@ -318,8 +318,8 @@ Results :
 Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 ```
 
-To see whether the tests detect a failure, change the values of the tests maps inside the `static` braces, {}.
-Rerun the Maven build. You see a test failure occur.
+To see whether the tests detect a failure, change the values of the tests maps inside the `static`
+braces, {}. Rerun the Maven build. You see a test failure occur.
 
 // =================================================================================================
 // Great work! You're done!
