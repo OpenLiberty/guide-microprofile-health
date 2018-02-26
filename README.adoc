@@ -90,6 +90,24 @@ the endpoint, you can see the health of the two services as well as the overall 
 application. One check shows the state of the `system`
 service, and the other shows the state of the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of the application is `UP`.
 
+```
+{
+  "checks": [
+      {
+        "data": {},
+        "name": "InventoryResource",
+        "state": "UP"
+      },
+      {
+        "data": {},
+        "name": "SystemResource",
+        "state": "UP"
+      }
+   ],
+   "outcome": "UP"
+}
+```
+
 When you're done checking out the application, stop the Open Liberty server with the following command:
 
 ```
@@ -182,7 +200,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 The service invokes the `getPropertiesForHost()` method to display
 the system properties for a hostname. The hostname displays only if you set the
 `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration to `false`.
-Otherwise, the service responds with a `Service is currently in maintenance` message and
+Otherwise, the service responds with a `Service is currently in maintenance.` message and
 a `503` response code. If the service displays the system properties, then
 the health of this service is `UP`. If the service is down for maintenance, its health is
 `DOWN'. Notice that the second condition in the `isHealthy()` method of the `InventoryHealth` class
