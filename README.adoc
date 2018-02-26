@@ -108,7 +108,8 @@ service, and the other shows the state of the `inventory` service. As you might 
 }
 ```
 
-When you're done checking out the application, stop the Open Liberty server with the following command:
+When you're done checking out the application, stop the Open Liberty server with the following
+command:
 
 ```
 mvn liberty:stop-server
