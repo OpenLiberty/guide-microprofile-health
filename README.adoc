@@ -8,7 +8,7 @@
 :projectid: mp-health
 :page-layout: guide
 :page-duration: 20 minutes
-:page-description: Learn how to use the MicroProfile Health API in an application.
+:page-description: Learn how to use the MicroProfile Health API to check the health of an application.
 :page-tags: ['HealthCheck' , 'MicroProfile' , `CDI`, `@Health`, `Config` ,`ConfigProperty`,'REST']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
