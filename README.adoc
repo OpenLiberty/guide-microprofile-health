@@ -15,7 +15,7 @@
 :source-highlighter: prettify
 = Adding health reports to a microservice
 
-Learn how to check the health of a microservice with MicroProfile Health.
+You’ll explore how to check the health of a microservice with MicroProfile Health.
 
 // =================================================================================================
 //  What you'll learn
@@ -43,11 +43,11 @@ service, such as a dependency, a successful connection to an endpoint, a system 
 of resources.
 
 You will add health checks to report the states of the `system` and `inventory`
-RESTful services in an inventory manager application. This application and the two services in it
+RESTful services in an inventory manager application. This application and the services in it
 are provided for you. To learn how to create a RESTful application, see
 https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
 
-After you start the application, you can access two microservices to test their availability:
+After you start the application, you can access the microservices to test their availability:
 
 * The `http://localhost:9080/system/properties` microservice retrieves the information for a specific host.
 
@@ -75,10 +75,10 @@ cd draft-guide-microprofile-health/start
 === Try what you'll build
 
 The `finish` directory in the root file contains the finished
-health check implementation for the services in the application. You can try it out before
+health check implementation for the services in the application. You can try out the application before
 you build your own.
 
-To try the application, first navigate to the `finish` directory. Next, execute the following
+To try the application, navigate to the `finish` directory. Next, execute the following
 Maven goals to build the application and run it inside of Open Liberty:
 
 ```
@@ -198,7 +198,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 ----
 
 The service invokes the `getPropertiesForHost()` method to display
-the system properties for a hostname. The hostname displays only if you set the
+the system properties for a host name. The host name displays only if you set the
 `io.openliberty.guides.microprofile.inventory.inMaintenance` configuration to `false`.
 Otherwise, the service responds with a `Service is currently in maintenance.` message and
 a `503` response code. If the service displays the system properties, then
@@ -235,9 +235,9 @@ that reports the state of the two services:
 
 * `http://localhost:9080/health`
 
-Now, turn the `inventory` service down to simulate that it is in maintenance or that something went wrong. Change the
-`io_openliberty_guides_inventory_inMaintenance` property value to `true`. Find this property in
-the `resources/CustomConfigSource.json` file. Refresh the browser. The state of the
+Now, turn the `inventory` service down to simulate that it is in maintenance or that something went wrong. In
+the `resources/CustomConfigSource.json` file, change the
+`io_openliberty_guides_inventory_inMaintenance` property value to `true`. Refresh the browser. The state of the
 `inventory` service is `DOWN`, so the overall outcome is `DOWN`.
 To verify the states, point your browser to the
 `http://localhost:9080/inventory/systems` inventory service. The service
@@ -285,10 +285,10 @@ A few test case methods include the `@Test` annotation on the test functionality
 application after you add health checks.
 
 * The `testIfServicesAreUp()` method sends a request to the `http://localhost:9080/health` URL. Next, the method
-verifies that the `200` response code is returned. After that, it calls the `connectToHealthEndpoint()` helper method
+verifies that the `200` response code is returned. Next, it calls the `connectToHealthEndpoint()` helper method
 to read the response as `JsonArray`, which contains the actual states of the two services.
 The `JsonArray` response is passed to the `checkServicesStates()` method, which compares and asserts the `JsonArray`
-response with the expected services states. This method uses the `getActualState()` helper method to return
+response with the expected `services` states. This method uses the `getActualState()` helper method to return
 the actual state of each service from the `JsonArray` response. The expected state for both of the services in
 this test is `UP`.
 
@@ -329,7 +329,5 @@ Rerun the Maven build. You see a test failure occur.
 
 You learned how to add health checks to report the states of microservices in an
 application. Then, you wrote tests to validate the checks.
-
-Next, you can try one of the related MicroProfile guides, which you can use to expand on what you built.
 
 include::{common-includes}/finish.adoc[]
