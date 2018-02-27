@@ -55,7 +55,7 @@ public class InventoryHealth implements HealthCheck {
                                 .withData("services", "not available").down().build();
     }
     return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                              .withData("sevices","available").up().build();
+                              .withData("services","available").up().build();
   }
 
 }
