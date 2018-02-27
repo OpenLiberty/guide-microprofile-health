@@ -95,12 +95,16 @@ service, and the other shows the state of the `inventory` service. As you might 
 {
   "checks": [
       {
-        "data": {},
+        "data": {
+           "services": "available"
+        },
         "name": "InventoryResource",
         "state": "UP"
       },
       {
-        "data": {},
+        "data": {
+           "default server": "available"
+        },
         "name": "SystemResource",
         "state": "UP"
       }
