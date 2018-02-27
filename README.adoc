@@ -8,7 +8,7 @@
 :projectid: mp-health
 :page-layout: guide
 :page-duration: 20 minutes
-:page-description: Learn how to use the MicroProfile Health feature to report the health of a RESTful application.
+:page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
 :page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty']
 :page-permalink: /guides/{projectid}
 :page-related-guides: ['microprofile-config', 'cdi-intro']
