@@ -8,9 +8,10 @@
 :projectid: mp-health
 :page-layout: guide
 :page-duration: 20 minutes
-:page-description: Learn how to use the MicroProfile Health API to check the health of an application.
-:page-tags: ['HealthCheck' , 'MicroProfile' , `CDI`, `@Health`, `Config` ,`ConfigProperty`,'REST']
+:page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
+:page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty']
 :page-permalink: /guides/{projectid}
+:page-related-guides: ['microprofile-config', 'cdi-intro']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 = Adding health reports to a microservice
@@ -31,7 +32,7 @@ The MicroProfile Health feature provides an endpoint that includes the health ch
 JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
 is `UP`. Otherwise, the endpoint returns a status code of `503` if the application outcome is `DOWN`.
 
-Use the health check to assess the state of a service in an application. The state of a service
+You will use the health check to assess the state of a service in an application. The state of a service
 is either `UP` or `DOWN`. When the state is `UP`, the service is available.
 When the state is `DOWN`, the service is either unavailable or in maintenance.
 The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
