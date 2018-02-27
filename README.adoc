@@ -8,9 +8,10 @@
 :projectid: mp-health
 :page-layout: guide
 :page-duration: 20 minutes
-:page-description: Learn how to use the MicroProfile Health API to check the health of an application.
-:page-tags: ['HealthCheck' , 'MicroProfile' , `CDI`, `@Health`, `Config` ,`ConfigProperty`,'REST']
+:page-description: Learn how to use the MicroProfile Health feature to report the health of a RESTful application.
+:page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty']
 :page-permalink: /guides/{projectid}
+:page-related-guides: ['microprofile-config', 'cdi-intro']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 = Adding health reports to a microservice
