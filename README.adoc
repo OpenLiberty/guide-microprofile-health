@@ -209,8 +209,6 @@ the stored hosts.
 // Building and running the application
 // =================================================================================================
 
-== Building and running the application
-
 include::{common-includes}/mvnbuild.adoc[]
 
 While the server is running, navigate to the following URL to find the health endpoint
@@ -274,7 +272,9 @@ request to check the service states again. This time, the expected response code
 Lastly, the method asserts whether the state of the `inventory` service is `DOWN` and the state of the
 `system` service is `UP`.
 
-=== Running the tests
+// =================================================================================================
+// Running the tests
+// =================================================================================================
 
 include::{common-includes}/mvnverify.adoc[]
 
