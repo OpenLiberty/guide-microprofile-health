@@ -5,7 +5,7 @@
 //
 // Contributors:
 //   IBM Corporation
-:projectid: mp-health
+:projectid: microprofile-health
 :page-layout: guide
 :page-duration: 20 minutes
 :page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
