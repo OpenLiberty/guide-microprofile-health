@@ -11,7 +11,7 @@
 :page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
 :page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty']
 :page-permalink: /guides/{projectid}
-:page-related-guides: ['microprofile-config', 'cdi-intro']
+:page-related-guides: ['microprofile-config', 'microprofile-health', 'cdi-intro']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 = Adding health reports to a microservice
