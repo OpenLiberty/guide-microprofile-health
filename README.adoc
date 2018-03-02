@@ -71,7 +71,7 @@ Maven goals to build the application and run it inside of Open Liberty:
 mvn install liberty:start-server
 ```
 
-After you start the application, you can access two microservices to test their availability. The
+You can access two microservices to test their availability. The
 `http://localhost:9080/inventory/systems/localhost` microservice retrieves the information for a specific host. The
 `http://localhost:9080/inventory/systems` microservice retrieves the information for a list of all previously
 registered hosts.
