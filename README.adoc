@@ -5,13 +5,13 @@
 //
 // Contributors:
 //   IBM Corporation
-:projectid: mp-health
+:projectid: microprofile-health
 :page-layout: guide
 :page-duration: 20 minutes
 :page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
 :page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty']
 :page-permalink: /guides/{projectid}
-:page-related-guides: ['microprofile-config', 'cdi-intro']
+:page-related-guides: ['microprofile-config', 'microprofile-metrics', 'cdi-intro']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 = Adding health reports to a microservice
@@ -48,26 +48,11 @@ RESTful services in an inventory manager application. This application and the s
 are provided for you. To learn how to create a RESTful application, see
 https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
 
-After you start the application, you can access the microservices to test their availability:
-
-* The `http://localhost:9080/system/properties` microservice retrieves the information for a specific host.
-
-* The `http://localhost:9080/inventory/systems` microservice retrieves the information for a list of all previously registered hosts.
-
 // =================================================================================================
 // Getting Started
 // =================================================================================================
 
-== Getting started
-
-Run the following commands to clone the Git repository and use the starting project
-that is provided in the `start` directory:
-
-[subs="attributes"]
-----
-git clone https://github.com/OpenLiberty/draft-guide-microprofile-health.git
-cd draft-guide-microprofile-health/start
-----
+include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
 // Try what you'll build
@@ -85,6 +70,11 @@ Maven goals to build the application and run it inside of Open Liberty:
 ```
 mvn install liberty:start-server
 ```
+
+You can access two microservices to test their availability. The
+`http://localhost:9080/inventory/systems/localhost` microservice retrieves the information for a specific host. The
+`http://localhost:9080/inventory/systems` microservice retrieves the information for a list of all previously
+registered hosts.
 
 Point your browser to the MicroProfile Health Check endpoint at `http://localhost:9080/health`. From
 the endpoint, you can see the health of the two services as well as the overall health outcome of the
@@ -219,22 +209,7 @@ the stored hosts.
 // Building and running the application
 // =================================================================================================
 
-== Building and running the application
-
-To build the application, run the following Maven goal from the command line:
-```
-  mvn install
-```
-
-This goal builds the application and creates a `.war` file in the target directory. The goal also
-configures and installs Open Liberty into the `target/liberty/wlp` directory.
-
-Next, run the Maven `liberty:start-server` goal:
-```
-  mvn liberty:start-server
-```
-This goal starts an Open Liberty server instance. Your Maven `pom.xml` file is already configured to
-start the application in this server instance.
+include::{common-includes}/mvnbuild.adoc[]
 
 While the server is running, navigate to the following URL to find the health endpoint
 that reports the state of the two services:
@@ -249,18 +224,10 @@ To verify the states, point your browser to the
 `http://localhost:9080/inventory/systems` inventory service. The service
 responds with a message that it is in maintenance.
 
-After you try out your application, go to the `resources/CustomConfigProperties.json` file again. Change the `io_openliberty_guides_inventory_inMaintenance` property from `true` to `false` to set this condition back to its original value.
+After you try out your application, go to the `resources/CustomConfigProperties.json` file again.
+Change the `io_openliberty_guides_inventory_inMaintenance` property from `true` to `false` to set this condition back to its original value.
 
-If you change the code, use the following Maven package goal to rebuild the application.
-The Open Liberty server that is running automatically picks up the changes.
-```
-  mvn package
-```
-
-To stop the Open Liberty server, run the Maven `liberty:stop-server` goal:
-```
-mvn liberty:stop-server
-```
+include::{common-includes}/mvnpackage.adoc[]
 
 // =================================================================================================
 // Testing health checks
@@ -305,12 +272,14 @@ request to check the service states again. This time, the expected response code
 Lastly, the method asserts whether the state of the `inventory` service is `DOWN` and the state of the
 `system` service is `UP`.
 
-=== Running the tests
+// =================================================================================================
+// Running the tests
+// =================================================================================================
 
-Go to the `start` directory and run the `mvn clean install` command. You see two tests pass with the
-following results:
+include::{common-includes}/mvnverify.adoc[]
 
-```
+[source, role="no_copy"]
+----
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -322,7 +291,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.169 sec - in i
 Results :
 
 Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
-```
+----
 
 To see whether the tests detect a failure, change the values of the tests maps inside the `static`
 braces, {}. Rerun the Maven build. You see a test failure occur.
@@ -335,5 +304,8 @@ braces, {}. Rerun the Maven build. You see a test failure occur.
 
 You learned how to add health checks to report the states of microservices in an
 application. Then, you wrote tests to validate the checks.
+
+You can continue to try one of the related guides, which demonstrate new technologies that you can learn and
+expand on top what you built in this guide.
 
 include::{common-includes}/finish.adoc[]
