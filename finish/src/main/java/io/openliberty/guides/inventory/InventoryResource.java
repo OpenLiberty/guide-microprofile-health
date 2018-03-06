@@ -52,7 +52,8 @@ public class InventoryResource {
       if (props == null) {
         return Response.status(Response.Status.NOT_FOUND)
                        .entity(
-                           "ERROR: Unknown hostname or the resource may not be running on the host machine")
+                           "ERROR: Unknown hostname or the resource may not be running
+                           on the host machine")
                        .build();
       }
       return Response.ok(props).build();
@@ -61,7 +62,7 @@ public class InventoryResource {
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
                      .entity(
                          "ERROR: Service is currently in maintenance. Please contact: "
-                             + inventoryConfig.getEmail().toString())
+                         + inventoryConfig.getEmail().toString())
                      .build();
       // end::email[]
     }

@@ -46,14 +46,17 @@ public class HealthTest {
   public void testIfInventoryServiceIsDown() {
     servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
     checkServicesStates(dataWhenServicesUP, servicesStates);
-    HealthTestUtil.changeInventoryProperty(HealthTestUtil.INV_MAINTENANCE_FALSE, HealthTestUtil.INV_MAINTENANCE_TRUE);
+    HealthTestUtil.changeInventoryProperty(HealthTestUtil.INV_MAINTENANCE_FALSE,
+                                           HealthTestUtil.INV_MAINTENANCE_TRUE);
     servicesStates = HealthTestUtil.connectToHealthEnpoint(503);
     checkServicesStates(dataWhenInventoryDown, servicesStates);
   }
 
-  private void checkServicesStates(HashMap<String, String> testData, JsonArray servicesStates) {
+  private void checkServicesStates(HashMap<String, String> testData,
+                                   JsonArray servicesStates) {
     testData.forEach((service, expectedState) -> {
-      assertEquals("The state of " + service + " service is not matching the ", expectedState,
+      assertEquals("The state of " + service + " service is not matching the ",
+                   expectedState,
                    HealthTestUtil.getActualState(service, servicesStates));
     });
 

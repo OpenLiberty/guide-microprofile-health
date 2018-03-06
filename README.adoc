@@ -81,7 +81,8 @@ the endpoint, you can see the health of the two services as well as the overall 
 application. One check shows the state of the `system`
 service, and the other shows the state of the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of the application is `UP`.
 
-```
+[source, role="no_copy"]
+----
 {
   "checks": [
       {
@@ -101,7 +102,7 @@ service, and the other shows the state of the `inventory` service. As you might 
    ],
    "outcome": "UP"
 }
-```
+----
 
 When you're done checking out the application, stop the Open Liberty server with the following
 command:
@@ -169,13 +170,16 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This service reports a healthy state based on two factors:
 
-1. Configure the provided property of type boolean, which is shown in the following code, in the `resources/CustomConfigSource.json` file. The InventoryConfig object reads the property in this file, which manipulates the state of the service.
-```
+1- Configure the provided property of type boolean, which is shown in the following code, in the `resources/CustomConfigSource.json` file. The InventoryConfig object reads the property in this file, which manipulates the state of the service.
+
+[source, role="no_copy"]
+----
 "io.openliberty.guides.microprofile.inventory.inMaintenance": false
-```
+----
+
 To learn how to configure the file, see https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
 
-2. Make sure that the `system` service availability returns a `200` response code. You can add a health check to this service in a similar way to how you added one in the previous section.
+2- Make sure that the `system` service availability returns a `200` response code. You can add a health check to this service in a similar way to how you added one in the previous section.
 
 Use the `@Inject` annotation to initialize the `InventoryConfig` object. This object allows
 you to read the property in the `CustomConfigSource.json` file. Learn more about the
