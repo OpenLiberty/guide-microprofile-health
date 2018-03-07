@@ -23,7 +23,8 @@ import org.junit.Test;
 public class HealthTest {
 
   private JsonArray servicesStates;
-  private static HashMap<String, String> dataWhenServicesUP, dataWhenInventoryDown;
+  private static HashMap<String, String> dataWhenServicesUP,
+      dataWhenInventoryDown;
 
   static {
     dataWhenServicesUP = new HashMap<String, String>();
@@ -53,7 +54,7 @@ public class HealthTest {
   }
 
   private void checkServicesStates(HashMap<String, String> testData,
-                                   JsonArray servicesStates) {
+      JsonArray servicesStates) {
     testData.forEach((service, expectedState) -> {
       assertEquals("The state of " + service + " service is not matching the ",
                    expectedState,

@@ -134,7 +134,7 @@
             <id>default-test</id>
             <configuration>
               <excludes>
-                <exclude>**/it/**</exclude>
+                <exclude>**/it/**/*.java</exclude>
               </excludes>
               <reportsDirectory>${project.build.directory}/test-reports/unit</reportsDirectory>
             </configuration>
