@@ -134,7 +134,7 @@
             <id>default-test</id>
             <configuration>
               <excludes>
-                <exclude>**/it/**/*.java</exclude>
+                <exclude>**/it/**/</exclude>
               </excludes>
               <reportsDirectory>${project.build.directory}/test-reports/unit</reportsDirectory>
             </configuration>
@@ -221,7 +221,7 @@
             </goals>
             <configuration>
               <includes>
-                <include>**/it/**</include>
+                <include>**/it/**/*.java</include>
               </includes>
               <!-- tag::system-props[] -->
               <systemPropertyVariables>
