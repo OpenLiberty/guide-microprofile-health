@@ -14,7 +14,6 @@ package io.openliberty.guides.config;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.core.MediaType;
-
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.Json;

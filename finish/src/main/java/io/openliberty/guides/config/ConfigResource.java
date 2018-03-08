@@ -14,7 +14,6 @@ package io.openliberty.guides.config;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.core.MediaType;
-
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.Json;
@@ -22,7 +21,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 

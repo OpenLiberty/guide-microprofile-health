@@ -14,7 +14,6 @@
 package io.openliberty.guides.system;
 
 import javax.enterprise.context.ApplicationScoped;
-
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;

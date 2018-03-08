@@ -130,7 +130,8 @@ The `mpHealth-1.0` feature is enabled in the `src/main/liberty/config/server.xml
 
 === Adding a health check to the system service
 
-Create the `src/main/java/io/openliberty/guides/system/SystemHealth.java` class:
+Create health check class for the `system` service in the
+`src/main/java/io/openliberty/guides/system/SystemHealth.java` file:
 
 [source, java, indent=0]
 ----
@@ -139,20 +140,19 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tag
 
 The `org.eclipse.microprofile` package contains the required MicroProfile Health Check classes.
 
-The `@Health` annotation indicates that this class is read to report the state of
-a service to the `http://localhost:9080/health` URL. The `@ApplicationScoped` annotation is
+The `@Health` annotation indicates that this class will be used to report the state of
+`system` service to the `http://localhost:9080/health` URL. The `@ApplicationScoped` annotation is
 required because the health check service must stay active within the lifetime of the application
 to report the state.
 
-This class implements the `HealthCheck` interface. Use the interface to override the `call()`
-method.
+This class implements the `HealthCheck` interface from MicroProfile Health API. The `call()` method with `@Override`
+annotation from the interface is used to report the state of the service by returning a `HealthCheckResponse` object.
 
 The `system` service self-checks. It reads the system property of the host to report a healthy state.
-If the `wlp.server.name` system property is
-`defaultServer`, the state is `UP`. Otherwise, the state is `DOWN`.
+If the `wlp.server.name` system property is `defaultServer`, the state is `UP`. Otherwise, the state is `DOWN`.
 
-Lastly, pass the `system` service name as an argument to the `named()`
-method to indicate the service that is reported.
+Lastly, the `named()` method from the interface needs to indicate the service to report the health, thus,
+passing the system service name as an argument.
 
 // =================================================================================================
 // Adding a health check to the inventory service
@@ -160,7 +160,8 @@ method to indicate the service that is reported.
 
 === Adding a health check to the inventory service
 
-Create the `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java` class:
+Create health check class for the `inventory` service in the
+`src/main/java/io/openliberty/guides/inventory/InventoryHealth.java` file:
 
 [source, java, indent=0]
 ----
@@ -169,25 +170,26 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This service reports a healthy state based on two factors:
 
-1- Configure the provided property of type boolean, which is shown in the following code, in the `resources/CustomConfigSource.json` file. The InventoryConfig object reads the property in this file, which manipulates the state of the service.
+1- Configure the provided property of type boolean, which is shown in the `resources/CustomConfigSource.json` file.
+The `InventoryConfig` object reads the property in this file, which manipulates the state of the service.
 
 [source, role="no_copy"]
 ----
 "io.openliberty.guides.microprofile.inventory.inMaintenance": false
 ----
 
-To learn how to configure the file, see https://openliberty.io/guides/microprofile-config.html[Configuring Microservices using MicroProfile Config].
+To learn how to configure the file, see https://openliberty.io/guides/microprofile-config.html[Configuring microservices].
 
-2- Make sure that the `system` service availability returns a `200` response code. You can add a health check to this service in a similar way to how you added one in the previous section.
+2- Check that the `system` service availability returns a `200` response code.
 
-Use the `@Inject` annotation to initialize the `InventoryConfig` object. This object allows
-you to read the property in the `CustomConfigSource.json` file. Learn more about the
+The `@Inject` annotation is used to initialize the `InventoryConfig` object. This object allows
+you to read the property in the `/resources/CustomConfigSource.json` file. Learn more about the
 `@Inject` annotation from
-https://openliberty.io/guides/cdi-intro.html[Handling dependencies with RESTful web services].
+https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices].
 
-The `isHealthy()` method returns a boolean that determines the health of the `inventory` service.
-This method checks the two previous conditions. The `call()` method uses the `isHealthy()` method as the condition. The state of the `inventory` service is `UP` if the `isHealthy` method returns `true`, but the state is `DOWN`
-if `isHealthy` returns `false`.
+The `isHealthy()` method returns a boolean that determines the health of the `inventory` service. This method checks the
+two previous factors. The `call()`` method uses the `isHealthy()` method to determine the state of the inventory service.
+The state is `UP` if the `isHealthy()` method returns `true`. Otherwise, it is `DOWN`.
 
 Now, open the `inventory` service from the `src/main/java/io/openliberty/guides/inventory/InventoryResource.java` file:
 
@@ -196,14 +198,17 @@ Now, open the `inventory` service from the `src/main/java/io/openliberty/guides/
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.java[tags=InventoryResource]
 ----
 
-The service invokes the `getPropertiesForHost()` method to display
-the system properties for a host name. The host name displays only if you set the
-`io.openliberty.guides.microprofile.inventory.inMaintenance` configuration to `false`.
-Otherwise, the service responds with a `Service is currently in maintenance.` message and
-a `503` response code. If the service displays the system properties, then
-the health of this service is `UP`. If the service is down for maintenance, its health is
-`DOWN'. Notice that the second condition in the `isHealthy()` method of the `InventoryHealth` class
-relies on the `getPropertiesForHost()` method.
+The `getPropertiesForHost()` method displays the system properties for a host name only if you set the
+`io.openliberty.guides.microprofile.inventory.inMaintenance` configuration to `false`. If this is the case,
+then the health of this service is `UP`.
+
+Otherwise, if the configuration is set to `true`, the service responds with a `ERROR: Service is currently in maintenance. Please contact: admin@guides.openliberty.io`
+message and a `503` response code. Thus, If the service is down for maintenance, its health is
+`DOWN'.
+
+Notice that the `isHealthy()` method of the `InventoryHealth` class
+works with `getPropertiesForHost()` method through `InventoryConfig` object that modifies
+the same configuration file `/resources/CustomConfigSource.json`.
 
 The same conditions apply to the `listContents()` method in this service. This method lists
 the stored hosts.
@@ -223,9 +228,8 @@ Now, turn the `inventory` service down to simulate that it is in maintenance or 
 the `resources/CustomConfigSource.json` file, change the
 `io_openliberty_guides_inventory_inMaintenance` property value to `true`. Refresh the browser. The state of the
 `inventory` service is `DOWN`, so the overall outcome is `DOWN`.
-To verify the states, point to the
-`http://localhost:9080/inventory/systems` URL of `inventory` service. The service
-responds with a message that it is in maintenance.
+To verify the states, point to the `http://localhost:9080/inventory/systems` `inventory` service URL.
+The service responds with a message that it is in maintenance.
 
 After you try out your application, go to the `resources/CustomConfigProperties.json` file again.
 Change the `io_openliberty_guides_inventory_inMaintenance` property from `true` to `false` to set this condition back to its original value.
@@ -238,11 +242,12 @@ include::{common-includes}/mvnpackage.adoc[]
 
 == Testing health checks
 
-Write two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
-validate the state of the inventory manager application with the `system` and
+You will implement two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
+validate the health of the inventory manager application with the `system` and
 `inventory` services.
 
-Begin by creating a `/src/test/java/it/io/openliberty/guides/health/HealthTest.java` test class:
+Begin by creating health check test class for the two services
+in the `/src/test/java/it/io/openliberty/guides/health/HealthTest.java` file:
 
 [source, java, indent=0]
 ----
@@ -257,21 +262,20 @@ Place the `@After` annotation on methods that execute after every test case. The
 generally used to perform teardown tasks. In this case, the `teardown()` method simply resets
 the property value.
 
-A few test case methods include the `@Test` annotation on the test functionality of the inventory
+A few test case methods include the `@Test` annotation to test functionality of the inventory
 application after you add health checks.
 
-* The `testIfServicesAreUp()` method sends a request to the `http://localhost:9080/health` URL. Next, the method
-verifies that the `200` response code is returned. Next, it calls the `connectToHealthEndpoint()` helper method
-to read the response as `JsonArray`, which contains the actual states of the two services.
-The `JsonArray` response is passed to the `checkServicesStates()` method, which compares and asserts the `JsonArray`
-response with the expected `services` states. This method uses the `getActualState()` helper method to return
-the actual state of each service from the `JsonArray` response. The expected state for both of the services in
-this test is `UP`.
+* The `testIfServicesAreUp()` test case sends a request to the `http://localhost:9080/health` URL through the
+`connectToHealthEndpoint()` method from the `HealthTestUtil class`. This util method also verifies a `200` response code. If
+the request and verification are successful, then the util method returns the health result of the two services in
+`JsonArray` format. This result is asserted with the expected data when services are up through the `checkServicesStates()`
+private method. This private method uses the `getActualState()` method from the `HealthTestUtil` class to parse the actual
+state of each services in the `JsonArray` result."
 
-* The `testIfInventoryServiceIsDown()` method follows a procedure similar to the previous test case. The method first checks if the `services` states are `UP`. Next, the
-`io.openliberty.guides.microprofile.inventory.inMaintenance` property value is changed from
-`false` to `true` in the `CustomConfigSource.json` file. With the property update, the method sends a
-request to check the service states again. This time, the expected response code is `503`.
+* The `testIfInventoryServiceIsDown()` method follows a procedure similar to the previous test case. The method first
+checks if the `services` states are `UP`. Next, the `io.openliberty.guides.microprofile.inventory.inMaintenance` property
+value is changed from `false` to `true` in the `/resources/CustomConfigSource.json` file. With the property update, the
+method sends a request to check the service states again. This time, the expected response code is `503`.
 Lastly, the method asserts whether the state of the `inventory` service is `DOWN` and the state of the
 `system` service is `UP`.
 
@@ -292,13 +296,15 @@ include::{common-includes}/mvnverify.adoc[]
  T E S T S
 -------------------------------------------------------
 Running it.io.openliberty.guides.health.HealthTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.21 sec - in it.io.openliberty.guides.health.HealthTest
-Running it.io.openliberty.guides.inventory.EndpointTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.169 sec - in it.io.openliberty.guides.inventory.EndpointTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.504 sec - in it.io.openliberty.guides.health.HealthTest
+Running it.io.openliberty.guides.inventory.InventoryEndpointTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.326 sec - in it.io.openliberty.guides.inventory.InventoryEndpointTest
+Running it.io.openliberty.guides.system.SystemEndpointTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in it.io.openliberty.guides.system.SystemEndpointTest
 
 Results :
 
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
 ----
 
 To see whether the tests detect a failure, change the values of the tests maps inside the `static`
