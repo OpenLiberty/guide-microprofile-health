@@ -25,10 +25,10 @@ You’ll explore how to check the health of a microservice with MicroProfile Hea
 
 == What you'll learn
 
-You will learn how to use the MicroProfile Health feature to report the health of
+You will learn how to use the MicroProfile Health to report the health of
 a microservice. A health check allows your microservice to participate in the decision-making process about its health.
 
-The MicroProfile Health feature provides an endpoint that includes the health check results as a
+The MicroProfile Health provides an endpoint that includes the health check results as a
 JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
 is `UP`. Otherwise, the endpoint returns a status code of `503` if the application outcome is `DOWN`.
 
@@ -72,15 +72,14 @@ mvn install liberty:start-server
 ```
 
 You can access two microservices to test their availability. The
-`http://localhost:9080/inventory/systems/localhost` microservice retrieves the information for a specific host. The
-`http://localhost:9080/inventory/systems` microservice retrieves the information for a list of all previously
+`http://localhost:9080/inventory/systems/localhost` URL retrieves the information for a specific host. The
+`http://localhost:9080/inventory/systems` URL retrieves the information for a list of all previously
 registered hosts.
 
-Point your browser to the MicroProfile Health Check endpoint at `http://localhost:9080/health`. From
-the endpoint, you can see the health of the two services as well as the overall health outcome of the
-application. One check shows the state of the `system`
-service, and the other shows the state of the `inventory` service. As you might expect,
-both services are in the `UP` state, and the overall outcome of the application is `UP`.
+Point to `http://localhost:9080/health` URL. From here, you can see the health of the two services as well as the overall
+health outcome of the application. One check shows the state of the `system` service, and the other shows the state of
+the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of
+the application is `UP`.
 
 [source, role="no_copy"]
 ----
@@ -121,10 +120,9 @@ Navigate back to the `start` directory to begin.
 == Adding health checks to microservices
 
 Navigate to the `pom.xml` file to check the required dependency. The `microprofile-health-api`
-dependency is located in the `start/pom.xml` file. With this dependency, you can
+dependency is located in the `pom.xml` file. With this dependency, you can
 use the MicroProfile Health API to provide health checks to your microservices.
 The `mpHealth-1.0` feature is enabled in the `src/main/liberty/config/server.xml` file.
-This feature provides the `http://localhost:9080/health` endpoint to your application.
 
 // =================================================================================================
 // Adding a health check to the system service
@@ -142,7 +140,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tag
 The `org.eclipse.microprofile` package contains the required MicroProfile Health Check classes.
 
 The `@Health` annotation indicates that this class is read to report the state of
-a service to the `http://localhost:9080/health` endpoint. The `@ApplicationScoped` annotation is
+a service to the `http://localhost:9080/health` URL. The `@ApplicationScoped` annotation is
 required because the health check service must stay active within the lifetime of the application
 to report the state.
 
@@ -225,8 +223,8 @@ Now, turn the `inventory` service down to simulate that it is in maintenance or 
 the `resources/CustomConfigSource.json` file, change the
 `io_openliberty_guides_inventory_inMaintenance` property value to `true`. Refresh the browser. The state of the
 `inventory` service is `DOWN`, so the overall outcome is `DOWN`.
-To verify the states, point your browser to the
-`http://localhost:9080/inventory/systems` inventory service. The service
+To verify the states, point to the
+`http://localhost:9080/inventory/systems` URL of `inventory` service. The service
 responds with a message that it is in maintenance.
 
 After you try out your application, go to the `resources/CustomConfigProperties.json` file again.
