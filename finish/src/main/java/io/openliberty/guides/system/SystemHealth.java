@@ -27,10 +27,12 @@ public class SystemHealth implements HealthCheck {
   public HealthCheckResponse call() {
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
       return HealthCheckResponse.named(SystemResource.class.getSimpleName())
-                                .withData("default server" , "not available").down().build();
+                                .withData("default server", "not available")
+                                .down().build();
     }
     return HealthCheckResponse.named(SystemResource.class.getSimpleName())
-                              .withData("default server", "available").up().build();
+                              .withData("default server", "available").up()
+                              .build();
   }
 }
 // end::SystemHealth[]

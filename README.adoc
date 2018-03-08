@@ -8,6 +8,7 @@
 :projectid: microprofile-health
 :page-layout: guide
 :page-duration: 20 minutes
+:page-releasedate: 2018-03-09
 :page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
 :page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty', 'microservices']
 :page-permalink: /guides/{projectid}
@@ -25,8 +26,7 @@ You’ll explore how to check the health of a microservice with MicroProfile Hea
 == What you'll learn
 
 You will learn how to use the MicroProfile Health feature to report the health of
-a RESTful application. A health check allows your RESTful
-service to participate in the decision-making process about its health.
+a microservice. A health check allows your microservice to participate in the decision-making process about its health.
 
 The MicroProfile Health feature provides an endpoint that includes the health check results as a
 JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
@@ -44,8 +44,8 @@ service, such as a dependency, a successful connection to an endpoint, a system 
 of resources.
 
 You will add health checks to report the states of the `system` and `inventory`
-RESTful services in an inventory manager application. This application and the services in it
-are provided for you. To learn how to create a RESTful application, see
+microservices in an inventory manager application. This application and the microservices in it
+are provided for you. To learn how to create microservices, see
 https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
 
 // =================================================================================================
@@ -79,9 +79,11 @@ registered hosts.
 Point your browser to the MicroProfile Health Check endpoint at `http://localhost:9080/health`. From
 the endpoint, you can see the health of the two services as well as the overall health outcome of the
 application. One check shows the state of the `system`
-service, and the other shows the state of the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of the application is `UP`.
+service, and the other shows the state of the `inventory` service. As you might expect,
+both services are in the `UP` state, and the overall outcome of the application is `UP`.
 
-```
+[source, role="no_copy"]
+----
 {
   "checks": [
       {
@@ -101,7 +103,7 @@ service, and the other shows the state of the `inventory` service. As you might 
    ],
    "outcome": "UP"
 }
-```
+----
 
 When you're done checking out the application, stop the Open Liberty server with the following
 command:
@@ -113,15 +115,15 @@ mvn liberty:stop-server
 Navigate back to the `start` directory to begin.
 
 // =================================================================================================
-// Adding health checks to RESTful services
+// Adding health checks to microservice
 // =================================================================================================
 
-== Adding health checks to RESTful services
+== Adding health checks to microservices
 
 Navigate to the `pom.xml` file to check the required dependency. The `microprofile-health-api`
 dependency is located in the `start/pom.xml` file. With this dependency, you can
-use the MicroProfile Health API to provide health checks to your RESTful services.
-The `mpHealth-1.0` feature is enabled in the `start/src/main/liberty/config/server.xml` file.
+use the MicroProfile Health API to provide health checks to your microservices.
+The `mpHealth-1.0` feature is enabled in the `src/main/liberty/config/server.xml` file.
 This feature provides the `http://localhost:9080/health` endpoint to your application.
 
 // =================================================================================================
@@ -130,7 +132,7 @@ This feature provides the `http://localhost:9080/health` endpoint to your applic
 
 === Adding a health check to the system service
 
-Create the `start/src/main/java/io/openliberty/guides/system/SystemHealth.java` class:
+Create the `src/main/java/io/openliberty/guides/system/SystemHealth.java` class:
 
 [source, java, indent=0]
 ----
@@ -160,7 +162,7 @@ method to indicate the service that is reported.
 
 === Adding a health check to the inventory service
 
-Create the `start/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java` class:
+Create the `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java` class:
 
 [source, java, indent=0]
 ----
@@ -169,24 +171,27 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This service reports a healthy state based on two factors:
 
-1. Configure the provided property of type boolean, which is shown in the following code, in the `resources/CustomConfigSource.json` file. The InventoryConfig object reads the property in this file, which manipulates the state of the service.
-```
-"io.openliberty.guides.microprofile.inventory.inMaintenance": false
-```
-To learn how to configure the file, see https://openliberty.io/guides/microprofile-config-intro.html[Configuring Microservices using MicroProfile Config].
+1- Configure the provided property of type boolean, which is shown in the following code, in the `resources/CustomConfigSource.json` file. The InventoryConfig object reads the property in this file, which manipulates the state of the service.
 
-2. Make sure that the `system` service availability returns a `200` response code. You can add a health check to this service in a similar way to how you added one in the previous section.
+[source, role="no_copy"]
+----
+"io.openliberty.guides.microprofile.inventory.inMaintenance": false
+----
+
+To learn how to configure the file, see https://openliberty.io/guides/microprofile-config.html[Configuring Microservices using MicroProfile Config].
+
+2- Make sure that the `system` service availability returns a `200` response code. You can add a health check to this service in a similar way to how you added one in the previous section.
 
 Use the `@Inject` annotation to initialize the `InventoryConfig` object. This object allows
 you to read the property in the `CustomConfigSource.json` file. Learn more about the
 `@Inject` annotation from
-https://openliberty.io/guides/rest-intro.html[Handling dependencies with RESTful web services].
+https://openliberty.io/guides/cdi-intro.html[Handling dependencies with RESTful web services].
 
 The `isHealthy()` method returns a boolean that determines the health of the `inventory` service.
 This method checks the two previous conditions. The `call()` method uses the `isHealthy()` method as the condition. The state of the `inventory` service is `UP` if the `isHealthy` method returns `true`, but the state is `DOWN`
 if `isHealthy` returns `false`.
 
-Now, open the `inventory` service from the `start/src/main/java/io/openliberty/guides/inventory/InventoryResource.java` file:
+Now, open the `inventory` service from the `src/main/java/io/openliberty/guides/inventory/InventoryResource.java` file:
 
 [source, java, indent=0]
 ----
@@ -239,7 +244,7 @@ Write two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDow
 validate the state of the inventory manager application with the `system` and
 `inventory` services.
 
-Begin by creating a `start/src/test/java/it/io/openliberty/guides/health/HealthTest.java` test class:
+Begin by creating a `/src/test/java/it/io/openliberty/guides/health/HealthTest.java` test class:
 
 [source, java, indent=0]
 ----
@@ -271,6 +276,11 @@ this test is `UP`.
 request to check the service states again. This time, the expected response code is `503`.
 Lastly, the method asserts whether the state of the `inventory` service is `DOWN` and the state of the
 `system` service is `UP`.
+
+In addition, a few endpoint tests `src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java`
+and `src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java` are provided for you to
+test the basic functionality of the `inventory` and `system` services. If a test failure occurs, then you might have
+introduced a bug into the code.
 
 // =================================================================================================
 // Running the tests

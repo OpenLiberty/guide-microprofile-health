@@ -31,8 +31,8 @@ public class InventoryManager {
     systemClient.init(hostname, port);
     Properties properties = systemClient.getProperties();
     if (properties != null) {
-        invList.addToInventoryList(hostname, properties);
-      }
+      invList.addToInventoryList(hostname, properties);
+    }
     return properties;
   }
 

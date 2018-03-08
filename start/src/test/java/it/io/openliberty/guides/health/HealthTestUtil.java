@@ -46,15 +46,17 @@ public class HealthTestUtil {
     String healthURL = baseUrl + HEALTH_ENDPOINT;
     Client client = ClientBuilder.newClient().register(JsrJsonpProvider.class);
     Response response = client.target(healthURL).request().get();
-    assertEquals("Response code is not matching " + healthURL, expectedResponseCode,
-                 response.getStatus());
-    JsonArray servicesStates = response.readEntity(JsonObject.class).getJsonArray("checks");
+    assertEquals("Response code is not matching " + healthURL,
+                 expectedResponseCode, response.getStatus());
+    JsonArray servicesStates = response.readEntity(JsonObject.class)
+                                       .getJsonArray("checks");
     response.close();
     client.close();
     return servicesStates;
   }
 
-  public static String getActualState(String service, JsonArray servicesStates) {
+  public static String getActualState(String service,
+      JsonArray servicesStates) {
     String state = "";
     for (Object obj : servicesStates) {
       if (obj instanceof JsonObject) {

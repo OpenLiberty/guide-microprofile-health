@@ -36,14 +36,17 @@ public class InventoryHealth implements HealthCheck {
       return false;
     }
     try {
-      String url = SystemClient.buildUrl("http", "localhost", config.getPortNumber(), "/system/properties");
+      String url = SystemClient.buildUrl("http", "localhost",
+                                         config.getPortNumber(),
+                                         "/system/properties");
       Client client = ClientBuilder.newClient();
-      Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
+      Response response = client.target(url).request(MediaType.APPLICATION_JSON)
+                                .get();
       if (response.getStatus() != 200) {
         return false;
       }
       return true;
-    }catch (Exception e) {
+    } catch (Exception e) {
       return false;
     }
   }
@@ -52,10 +55,11 @@ public class InventoryHealth implements HealthCheck {
   public HealthCheckResponse call() {
     if (!isHealthy()) {
       return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                                .withData("services", "not available").down().build();
+                                .withData("services", "not available").down()
+                                .build();
     }
     return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                              .withData("services","available").up().build();
+                              .withData("services", "available").up().build();
   }
 
 }
