@@ -276,8 +276,9 @@ request to check the service states again. This time, the expected response code
 Lastly, the method asserts whether the state of the `inventory` service is `DOWN` and the state of the
 `system` service is `UP`.
 
-In addition, a few endpoint tests, `InventoryEndpointTest.java` and `SystemEndpointTest.java`, have been provided for you to
-test the basic functionality of the `inventory` and `system` services. If a test failure occurs, then you must have
+In addition, a few endpoint tests, `start/src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java`
+and `start/src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java`, are provided for you to
+test the basic functionality of the `inventory` and `system` services. If a test failure occurs, then you might have
 introduced a bug into the code.
 
 // =================================================================================================
