@@ -79,7 +79,8 @@ registered hosts.
 Point your browser to the MicroProfile Health Check endpoint at `http://localhost:9080/health`. From
 the endpoint, you can see the health of the two services as well as the overall health outcome of the
 application. One check shows the state of the `system`
-service, and the other shows the state of the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of the application is `UP`.
+service, and the other shows the state of the `inventory` service. As you might expect,
+both services are in the `UP` state, and the overall outcome of the application is `UP`.
 
 [source, role="no_copy"]
 ----
@@ -122,7 +123,7 @@ Navigate back to the `start` directory to begin.
 Navigate to the `pom.xml` file to check the required dependency. The `microprofile-health-api`
 dependency is located in the `start/pom.xml` file. With this dependency, you can
 use the MicroProfile Health API to provide health checks to your microservices.
-The `mpHealth-1.0` feature is enabled in the `start/src/main/liberty/config/server.xml` file.
+The `mpHealth-1.0` feature is enabled in the `src/main/liberty/config/server.xml` file.
 This feature provides the `http://localhost:9080/health` endpoint to your application.
 
 // =================================================================================================
@@ -131,7 +132,7 @@ This feature provides the `http://localhost:9080/health` endpoint to your applic
 
 === Adding a health check to the system service
 
-Create the `start/src/main/java/io/openliberty/guides/system/SystemHealth.java` class:
+Create the `src/main/java/io/openliberty/guides/system/SystemHealth.java` class:
 
 [source, java, indent=0]
 ----
@@ -161,7 +162,7 @@ method to indicate the service that is reported.
 
 === Adding a health check to the inventory service
 
-Create the `start/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java` class:
+Create the `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java` class:
 
 [source, java, indent=0]
 ----
@@ -190,7 +191,7 @@ The `isHealthy()` method returns a boolean that determines the health of the `in
 This method checks the two previous conditions. The `call()` method uses the `isHealthy()` method as the condition. The state of the `inventory` service is `UP` if the `isHealthy` method returns `true`, but the state is `DOWN`
 if `isHealthy` returns `false`.
 
-Now, open the `inventory` service from the `start/src/main/java/io/openliberty/guides/inventory/InventoryResource.java` file:
+Now, open the `inventory` service from the `src/main/java/io/openliberty/guides/inventory/InventoryResource.java` file:
 
 [source, java, indent=0]
 ----
@@ -243,7 +244,7 @@ Write two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDow
 validate the state of the inventory manager application with the `system` and
 `inventory` services.
 
-Begin by creating a `start/src/test/java/it/io/openliberty/guides/health/HealthTest.java` test class:
+Begin by creating a `/src/test/java/it/io/openliberty/guides/health/HealthTest.java` test class:
 
 [source, java, indent=0]
 ----
@@ -276,8 +277,8 @@ request to check the service states again. This time, the expected response code
 Lastly, the method asserts whether the state of the `inventory` service is `DOWN` and the state of the
 `system` service is `UP`.
 
-In addition, a few endpoint tests, `start/src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java`
-and `start/src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java`, are provided for you to
+In addition, a few endpoint tests `src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java`
+and `src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java` are provided for you to
 test the basic functionality of the `inventory` and `system` services. If a test failure occurs, then you might have
 introduced a bug into the code.
 
