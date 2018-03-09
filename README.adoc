@@ -76,7 +76,7 @@ You can access two microservices to test their availability. The
 `http://localhost:9080/inventory/systems` URL retrieves the information for a list of all previously
 registered hosts.
 
-Point to `http://localhost:9080/health` URL. From here, you can see the health of the two services as well as the overall
+Next, go to `http://localhost:9080/health` URL to see the health of the two services as well as the overall
 health outcome of the application. One check shows the state of the `system` service, and the other shows the state of
 the `inventory` service. As you might expect, both services are in the `UP` state, and the overall outcome of
 the application is `UP`.
@@ -140,19 +140,19 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tag
 
 The `org.eclipse.microprofile` package contains the required MicroProfile Health Check classes.
 
-The `@Health` annotation indicates that this class will be used to report the state of
-`system` service to the `http://localhost:9080/health` URL. The `@ApplicationScoped` annotation is
+The `@Health` annotation indicates that this class reports the state of
+`system` service through `http://localhost:9080/health` URL. The `@ApplicationScoped` annotation is
 required because the health check service must stay active within the lifetime of the application
 to report the state.
 
-This class implements the `HealthCheck` interface from MicroProfile Health API. The `call()` method with `@Override`
-annotation from the interface is used to report the state of the service by returning a `HealthCheckResponse` object.
+This class implements the `HealthCheck` interface from MicroProfile Health API. The `call()` method from the
+interface is implemented to report the state of the service by returning a `HealthCheckResponse` object.
 
 The `system` service self-checks. It reads the system property of the host to report a healthy state.
 If the `wlp.server.name` system property is `defaultServer`, the state is `UP`. Otherwise, the state is `DOWN`.
 
 Lastly, the `named()` method from the interface needs to indicate the service to report the health, thus,
-passing the system service name as an argument.
+passing the `system` service name as an argument.
 
 // =================================================================================================
 // Adding a health check to the inventory service
@@ -183,7 +183,7 @@ To learn how to configure the file, see https://openliberty.io/guides/microprofi
 2- Check that the `system` service availability returns a `200` response code.
 
 The `@Inject` annotation is used to initialize the `InventoryConfig` object. This object allows
-you to read the property in the `/resources/CustomConfigSource.json` file. Learn more about the
+you to read the property in the `resources/CustomConfigSource.json` file. Learn more about the
 `@Inject` annotation from
 https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices].
 
@@ -199,16 +199,16 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 ----
 
 The `getPropertiesForHost()` method displays the system properties for a host name only if you set the
-`io.openliberty.guides.microprofile.inventory.inMaintenance` configuration to `false`. If this is the case,
+`io.openliberty.guides.microprofile.inventory.inMaintenance` property to `false`. If this is the case,
 then the health of this service is `UP`.
 
-Otherwise, if the configuration is set to `true`, the service responds with a `ERROR: Service is currently in maintenance. Please contact: admin@guides.openliberty.io`
+Otherwise, if the property is set to `true`, the service responds with a `ERROR: Service is currently in maintenance. Please contact: admin@guides.openliberty.io`
 message and a `503` response code. Thus, If the service is down for maintenance, its health is
 `DOWN'.
 
 Notice that the `isHealthy()` method of the `InventoryHealth` class
 works with `getPropertiesForHost()` method through `InventoryConfig` object that modifies
-the same configuration file `/resources/CustomConfigSource.json`.
+the same configuration file `resources/CustomConfigSource.json`.
 
 The same conditions apply to the `listContents()` method in this service. This method lists
 the stored hosts.
@@ -274,7 +274,7 @@ state of each services in the `JsonArray` result."
 
 * The `testIfInventoryServiceIsDown()` method follows a procedure similar to the previous test case. The method first
 checks if the `services` states are `UP`. Next, the `io.openliberty.guides.microprofile.inventory.inMaintenance` property
-value is changed from `false` to `true` in the `/resources/CustomConfigSource.json` file. With the property update, the
+value is changed from `false` to `true` in the `resources/CustomConfigSource.json` file. With the property update, the
 method sends a request to check the service states again. This time, the expected response code is `503`.
 Lastly, the method asserts whether the state of the `inventory` service is `DOWN` and the state of the
 `system` service is `UP`.
