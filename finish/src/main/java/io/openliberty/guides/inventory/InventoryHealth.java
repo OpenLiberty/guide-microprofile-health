@@ -20,7 +20,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import io.openliberty.guides.inventory.client.SystemClient;
-
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -37,7 +36,7 @@ public class InventoryHealth implements HealthCheck {
     }
     try {
       String url = SystemClient.buildUrl("http", "localhost",
-                                         config.getPortNumber(),
+                                         Integer.parseInt(System.getProperty("default.http.port")),
                                          "/system/properties");
       Client client = ClientBuilder.newClient();
       Response response = client.target(url).request(MediaType.APPLICATION_JSON)

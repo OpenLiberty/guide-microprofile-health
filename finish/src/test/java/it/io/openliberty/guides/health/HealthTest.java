@@ -14,7 +14,6 @@
 package it.io.openliberty.guides.health;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.HashMap;
 import javax.json.JsonArray;
 import org.junit.After;

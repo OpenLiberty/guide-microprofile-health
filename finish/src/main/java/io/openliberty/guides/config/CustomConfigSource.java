@@ -20,7 +20,6 @@ import javax.json.Json;
 import java.math.BigDecimal;
 import java.util.*;
 import java.io.StringReader;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import org.eclipse.microprofile.config.spi.ConfigSource;

@@ -12,7 +12,6 @@
 // end::copyright[]
 package io.openliberty.guides.config;
 
-// JAX-RS
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
