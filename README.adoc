@@ -119,10 +119,9 @@ Navigate back to the `start` directory to begin.
 
 == Adding health checks to microservices
 
-Navigate to the `pom.xml` file to check the required dependency. The `microprofile-health-api`
-dependency is located in the `pom.xml` file. With this dependency, you can
-use the MicroProfile Health API to provide health checks to your microservices.
-The `mpHealth-1.0` feature is enabled in the `src/main/liberty/config/server.xml` file.
+Navigate to the `pom.xml` file to check the required dependency. The `microprofile-health-api` dependency is added so you
+can use the MicroProfile Health API to provide health checks for your microservices.
+The `mpHealth-1.0` feature is also enabled in the `src/main/liberty/config/server.xml` file.
 
 // =================================================================================================
 // Adding a health check to the system service
@@ -146,9 +145,8 @@ required because the health check service must stay active within the lifetime o
 to report the state.
 
 This class implements the `HealthCheck` interface from MicroProfile Health API. The `call()` method from the
-interface is implemented to report the state of the service by returning a `HealthCheckResponse` object.
-
-The `system` service self-checks. It reads the system property of the host to report a healthy state.
+interface is implemented to report the state of the service by returning a `HealthCheckResponse` object. The `system`
+service self-checks. It reads the system property of the host to report a healthy state.
 If the `wlp.server.name` system property is `defaultServer`, the state is `UP`. Otherwise, the state is `DOWN`.
 
 Lastly, the `named()` method from the interface needs to indicate the service to report the health, thus,
@@ -247,7 +245,7 @@ validate the health of the inventory manager application with the `system` and
 `inventory` services.
 
 Begin by creating health check test class for the two services
-in the `/src/test/java/it/io/openliberty/guides/health/HealthTest.java` file:
+in the `src/test/java/it/io/openliberty/guides/health/HealthTest.java` file:
 
 [source, java, indent=0]
 ----
@@ -266,7 +264,7 @@ A few test case methods include the `@Test` annotation to test functionality of 
 application after you add health checks.
 
 * The `testIfServicesAreUp()` test case sends a request to the `http://localhost:9080/health` URL through the
-`connectToHealthEndpoint()` method from the `HealthTestUtil class`. This util method also verifies a `200` response code. If
+`connectToHealthEndpoint()` method from the `HealthTestUtil` class. This util method also verifies a `200` response code. If
 the request and verification are successful, then the util method returns the health result of the two services in
 `JsonArray` format. This result is asserted with the expected data when services are up through the `checkServicesStates()`
 private method. This private method uses the `getActualState()` method from the `HealthTestUtil` class to parse the actual
