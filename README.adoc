@@ -144,8 +144,8 @@ The `@Health` annotation indicates that this class reports the state of
 required because the health check service must stay active within the lifetime of the application
 to report the state.
 
-This class implements the `HealthCheck` interface from MicroProfile Health API. The `call()` method from the
-interface is implemented to report the state of the service by returning a `HealthCheckResponse` object. The `system`
+This class implements the `HealthCheck` interface from MicroProfile Health API. The class also implements the `call()``
+method from the interface to report the state of the service by returning a `HealthCheckResponse` object. The `system`
 service self-checks. It reads the system property of the host to report a healthy state.
 If the `wlp.server.name` system property is `defaultServer`, the state is `UP`. Otherwise, the state is `DOWN`.
 
