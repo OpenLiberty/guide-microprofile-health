@@ -195,7 +195,7 @@ The `getPropertiesForHost()` method displays the system properties for a host na
 `io.openliberty.guides.microprofile.inventory.inMaintenance` property to `false`. If this is the case,
 then the health of this service is `UP`.
 
-Otherwise, if the property is set to `true`, the service responds with a message and a `503` response
+Otherwise, if the property is set to `true`, the service responds with an error message and a `503` response
 code. Thus, If the service is down for maintenance, its health is `DOWN'.
 
 Notice that the `isHealthy()` method of the `InventoryHealth` class
