@@ -212,7 +212,7 @@ the stored hosts.
 include::{common-includes}/mvnbuild.adoc[]
 
 While the server is running, navigate to the `http://localhost:9080/health` URL to find the
-the states of the two services.
+the health of the two services.
 
 Now, turn the `inventory` service down to simulate that it is in maintenance or that something went wrong. In
 the `resources/CustomConfigSource.json` file, change the
