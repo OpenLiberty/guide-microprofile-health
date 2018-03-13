@@ -26,27 +26,21 @@ You'll explore how to report and check the health of a microservice with MicroPr
 == What you'll learn
 
 You will learn how to use the MicroProfile Health to report the health of
-a microservice. A health check allows your microservice to participate in the decision-making process about its health.
+a microservice. A health check allows your microservice to participate in the decision-making process about
+its health.
 
-The MicroProfile Health provides an endpoint that includes the health check results as a
-JSON object. This HTTP request endpoint returns a status code of `200` if the application outcome
-is `UP`. Otherwise, the endpoint returns a status code of `503` if the application outcome is `DOWN`.
+MicroProfile Health allows services to report their health and it publishes overall health status to a defined
+endpoint.  A service reports `UP` if it is available and reports `DOWN` if it is unavailable.  MicroProfile Health reports
+individual service status at the endpoint and indicates the overall status as `UP` if all the services are `UP`.  A service
+orchestrator can then use the health statuses to make decisions.
 
-You will use the health check to assess the state of a service in an application. The state of a service
-is either `UP` or `DOWN`. When the state is `UP`, the service is available.
-When the state is `DOWN`, the service is either unavailable or in maintenance.
-The overall outcome of the application is `UP` only when the checks of all the services are `UP`.
-A service orchestrator can use a `DOWN` result to determine when to replace an instance of a service.
+A service checks its own health by performing necessary self-checks and then report its overall status via
+implementing the API provided by MicroProfile Health.  A self-check can be a check on anything that is
+needed by the service, such as a dependency, a successful connection to an endpoint, a system property, a database, or
+availability of required resources.
 
-Before the service reports its state, it checks what it needs to make available. Depending on
-what the service has or what is provided to it, it can use the MicroProfile Health API implementation to report whether it is healthy or not. A self-check can be anything that is related to the
-service, such as a dependency, a successful connection to an endpoint, a system property, a database, or another availability
-of resources.
-
-You will add health checks to report the states of the `system` and `inventory`
-microservices in an inventory manager application. This application and the microservices in it
-are provided for you. To learn how to create microservices, see
-https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service].
+You will add self-checks to the `system` and `inventory` services, which have been provided to you, and implement what is
+necessary to report health status using MicroProfile Health.
 
 // =================================================================================================
 // Getting Started
@@ -119,9 +113,9 @@ Navigate back to the `start` directory to begin.
 
 == Adding health checks to microservices
 
-Navigate to the `pom.xml` file to check the required dependency. The `microprofile-health-api` dependency is added so you
-can use the MicroProfile Health API to provide health checks for your microservices.
-The `mpHealth-1.0` feature is also enabled in the `src/main/liberty/config/server.xml` file.
+The MicroProfile Health API was added as a dependency to your `pom.xml` file. Look for the dependency with the
+`microprofile-health-api` group ID. This feature allows you to use the MicroProfile Health API to provide health checks
+for your microservices. The `mpHealth-1.0` feature is also enabled in the `src/main/liberty/config/server.xml` file.
 
 // =================================================================================================
 // Adding a health check to the system service
