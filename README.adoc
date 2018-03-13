@@ -59,7 +59,7 @@ health check implementation for the services in the application. You can try out
 you build your own.
 
 To try the application, navigate to the `finish` directory. Next, execute the following
-Maven goals to build the application and run it inside of Open Liberty:
+Maven goals to build the application and run it inside Open Liberty:
 
 ```
 mvn install liberty:start-server
@@ -138,7 +138,7 @@ The `@Health` annotation indicates that this class reports the state of
 required because the health check service must stay active within the lifetime of the application
 to report the state.
 
-This class implements the `HealthCheck` interface from MicroProfile Health API. The class also implements the `call()``
+This class implements the `HealthCheck` interface from MicroProfile Health API. The class also implements the `call()`
 method from the interface to report the state of the service by returning a `HealthCheckResponse` object. The `system`
 service self-checks. It reads the system property of the host to report a healthy state.
 If the `wlp.server.name` system property is `defaultServer`, the state is `UP`. Otherwise, the state is `DOWN`.
@@ -181,7 +181,7 @@ you to read the property in the `resources/CustomConfigSource.json` file. Learn 
 https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices].
 
 The `isHealthy()` method returns a boolean that determines the health of the `inventory` service. This method checks the
-two previous factors. The `call()`` method uses the `isHealthy()` method to determine the state of the inventory service.
+two previous factors. The `call()` method uses the `isHealthy()` method to determine the state of the inventory service.
 The state is `UP` if the `isHealthy()` method returns `true`. Otherwise, it is `DOWN`.
 
 Now, open the `inventory` service from the `src/main/java/io/openliberty/guides/inventory/InventoryResource.java` file:
