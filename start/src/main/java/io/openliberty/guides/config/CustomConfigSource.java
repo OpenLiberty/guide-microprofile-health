@@ -26,7 +26,7 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 
 public class CustomConfigSource implements ConfigSource {
 
-  String fileLocation = System.getProperty("user.dir").split("start")[0]
+  String fileLocation = System.getProperty("user.dir").split("target")[0]
       + "resources/CustomConfigSource.json";
 
   @Override
