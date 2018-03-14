@@ -175,10 +175,8 @@ To learn how to configure the file, see https://openliberty.io/guides/microprofi
 2.
 Check that the `system` service availability returns a `200` response code.
 
-The `@Inject` annotation is used to initialize the `InventoryConfig` object. This object allows
-you to read the property in the `resources/CustomConfigSource.json` file. Learn more about the
-`@Inject` annotation from
-https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices].
+The `@Inject` annotation is used to initialize the `InventoryConfig` object. Use this object to read the property
+in the `resources/CustomConfigSource.json` file.
 
 The `isHealthy()` method returns a boolean that determines the health of the `inventory` service. This method checks the
 two previous factors. The `call()` method uses the `isHealthy()` method to determine the state of the inventory service.
@@ -191,16 +189,12 @@ Now, open the `inventory` service from the `src/main/java/io/openliberty/guides/
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.java[tags=InventoryResource]
 ----
 
-The `getPropertiesForHost()` method displays the system properties for a host name only if you set the
-`io.openliberty.guides.microprofile.inventory.inMaintenance` property to `false`. If this is the case,
-then the health of this service is `UP`.
-
-Otherwise, if the property is set to `true`, the service responds with an error message and a `503` response
-code. Thus, If the service is down for maintenance, its health is `DOWN'.
-
-Notice that the `isHealthy()` method of the `InventoryHealth` class
-works with `getPropertiesForHost()` method through `InventoryConfig` object that modifies
-the same configuration file `resources/CustomConfigSource.json`.
+The `getPropertiesForHost()` method displays the system properties for a host name only if the `isInMaintenance()` method
+that is called by the `InventoryConfig` object returns `false`. The method returns `false` when you set the
+`io.openliberty.guides.microprofile.inventory.inMaintenance` property to `false`. Since the `InventoryHealth` class also
+reads this property through the `isHealthy()` method, the health of this service is `UP` because it is not in maintenance.
+Otherwise, if the property is set to `true`, the service responds with an error message and a `503` response code. Thus,
+if the service is down for maintenance, its health is `DOWN`.
 
 The same conditions apply to the `listContents()` method in this service. This method lists
 the stored hosts.
