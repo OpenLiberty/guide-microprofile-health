@@ -190,11 +190,11 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryResource.
 ----
 
 The `getPropertiesForHost()` method displays the system properties for a host name only if
-the `isInMaintenance()` called by the `InventoryConfig` object returns `false`. This happens when you set
+the `isInMaintenance()` method called by the `InventoryConfig` object returns `false`. This happens when you set
 `io.openliberty.guides.microprofile.inventory.inMaintenance` property to `false`. Since this property is also read by
 `InventoryHealth` class through `isHealthy()` method, the health of this service is `UP` because it is
 not in maintenance. Otherwise, if the property is set to `true`, the service responds with an error message and a `503`
-response code. Thus, ff the service is down for maintenance, its health is `DOWN`.
+response code. Thus, if the service is down for maintenance, its health is `DOWN`.
 
 The same conditions apply to the `listContents()` method in this service. This method lists
 the stored hosts.
