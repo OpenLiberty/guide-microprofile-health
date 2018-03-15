@@ -8,7 +8,7 @@
 :projectid: microprofile-health
 :page-layout: guide
 :page-duration: 20 minutes
-:page-releasedate: 2018-03-09
+:page-releasedate: 2018-03-15
 :page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
 :page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty', 'microservices']
 :page-permalink: /guides/{projectid}
@@ -25,13 +25,12 @@ You'll explore how to report and check the health of a microservice with MicroPr
 
 == What you'll learn
 
-You will learn how to use the MicroProfile Health to report health of
+You will learn how to use the MicroProfile Health to report the health of
 a microservice. A health check allows your microservice to participate in the decision-making process about
-its health.
+its health such as in a cloud or containerized environment.
 
-MicroProfile Health allows services to report their health, and it publishes the overall health status to a defined
-endpoint.  A service reports `UP` if it is available and reports `DOWN` if it is unavailable.  MicroProfile Health reports
-an individual service status at the endpoint and indicates the overall status as `UP` if all the services are `UP`.  A service
+MicroProfile Health enables services to report their health, and it publishes the overall health status to a defined
+endpoint.  A service reports `UP` if it is available and reports `DOWN` if it is unavailable.  MicroProfile Health reports individual service status at the endpoint and indicates the overall status as `UP` if all the services are `UP`.  A service
 orchestrator can then use the health statuses to make decisions.
 
 A service checks its own health by performing necessary self-checks and then reports its overall status by
@@ -65,10 +64,9 @@ Maven goals to build the application and run it inside Open Liberty:
 mvn install liberty:start-server
 ```
 
-You can access two microservices to test their availability. The
-`http://localhost:9080/inventory/systems/localhost` URL retrieves the information for a specific host. The
-`http://localhost:9080/inventory/systems` URL retrieves the information for a list of all previously
-registered hosts.
+You can access the `inventory` and `system` services to test their availability. Point your browser at the
+`http://localhost:9080/inventory/systems` URL to access the `inventory` service and at the
+ `http://localhost:9080/system/properties` URL to access the `system` service.
 
 Next, go to `http://localhost:9080/health` URL to see the health of the two services as well as the overall
 health outcome of the application. One check shows the state of the `system` service, and the other shows the state of
