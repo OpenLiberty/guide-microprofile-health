@@ -14,7 +14,6 @@
 package it.io.openliberty.guides.health;
 
 import static org.junit.Assert.assertEquals;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
