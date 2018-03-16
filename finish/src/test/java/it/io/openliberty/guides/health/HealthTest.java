@@ -21,51 +21,49 @@ import org.junit.Test;
 
 public class HealthTest {
 
-  private JsonArray servicesStates;
-  private static HashMap<String, String> dataWhenServicesUP,
-      dataWhenInventoryDown;
+    private JsonArray servicesStates;
+    private static HashMap<String, String> dataWhenServicesUP;
+    private static HashMap<String, String> dataWhenInventoryDown;
 
-  static {
-    dataWhenServicesUP = new HashMap<String, String>();
-    dataWhenInventoryDown = new HashMap<String, String>();
+    static {
+        dataWhenServicesUP = new HashMap<String, String>();
+        dataWhenInventoryDown = new HashMap<String, String>();
 
-    dataWhenServicesUP.put("SystemResource", "UP");
-    dataWhenServicesUP.put("InventoryResource", "UP");
+        dataWhenServicesUP.put("SystemResource", "UP");
+        dataWhenServicesUP.put("InventoryResource", "UP");
 
-    dataWhenInventoryDown.put("SystemResource", "UP");
-    dataWhenInventoryDown.put("InventoryResource", "DOWN");
-  }
+        dataWhenInventoryDown.put("SystemResource", "UP");
+        dataWhenInventoryDown.put("InventoryResource", "DOWN");
+    }
 
-  @Test
-  public void testIfServicesAreUp() {
-    servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
-    checkServicesStates(dataWhenServicesUP, servicesStates);
-  }
+    @Test
+    public void testIfServicesAreUp() {
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
+        checkStates(dataWhenServicesUP, servicesStates);
+    }
 
-  @Test
-  public void testIfInventoryServiceIsDown() {
-    servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
-    checkServicesStates(dataWhenServicesUP, servicesStates);
-    HealthTestUtil.changeInventoryProperty(HealthTestUtil.INV_MAINTENANCE_FALSE,
-                                           HealthTestUtil.INV_MAINTENANCE_TRUE);
-    servicesStates = HealthTestUtil.connectToHealthEnpoint(503);
-    checkServicesStates(dataWhenInventoryDown, servicesStates);
-  }
+    @Test
+    public void testIfInventoryServiceIsDown() {
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
+        checkStates(dataWhenServicesUP, servicesStates);
+        HealthTestUtil.changeInventoryProperty(HealthTestUtil.INV_MAINTENANCE_FALSE, 
+                                               HealthTestUtil.INV_MAINTENANCE_TRUE);
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(503);
+        checkStates(dataWhenInventoryDown, servicesStates);
+    }
 
-  private void checkServicesStates(HashMap<String, String> testData,
-      JsonArray servicesStates) {
-    testData.forEach((service, expectedState) -> {
-      assertEquals("The state of " + service + " service is not matching the ",
-                   expectedState,
-                   HealthTestUtil.getActualState(service, servicesStates));
-    });
+    private void checkStates(HashMap<String, String> testData, JsonArray servStates) {
+        testData.forEach((service, expectedState) -> {
+            assertEquals("The state of " + service + " service is not matching.", 
+                         expectedState, 
+                         HealthTestUtil.getActualState(service, servStates));
+        });
+    }
 
-  }
-
-  @After
-  public void teardown() {
-    HealthTestUtil.cleanUp();
-  }
+    @After
+    public void teardown() {
+        HealthTestUtil.cleanUp();
+    }
 
 }
 // end::HealthTest[]
