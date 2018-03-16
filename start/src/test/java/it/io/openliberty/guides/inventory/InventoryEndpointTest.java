@@ -34,7 +34,7 @@ public class InventoryEndpointTest {
   private Client client;
 
   private final String SYSTEM_PROPERTIES = "system/properties";
-  private final String INVENTORY_HOSTS = "inventory/systems";
+  private final String INVENTORY_SYSTEMS = "inventory/systems";
 
   @BeforeClass
   public static void oneTimeSetup() {
@@ -66,7 +66,7 @@ public class InventoryEndpointTest {
 
   // tag::testEmptyInventory[]
   public void testEmptyInventory() {
-    Response response = this.getResponse(baseUrl + INVENTORY_HOSTS);
+    Response response = this.getResponse(baseUrl + INVENTORY_SYSTEMS);
     this.assertResponse(baseUrl, response);
 
     JsonObject obj = response.readEntity(JsonObject.class);
@@ -84,7 +84,7 @@ public class InventoryEndpointTest {
   public void testHostRegistration() {
     this.visitLocalhost();
 
-    Response response = this.getResponse(baseUrl + INVENTORY_HOSTS);
+    Response response = this.getResponse(baseUrl + INVENTORY_SYSTEMS);
     this.assertResponse(baseUrl, response);
 
     JsonObject obj = response.readEntity(JsonObject.class);
@@ -105,7 +105,7 @@ public class InventoryEndpointTest {
 
   // tag::testSystemPropertiesMatch[]
   public void testSystemPropertiesMatch() {
-    Response invResponse = this.getResponse(baseUrl + INVENTORY_HOSTS);
+    Response invResponse = this.getResponse(baseUrl + INVENTORY_SYSTEMS);
     Response sysResponse = this.getResponse(baseUrl + SYSTEM_PROPERTIES);
 
     this.assertResponse(baseUrl, invResponse);
@@ -135,10 +135,10 @@ public class InventoryEndpointTest {
 
   // tag::testUnknownHost[]
   public void testUnknownHost() {
-    Response response = this.getResponse(baseUrl + INVENTORY_HOSTS);
+    Response response = this.getResponse(baseUrl + INVENTORY_SYSTEMS);
     this.assertResponse(baseUrl, response);
 
-    Response badResponse = client.target(baseUrl + INVENTORY_HOSTS + "/"
+    Response badResponse = client.target(baseUrl + INVENTORY_SYSTEMS + "/"
         + "badhostname").request(MediaType.APPLICATION_JSON).get();
 
     String obj = badResponse.readEntity(String.class);
@@ -218,7 +218,7 @@ public class InventoryEndpointTest {
     this.assertResponse(baseUrl, response);
     response.close();
 
-    Response targetResponse = client.target(baseUrl + INVENTORY_HOSTS
+    Response targetResponse = client.target(baseUrl + INVENTORY_SYSTEMS
         + "/localhost").request().get();
     targetResponse.close();
   }
