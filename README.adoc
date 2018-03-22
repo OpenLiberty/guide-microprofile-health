@@ -163,20 +163,17 @@ Implement the `HealthCheck` interface in the `src/main/java/io/openliberty/guide
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java[tags=InventoryHealth]
 ----
 
-This time, you are checking whether or not the service is in maintenance or if it's down. For simplicity,
+This time, you are checking if the service is in maintenance or available. For simplicity,
 a custom `io_openliberty_guides_inventory_inMaintenance` MicroProfile Config property defined in the
-`resources/CustomConfigSource.json` file is used to
-indicate whether the service is in maintenance or not. This file has already been created for you.
-To check if the service is down, simply make a HTTP GET request to the `system` service and check the
-status returned by the response. You make a GET request to the `system` service rather than the `inventory`
+`resources/CustomConfigSource.json` file is used to indicate whether the service is down or not. This file
+has already been created for you. To check if the service is down, simply make a HTTP GET request to the `system` service
+and check the status returned by the response. You make a GET request to the `system` service rather than the `inventory`
 service because the `inventory` service depends on the `system` service. In other words, the `inventory`
-service wouldn't work if the `system` service is down.
-If the status is not 200, then the service is not running. Based on these
-two factors, the `isHealthy()` method returns whether or not the `inventory` service is healthy.
+service wouldn't work if the `system` service is down. If the status is not `200`, then the service is not running.
+Based on these two factors, the `isHealthy()` method returns whether or not the `inventory` service is healthy.
 
 If you are curious about the injected `inventoryConfig` object or if you want more information on
 MicroProfile Config, see https://openliberty.io/guides/microprofile-config.html[Configuring microservices].
-
 
 // =================================================================================================
 // Building and running the application
