@@ -55,8 +55,7 @@ public class InventoryResource {
     } else {
       // tag::email[]
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-             .entity("ERROR: Service is currently in maintenance. Please contact: "
-             + inventoryConfig.getEmail().toString())
+             .entity("ERROR: Service is currently in maintenance.")
              .build();
       // end::email[]
     }
@@ -69,8 +68,7 @@ public class InventoryResource {
       return Response.ok(manager.list()).build();
     } else {
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-             .entity("ERROR: Service is currently in maintenance. Please contact: "
-             + inventoryConfig.getEmail().toString())
+             .entity("ERROR: Service is currently in maintenance.")
              .build();
     }
   }
