@@ -25,12 +25,12 @@ public class SystemHealth implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
-      return HealthCheckResponse.named(SystemResource.class.getSimpleName())
-                                .withData("default server", "not available")
-                                .down().build();
+      return HealthCheckResponse.named("System")
+                                .down()
+                                .build();
     }
-    return HealthCheckResponse.named(SystemResource.class.getSimpleName())
-                              .withData("default server", "available").up()
+    return HealthCheckResponse.named("System")
+                              .up()
                               .build();
   }
 }

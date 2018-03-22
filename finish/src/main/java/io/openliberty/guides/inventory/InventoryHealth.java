@@ -53,12 +53,13 @@ public class InventoryHealth implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!isHealthy()) {
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                                .withData("services", "not available").down()
+      return HealthCheckResponse.named("Inventory")
+                                .down()
                                 .build();
     }
-    return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                              .withData("services", "available").up().build();
+    return HealthCheckResponse.named("Inventory")
+                              .up()
+                              .build();
   }
 
 }

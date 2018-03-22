@@ -71,9 +71,30 @@ The `system` and `inventory` services can be found at the following URLs:
 - http://localhost:9080/inventory/systems
 
 Visit the `http://localhost:9080/health` URL to see the health report of the two services as well as the overall
-health status of the application. One check shows the state of the `system` service, and the other shows the state of
+health status of the application:
+
+```
+{
+  "checks": [
+      {
+        "data": {},
+        "name": "System",
+        "state": "UP"
+      },
+      {
+        "data": {},
+        "name": "Inventory",
+        "state": "UP"
+      }
+  ],
+  "outcome": "UP"
+}
+```
+
+As you can see, there are two checks. One shows the state of the `system` service, and the other shows the state of
 the `inventory` service. As you might expect, both services are in the `UP` state, and the overall health status of
-the application is `UP`.
+the application is `UP`. In each check, the data field is left empty for simplicity. This field can be
+filled with custom information regarding the health of the two services.
 
 When you are done checking out the services, stop the Open Liberty server by running the following command:
 
