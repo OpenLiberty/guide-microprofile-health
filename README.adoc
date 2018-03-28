@@ -91,7 +91,7 @@ health status of the application:
 }
 ```
 
-The two checks represent the state of `inventory` and `system` services respectively.
+The two checks represent the state of `system` and `inventory` services respectively.
 As you might expect, both services are in the `UP` state, and the overall health status of
 the application is `UP`. In each check, the data property is left empty because it is optional.
 This property is used to add custom information that the service’s health check can consume.
