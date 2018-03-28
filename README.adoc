@@ -91,10 +91,10 @@ health status of the application:
 }
 ```
 
-As you can see, there are two checks. One shows the state of the `system` service, and the other shows the state of
-the `inventory` service. As you might expect, both services are in the `UP` state, and the overall health status of
-the application is `UP`. In each check, the data field is left empty for simplicity. This field can be
-filled with custom information regarding the health of the two services.
+The two checks represent the state of `inventory` and `system` services respectively.
+As you might expect, both services are in the `UP` state, and the overall health status of
+the application is `UP`. In each check, the data property is left empty because it is optional.
+This property is used to add custom information that the service’s health check can consume.
 
 When you are done checking out the services, stop the Open Liberty server by running the following command:
 
