@@ -18,7 +18,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import io.openliberty.guides.config.Email;
 
 @ApplicationScoped
 public class InventoryConfig {
@@ -35,24 +34,11 @@ public class InventoryConfig {
   private Provider<Boolean> inMaintenance;
   // end::build-in-converter[]
 
-  // tag::custom-converter[]
-  @Inject
-  @ConfigProperty(name = "io_openliberty_guides_email")
-  private Provider<Email> email;
-
-  // end::custom-converter[]
-
   // tag::isInMaintenance[]
   public boolean isInMaintenance() {
     return inMaintenance.get();
   }
   // end::isInMaintenance[]
-
-  // tag::getEmail[]
-  public Email getEmail() {
-    return email.get();
-  }
-  // end::getEmail[]
 
   // tag::getPortNumber[]
   public int getPortNumber() {
