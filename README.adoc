@@ -229,6 +229,9 @@ Results :
 Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
 ----
 
+To see whether the tests detect a failure, manually change the configuration of `io_openliberty_guides_inventory_inMaintenance` from `false` to `true` in the `resources/CustomConfigSource.json` file.
+Re-run the Maven build. You will see a test failure occur because the initial status of the `inventory` service is `DOWN`. 
+
 // =================================================================================================
 // Great work! You're done!
 // =================================================================================================
