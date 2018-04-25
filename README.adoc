@@ -9,7 +9,7 @@
 :page-layout: guide
 :page-duration: 20 minutes
 :page-releasedate: 2018-03-15
-:page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
+:page-description: Learn how to use MicroProfile Health to provide and check the health of a microservice.
 :page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty', 'microservices']
 :page-permalink: /guides/{projectid}
 :page-related-guides: ['microprofile-config', 'microprofile-metrics', 'cdi-intro', 'rest-intro']
