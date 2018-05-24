@@ -1,23 +1,33 @@
 language: java
 before_script:
-  - unset _JAVA_OPTIONS # Prevents issues such as formatting the test outputs
-  - cd finish
+- unset _JAVA_OPTIONS
+- cd finish
 script:
-  - mvn clean install
+- mvn clean install
 after_script:
-  - build=$(grep "Open Liberty" target/liberty/wlp/usr/servers/defaultServer/logs/console.log | cut -d' ' -f5 | cut -d')' -f1 ); release=$( echo "$build" | cut -d'/' -f1); number=$( echo "$build" | cut -d'/' -f2); ol_jv=$(grep -i "on java" target/liberty/wlp/usr/servers/defaultServer/logs/console.log); jv=$(printf '%s\n' "${ol_jv//$' on '/$'\n'}" | sed '2q;d'); echo -e "\n"; echo -e  "\033[1;34mOpen Liberty release:\033[0m \033[1;36m$release\033[0m"; echo -e "\033[1;34mOpen Liberty build number:\033[0m \033[1;36m$number\033[0m"; echo -e "\033[1;34mJava version:\033[0m \033[1;36m$jv\033[0m"; 
-  - cd target/liberty/wlp/usr/servers/defaultServer/logs/; repo_name=$(echo "$TRAVIS_REPO_SLUG" | sed -e "s/\//-/g"); if [ "$TRAVIS_TEST_RESULT" -eq 0 ]; then result="passed"; else result="failed"; fi; serverlogsarchive="$repo_name-$TRAVIS_BUILD_NUMBER-$result.zip";zip -r "$serverlogsarchive" .; curl -H "$JFROG_TOKEN" -T "$serverlogsarchive" "https://na.artifactory.swg-devops.com/artifactory/hyc-openliberty-guides-files-generic-local/";
+- build=$(grep "Open Liberty" target/liberty/wlp/usr/servers/defaultServer/logs/console.log
+  | cut -d' ' -f5 | cut -d')' -f1 ); release=$( echo "$build" | cut -d'/' -f1); number=$(
+  echo "$build" | cut -d'/' -f2); ol_jv=$(grep -i "on java" target/liberty/wlp/usr/servers/defaultServer/logs/console.log);
+  jv=$(printf '%s\n' "${ol_jv//$' on '/$'\n'}" | sed '2q;d'); echo -e "\n"; echo -e  "\033[1;34mOpen
+  Liberty release:\033[0m \033[1;36m$release\033[0m"; echo -e "\033[1;34mOpen Liberty
+  build number:\033[0m \033[1;36m$number\033[0m"; echo -e "\033[1;34mJava version:\033[0m
+  \033[1;36m$jv\033[0m";
+- cd target/liberty/wlp/usr/servers/defaultServer/logs/; repo_name=$(echo "$TRAVIS_REPO_SLUG"
+  | sed -e "s/\//-/g"); if [ "$TRAVIS_TEST_RESULT" -eq 0 ]; then result="passed";
+  else result="failed"; fi; serverlogsarchive="$repo_name-$TRAVIS_BUILD_NUMBER-$result.zip";zip
+  -r "$serverlogsarchive" .; curl -H "$JFROG_TOKEN" -T "$serverlogsarchive" "https://na.artifactory.swg-devops.com/artifactory/hyc-openliberty-guides-files-generic-local/";
 notifications:
-  slack: 
+  slack:
     template:
-        - "Build: <%{build_url}| %{build_number}> | Commit (<%{compare_url}|%{commit}>): %{commit_message}"
-        - "Repo@Branch: %{repository_slug}@%{branch}"
-        - "Author: %{author}" 
-        - "Summary: %{result} in %{duration}"
+    - 'Build: <%{build_url}| %{build_number}> | Commit (<%{compare_url}|%{commit}>):
+      %{commit_message}'
+    - 'Repo@Branch: %{repository_slug}@%{branch}'
+    - 'Author: %{author}'
+    - 'Summary: %{result} in %{duration}'
     rooms:
-      - #travis encrypt "TOKEN" --add notifications.slack.rooms
+      secure: Guf+x5c1a+UlVYOCKNu7qkejraOV+aqW3853IkVt4fwNie9YlH7948h43s9V9GWpVoetBrcE1pq4jepGgyIBB1O1+zu8AisIndQ/QrPGpIQDqZk9/jUY/3pjQ2svuETIMi933E5RXy+uaoU2H66ln4THenuxZOLtdpkvQOYdCejsO2ZbbeBv4townMn6XekoS6x7I4eGkCyMRO8YR1fVCnNpPx491Y3QyaShOioBKO6XirG+smuOwOaEzT4lOjQQm/uaUorGCY6FbzgaWTNM0mGIDUaAPdZ3mRMsLbWK79Vx0lZHt1KtFH2aEcUX4mGMMz0CVdMsTtD/irZG0MFGCsWMz9Kd+OPUAuq3cM1QqqDmsyRa+jvV9kl8RxCXrLOJdmbtRmSZhOwaQfCg5hZVLgizaDKgA4kV7bZSpanSqmlyIfuql/yRXhdNrdUFbVL0mUJmZfPJpmRBRFYN10nv7uvq4eu55rakx+HlehXqhaMQ5IVzs3Z3R4ZBSudB7fJ67PPoJtTJYjjLF21NC/Qz9P4PCzofWRJHx9R5DaJJRtpTdVOfA3Sl5BuyYZ7z/GBs28QGSgM0b+tf/BW6JP+GhUmev0hBux36eg1dTjbVKsa5kL2q6Yunzeemz2wTyXHKcf0oF9fa0gmDMcQAjRiHMwwA1W6/uDVWXYh6Y+wmGAY=
     on_success: never
     on_failure: always
 branches:
-  only: 
+  only:
   - master
