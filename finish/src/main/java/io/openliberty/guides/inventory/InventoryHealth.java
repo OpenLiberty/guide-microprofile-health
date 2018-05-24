@@ -30,12 +30,14 @@ public class InventoryHealth implements HealthCheck {
   @Inject
   InventoryConfig config;
 
+  private InventoryUtils invUtils = new InventoryUtils();
+
   public boolean isHealthy() {
     if (config.isInMaintenance()) {
       return false;
     }
     try {
-      String url = SystemClient.buildUrl("http", "localhost",
+      String url = invUtils.buildUrl("http", "localhost",
                                          Integer.parseInt(System.getProperty("default.http.port")),
                                          "/system/properties");
       Client client = ClientBuilder.newClient();

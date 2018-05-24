@@ -44,7 +44,8 @@ public class InventoryResource {
 
     if (!inventoryConfig.isInMaintenance()) {
       // tag::config-port[]
-      Properties props = manager.get(hostname, inventoryConfig.getPortNumber());
+      // Properties props = manager.get(hostname, inventoryConfig.getPortNumber());
+      Properties props = manager.get(hostname);
       // end::config-port[]
       if (props == null) {
         return Response.status(Response.Status.NOT_FOUND)
