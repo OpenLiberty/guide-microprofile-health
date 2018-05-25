@@ -22,28 +22,28 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class InventoryConfig {
 
-  // tag::port-number[]
-  @Inject
-  @ConfigProperty(name = "io_openliberty_guides_port_number")
-  private int portNumber;
-  // end::port-number[]
+	// tag::port-number[]
+	@Inject
+	@ConfigProperty(name = "io_openliberty_guides_port_number")
+	private int portNumber;
+	// end::port-number[]
 
-  // tag::build-in-converter[]
-  @Inject
-  @ConfigProperty(name = "io_openliberty_guides_inventory_inMaintenance")
-  private Provider<Boolean> inMaintenance;
-  // end::build-in-converter[]
+	// tag::build-in-converter[]
+	@Inject
+	@ConfigProperty(name = "io_openliberty_guides_inventory_inMaintenance")
+	private Provider<Boolean> inMaintenance;
+	// end::build-in-converter[]
 
-  // tag::isInMaintenance[]
-  public boolean isInMaintenance() {
-    return inMaintenance.get();
-  }
-  // end::isInMaintenance[]
+	// tag::isInMaintenance[]
+	public boolean isInMaintenance() {
+		return inMaintenance.get();
+	}
+	// end::isInMaintenance[]
 
-  // tag::getPortNumber[]
-  public int getPortNumber() {
-    return portNumber;
-  }
-  // end::getPortNumber[]
+	// tag::getPortNumber[]
+	public int getPortNumber() {
+		return portNumber;
+	}
+	// end::getPortNumber[]
 }
 // end::config-class[]

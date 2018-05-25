@@ -23,31 +23,31 @@ import io.openliberty.guides.inventory.client.SystemClient;
 @ApplicationScoped
 public class InventoryManager {
 
-  private InventoryList invList = new InventoryList();
-  private InventoryUtils invUtils = new InventoryUtils();
+	private InventoryList invList = new InventoryList();
+	private InventoryUtils invUtils = new InventoryUtils();
 
-  @Inject
-  @RestClient
-  private SystemClient defaultRestClient;
+	@Inject
+	@RestClient
+	private SystemClient defaultRestClient;
 
-  public Properties get(String hostname) {
+	public Properties get(String hostname) {
 
-    Properties properties = null;
-    if (hostname.equals("localhost")) {
-      properties = invUtils.getPropertiesWithDefaultHostName(defaultRestClient);
-    } else {
-      properties = invUtils.getPropertiesWithGivenHostName(hostname);
-    }
+		Properties properties = null;
+		if (hostname.equals("localhost")) {
+			properties = invUtils.getPropertiesWithDefaultHostName(defaultRestClient);
+		} else {
+			properties = invUtils.getPropertiesWithGivenHostName(hostname);
+		}
 
-    if (properties != null) {
-      invList.addToInventoryList(hostname, properties);
-    }
-    return properties;
-  }
+		if (properties != null) {
+			invList.addToInventoryList(hostname, properties);
+		}
+		return properties;
+	}
 
-  public InventoryList list() {
-    return invList;
-  }
+	public InventoryList list() {
+		return invList;
+	}
 
 }
 // end::manager[]
