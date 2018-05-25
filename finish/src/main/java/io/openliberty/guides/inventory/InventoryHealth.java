@@ -27,38 +27,41 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 @Health
 @ApplicationScoped
 public class InventoryHealth implements HealthCheck {
-	@Inject
-	InventoryConfig config;
+  @Inject
+  InventoryConfig config;
 
-	private InventoryUtils invUtils = new InventoryUtils();
+  private InventoryUtils invUtils = new InventoryUtils();
 
-	public boolean isHealthy() {
-		if (config.isInMaintenance()) {
-			return false;
-		}
-		try {
-			String url = invUtils.buildUrl("http", "localhost",
-					Integer.parseInt(System.getProperty("default.http.port")), "/system/properties");
-			Client client = ClientBuilder.newClient();
-			Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
-			if (response.getStatus() != 200) {
-				return false;
-			}
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
+  public boolean isHealthy() {
+    if (config.isInMaintenance()) {
+      return false;
+    }
+    try {
+      String url = invUtils.buildUrl("http", "localhost",
+          Integer.parseInt(System.getProperty("default.http.port")),
+          "/system/properties");
+      Client client = ClientBuilder.newClient();
+      Response response = client.target(url).request(MediaType.APPLICATION_JSON)
+                                .get();
+      if (response.getStatus() != 200) {
+        return false;
+      }
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
 
-	@Override
-	public HealthCheckResponse call() {
-		if (!isHealthy()) {
-			return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-					.withData("services", "not available").down().build();
-		}
-		return HealthCheckResponse.named(InventoryResource.class.getSimpleName()).withData("services", "available").up()
-				.build();
-	}
+  @Override
+  public HealthCheckResponse call() {
+    if (!isHealthy()) {
+      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
+                                .withData("services", "not available").down()
+                                .build();
+    }
+    return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
+                              .withData("services", "available").up().build();
+  }
 
 }
 // end::InventoryHealth[]

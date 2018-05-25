@@ -26,72 +26,76 @@ import io.openliberty.guides.inventory.client.UnknownUrlExceptionMapper;
 
 public class InventoryUtils {
 
-	private final String DEFAULT_PORT = System.getProperty("default.http.port");
+  private final String DEFAULT_PORT = System.getProperty("default.http.port");
 
-	public Properties getPropertiesWithDefaultHostName(SystemClient defaultRestClient) {
-		try {
-			return defaultRestClient.getProperties();
-		} catch (UnknownUrlException e) {
-			System.err.println("The given URL is unreachable.");
-		} catch (ProcessingException ex) {
-			handleProcessingException(ex);
-		}
-		return null;
-	}
+  public Properties getPropertiesWithDefaultHostName(
+      SystemClient defaultRestClient) {
+    try {
+      return defaultRestClient.getProperties();
+    } catch (UnknownUrlException e) {
+      System.err.println("The given URL is unreachable.");
+    } catch (ProcessingException ex) {
+      handleProcessingException(ex);
+    }
+    return null;
+  }
 
-	// tag::builder[]
-	public Properties getPropertiesWithGivenHostName(String hostname) {
-		String customURLString = "http://" + hostname + ":" + DEFAULT_PORT + "/system";
-		URL customURL = null;
-		try {
-			customURL = new URL(customURLString);
-			SystemClient customRestClient = RestClientBuilder.newBuilder().baseUrl(customURL)
-					.register(UnknownUrlExceptionMapper.class).build(SystemClient.class);
-			return customRestClient.getProperties();
-		} catch (ProcessingException ex) {
-			handleProcessingException(ex);
-		} catch (UnknownUrlException e) {
-			System.err.println("The given URL is unreachable.");
-		} catch (MalformedURLException e) {
-			System.err.println("The given URL is not formatted correctly.");
-		}
-		return null;
-	}
-	// end::builder[]
+  // tag::builder[]
+  public Properties getPropertiesWithGivenHostName(String hostname) {
+    String customURLString = "http://" + hostname + ":" + DEFAULT_PORT + "/system";
+    URL customURL = null;
+    try {
+      customURL = new URL(customURLString);
+      SystemClient customRestClient = RestClientBuilder.newBuilder()
+                                                       .baseUrl(customURL)
+                                                       .register(
+                                                           UnknownUrlExceptionMapper.class)
+                                                       .build(SystemClient.class);
+      return customRestClient.getProperties();
+    } catch (ProcessingException ex) {
+      handleProcessingException(ex);
+    } catch (UnknownUrlException e) {
+      System.err.println("The given URL is unreachable.");
+    } catch (MalformedURLException e) {
+      System.err.println("The given URL is not formatted correctly.");
+    }
+    return null;
+  }
+  // end::builder[]
 
-	public void handleProcessingException(ProcessingException ex) {
-		Throwable rootEx = ExceptionUtils.getRootCause(ex);
-		if (rootEx != null && rootEx instanceof UnknownHostException) {
-			System.err.println("The specified host is unknown.");
-		} else {
-			throw ex;
-		}
-	}
+  public void handleProcessingException(ProcessingException ex) {
+    Throwable rootEx = ExceptionUtils.getRootCause(ex);
+    if (rootEx != null && rootEx instanceof UnknownHostException) {
+      System.err.println("The specified host is unknown.");
+    } else {
+      throw ex;
+    }
+  }
 
-	// tag::doc[]
-	/**
-	 * Builds the URI string to the system service for a particular host.
-	 * 
-	 * @param protocol
-	 *            - http or https.
-	 * @param host
-	 *            - name of host.
-	 * @param port
-	 *            - port number.
-	 * @param path
-	 *            - Note that the path needs to start with a slash!!!
-	 * @return String representation of the URI to the system properties
-	 *         service.
-	 */
-	// end::doc[]
-	public static String buildUrl(String protocol, String host, int port, String path) {
-		try {
-			URI uri = new URI(protocol, null, host, port, path, null, null);
-			return uri.toString();
-		} catch (Exception e) {
-			System.out.println("URISyntaxException");
-			return null;
-		}
-	}
+  // tag::doc[]
+  /**
+   * Builds the URI string to the system service for a particular host.
+   * 
+   * @param protocol
+   *          - http or https.
+   * @param host
+   *          - name of host.
+   * @param port
+   *          - port number.
+   * @param path
+   *          - Note that the path needs to start with a slash!!!
+   * @return String representation of the URI to the system properties service.
+   */
+  // end::doc[]
+  public static String buildUrl(String protocol, String host, int port,
+      String path) {
+    try {
+      URI uri = new URI(protocol, null, host, port, path, null, null);
+      return uri.toString();
+    } catch (Exception e) {
+      System.out.println("URISyntaxException");
+      return null;
+    }
+  }
 
 }

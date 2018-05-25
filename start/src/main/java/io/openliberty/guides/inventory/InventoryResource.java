@@ -29,47 +29,48 @@ import io.openliberty.guides.inventory.InventoryConfig;
 @Path("systems")
 public class InventoryResource {
 
-	@Inject
-	InventoryManager manager;
+  @Inject
+  InventoryManager manager;
 
-	// tag::config-injection[]
-	@Inject
-	InventoryConfig inventoryConfig;
-	// end::config-injection[]
+  // tag::config-injection[]
+  @Inject
+  InventoryConfig inventoryConfig;
+  // end::config-injection[]
 
-	@GET
-	@Path("{hostname}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getPropertiesForHost(@PathParam("hostname") String hostname) {
+  @GET
+  @Path("{hostname}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getPropertiesForHost(@PathParam("hostname") String hostname) {
 
-		if (!inventoryConfig.isInMaintenance()) {
-			// tag::config-port[]
-			Properties props = manager.get(hostname);
-			// end::config-port[]
-			if (props == null) {
-				return Response.status(Response.Status.NOT_FOUND)
-						.entity("ERROR: Unknown hostname or the resource may not be running on the host machine")
-						.build();
-			}
-			return Response.ok(props).build();
-		} else {
-			// tag::email[]
-			return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-					.entity("ERROR: Service is currently in maintenance.").build();
-			// end::email[]
-		}
-	}
+    if (!inventoryConfig.isInMaintenance()) {
+      // tag::config-port[]
+      Properties props = manager.get(hostname);
+      // end::config-port[]
+      if (props == null) {
+        return Response.status(Response.Status.NOT_FOUND)
+                       .entity(
+                           "ERROR: Unknown hostname or the resource may not be running on the host machine")
+                       .build();
+      }
+      return Response.ok(props).build();
+    } else {
+      // tag::email[]
+      return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                     .entity("ERROR: Service is currently in maintenance.").build();
+      // end::email[]
+    }
+  }
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response listContents() {
-		if (!inventoryConfig.isInMaintenance()) {
-			return Response.ok(manager.list()).build();
-		} else {
-			return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-					.entity("ERROR: Service is currently in maintenance.").build();
-		}
-	}
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response listContents() {
+    if (!inventoryConfig.isInMaintenance()) {
+      return Response.ok(manager.list()).build();
+    } else {
+      return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                     .entity("ERROR: Service is currently in maintenance.").build();
+    }
+  }
 
 }
 
