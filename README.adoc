@@ -231,7 +231,7 @@ Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
 
 == Great work! You're done!
 
-You just learned how to add health checks to report the states of microservices by using MicroProfile Config.
+You just learned how to add health checks to report the states of microservices by using MicroProfile Health.
 Then, you wrote tests to validate the generated health report.
 
 Feel free to try one of the related MicroProfile guides. They demonstrate additional technologies that you
