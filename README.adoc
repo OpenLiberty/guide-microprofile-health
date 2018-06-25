@@ -9,8 +9,8 @@
 :page-layout: guide
 :page-duration: 20 minutes
 :page-releasedate: 2018-03-15
-:page-description: Learn how to provide and check the health of a microservice using MicroProfile Health.
-:page-tags: ['CDI', 'REST', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty', 'microservices']
+:page-description: Learn how to use MicroProfile Health to provide and check the health of a microservice.
+:page-tags: ['CDI', 'HealthCheck', 'MicroProfile', '@Health', 'Config', 'ConfigProperty', 'microservices']
 :page-permalink: /guides/{projectid}
 :page-related-guides: ['microprofile-config', 'microprofile-metrics', 'cdi-intro', 'rest-intro']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
@@ -87,6 +87,8 @@ mvn liberty:stop-server
 
 == Adding health checks to microservices
 
+Navigate to the `start` directory to begin.
+
 A health report will be generated automatically for all services that enable MicroProfile Health. This
 feature has already been enabled for you in the `src/main/liberty/config/server.xml` file:
 
@@ -104,12 +106,6 @@ verify their health.
 // =================================================================================================
 
 === Adding a health check to the system service
-
-Before you proceed, navigate to the `start` directory where you will find the starting project:
-
-```
-cd ../start
-```
 
 Implement the `HealthCheck` interface in the `src/main/java/io/openliberty/guides/system/SystemHealth.java` file:
 
@@ -238,7 +234,7 @@ Re-run the Maven build. You will see a test failure occur because the initial st
 
 == Great work! You're done!
 
-You just learned how to add health checks to report the states of microservices by using MicroProfile Config.
+You just learned how to add health checks to report the states of microservices by using MicroProfile Health.
 Then, you wrote tests to validate the generated health report.
 
 Feel free to try one of the related MicroProfile guides. They demonstrate additional technologies that you
