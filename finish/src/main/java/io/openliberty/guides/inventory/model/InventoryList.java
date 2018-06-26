@@ -18,50 +18,50 @@ import java.util.Properties;
 
 public class InventoryList {
 
-	private List<System> systems = new ArrayList<System>();
+  private List<System> systems = new ArrayList<System>();
 
-	public List<System> getSystems() {
-		return systems;
-	}
+  public List<System> getSystems() {
+    return systems;
+  }
 
-	public int getTotal() {
-		return systems.size();
-	}
+  public int getTotal() {
+    return systems.size();
+  }
 
-	public void addToInventoryList(String hostname, Properties systemProps) {
-		Properties props = new Properties();
-		props.setProperty("os.name", systemProps.getProperty("os.name"));
-		props.setProperty("user.name", systemProps.getProperty("user.name"));
+  public void addToInventoryList(String hostname, Properties systemProps) {
+    Properties props = new Properties();
+    props.setProperty("os.name", systemProps.getProperty("os.name"));
+    props.setProperty("user.name", systemProps.getProperty("user.name"));
 
-		System host = new System(hostname, props);
-		if (!systems.contains(host))
-			systems.add(host);
-	}
+    System host = new System(hostname, props);
+    if (!systems.contains(host))
+      systems.add(host);
+  }
 
-	class System {
+  class System {
 
-		private final String hostname;
-		private final Properties properties;
+    private final String hostname;
+    private final Properties properties;
 
-		public System(String hostname, Properties properties) {
-			this.hostname = hostname;
-			this.properties = properties;
-		}
+    public System(String hostname, Properties properties) {
+      this.hostname = hostname;
+      this.properties = properties;
+    }
 
-		public String getHostname() {
-			return hostname;
-		}
+    public String getHostname() {
+      return hostname;
+    }
 
-		public Properties getProperties() {
-			return properties;
-		}
+    public Properties getProperties() {
+      return properties;
+    }
 
-		@Override
-		public boolean equals(Object host) {
-			if (host instanceof System) {
-				return hostname.equals(((System) host).getHostname());
-			}
-			return false;
-		}
-	}
+    @Override
+    public boolean equals(Object host) {
+      if (host instanceof System) {
+        return hostname.equals(((System) host).getHostname());
+      }
+      return false;
+    }
+  }
 }
