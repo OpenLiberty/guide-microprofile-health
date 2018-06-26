@@ -20,7 +20,6 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 
 @Health
 @ApplicationScoped
-
 public class SystemHealth implements HealthCheck {
 	@Override
 	public HealthCheckResponse call() {
