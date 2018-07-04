@@ -10,24 +10,22 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
+// tag::manager[]
 package io.openliberty.guides.inventory;
 
 import java.util.Properties;
-import io.openliberty.guides.inventory.client.SystemClient;
-import io.openliberty.guides.inventory.model.InventoryList;
 import javax.enterprise.context.ApplicationScoped;
+import io.openliberty.guides.inventory.model.InventoryList;
 
-// tag::ApplicationScoped[]
 @ApplicationScoped
-// end::ApplicationScoped[]
 public class InventoryManager {
 
   private InventoryList invList = new InventoryList();
-  private SystemClient systemClient = new SystemClient();
+  private InventoryUtils invUtils = new InventoryUtils();
 
-  public Properties get(String hostname, int port) {
-    systemClient.init(hostname, port);
-    Properties properties = systemClient.getProperties();
+  public Properties get(String hostname, int portNumber) {
+    Properties properties = invUtils.getProperties(hostname, portNumber);
+
     if (properties != null) {
       invList.addToInventoryList(hostname, properties);
     }
@@ -37,4 +35,6 @@ public class InventoryManager {
   public InventoryList list() {
     return invList;
   }
+
 }
+// end::manager[]
