@@ -48,15 +48,15 @@ public class InventoryResource {
       // end::config-port[]
       if (props == null) {
         return Response.status(Response.Status.NOT_FOUND)
-               .entity("ERROR: Unknown hostname or the resource may not be running on the host machine")
-               .build();
+                       .entity(
+                           "ERROR: Unknown hostname or the resource may not be running on the host machine")
+                       .build();
       }
       return Response.ok(props).build();
     } else {
       // tag::email[]
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-             .entity("ERROR: Service is currently in maintenance.")
-             .build();
+                     .entity("ERROR: Service is currently in maintenance.").build();
       // end::email[]
     }
   }
@@ -68,8 +68,7 @@ public class InventoryResource {
       return Response.ok(manager.list()).build();
     } else {
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-             .entity("ERROR: Service is currently in maintenance.")
-             .build();
+                     .entity("ERROR: Service is currently in maintenance.").build();
     }
   }
 
