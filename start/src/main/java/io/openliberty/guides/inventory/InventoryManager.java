@@ -13,27 +13,35 @@
 // tag::manager[]
 package io.openliberty.guides.inventory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import javax.enterprise.context.ApplicationScoped;
-import io.openliberty.guides.inventory.model.InventoryList;
+import io.openliberty.guides.inventory.model.*;
 
 @ApplicationScoped
 public class InventoryManager {
 
-  private InventoryList invList = new InventoryList();
+  private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
   private InventoryUtils invUtils = new InventoryUtils();
 
   public Properties get(String hostname, int portNumber) {
-    Properties properties = invUtils.getProperties(hostname, portNumber);
+    return invUtils.getProperties(hostname, portNumber);
+  }
 
-    if (properties != null) {
-      invList.addToInventoryList(hostname, properties);
-    }
-    return properties;
+  public void add(String hostname, Properties systemProps) {
+    Properties props = new Properties();
+    props.setProperty("os.name", systemProps.getProperty("os.name"));
+    props.setProperty("user.name", systemProps.getProperty("user.name"));
+
+    SystemData host = new SystemData(hostname, props);
+    if (!systems.contains(host))
+      systems.add(host);
   }
 
   public InventoryList list() {
-    return invList;
+    return new InventoryList(systems);
   }
 
 }
