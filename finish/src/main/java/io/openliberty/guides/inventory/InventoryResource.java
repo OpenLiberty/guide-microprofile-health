@@ -43,6 +43,7 @@ public class InventoryResource {
   public Response getPropertiesForHost(@PathParam("hostname") String hostname) {
 
     if (!inventoryConfig.isInMaintenance()) {
+      // Get properties
       // tag::config-port[]
       Properties props = manager.get(hostname, inventoryConfig.getPortNumber());
       // end::config-port[]
@@ -52,6 +53,9 @@ public class InventoryResource {
                            "ERROR: Unknown hostname or the resource may not be running on the host machine")
                        .build();
       }
+
+      // Add to inventory
+      manager.add(hostname, props);
       return Response.ok(props).build();
     } else {
       // tag::email[]
