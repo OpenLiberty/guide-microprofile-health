@@ -14,14 +14,18 @@
 // tag::customConfig[]
 package io.openliberty.guides.config;
 
-import javax.json.stream.JsonParser;
-import javax.json.stream.JsonParser.Event;
-import javax.json.Json;
-import java.math.BigDecimal;
-import java.util.*;
-import java.io.StringReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.StringReader;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.json.Json;
+import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParser.Event;
+
 import org.eclipse.microprofile.config.spi.ConfigSource;
 
 public class CustomConfigSource implements ConfigSource {
