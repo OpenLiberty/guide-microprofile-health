@@ -50,7 +50,7 @@ necessary to report health status by using MicroProfile Health.
 // Getting Started
 // =================================================================================================
 
-[role=command]
+[role='command']
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
@@ -65,7 +65,7 @@ to use MicroProfile Health. Feel free to give them a try before you proceed.
 To try out the services, navigate to the `finish` directory and then run the Maven `install` and
 `liberty:start-server` goals to build the services and run them in Open Liberty:
 
-[role=command]
+[role='command']
 ----
 cd finish
 mvn install liberty:start-server
@@ -84,7 +84,7 @@ the application is `UP`.
 
 When you are done checking out the services, stop the Open Liberty server by running the following command:
 
-[role=command]
+[role='command']
 ----
 mvn liberty:stop-server
 ----
@@ -146,7 +146,7 @@ health checks.
 
 === Adding a health check to the inventory service
 
-[role="code_command hotspot=15-50", subs="quotes"] 
+[role="code_command hotspot=15-50 file=0", subs="quotes"] 
 ---- 
 Create the `InventoryHealth` class.
 `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`
@@ -182,7 +182,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 // Building and running the application
 // =================================================================================================
 
-[role=command]
+[role='command']
 include::{common-includes}/mvnbuild.adoc[]
 
 While the server is running, navigate to the `http://localhost:9080/health` URL to find the the health
@@ -210,7 +210,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 You will implement two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
 validate the health of the `system` and `inventory` services.
 
-[role="code_command hotspot=9-55", subs="quotes"] 
+[role="code_command hotspot=9-55 file=0", subs="quotes"] 
 ---- 
 Create the `HealthTest` class.
 `src/test/java/it/io/openliberty/guides/health/HealthTest.java`
@@ -223,9 +223,9 @@ include::finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java[ta
 
 Let's break down the test cases:
 
-- The [hotspot=27-30]`testIfServicesAreUp()` test case compares the generated health report 
+- The [hotspot=27-30 file=0]`testIfServicesAreUp()` test case compares the generated health report 
 with the actual status of the services.
-- The [hotspot=33-40]`testIfInventoryServiceIsDown()` test case puts the `inventory` service 
+- The [hotspot=33-40 file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service 
 in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` 
 property to `true` and then compares the generated health report with the actual status of 
 the service.
@@ -246,7 +246,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 // Running the tests
 // =================================================================================================
 
-[role=command]
+[role='command']
 include::{common-includes}/mvnverify.adoc[]
 
 [source, role="no_copy"]
