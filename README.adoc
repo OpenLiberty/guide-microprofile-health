@@ -121,6 +121,7 @@ Create the `SystemHealth` class.
 `src/main/java/io/openliberty/guides/system/SystemHealth.java`
 ---- 
 
+SystemHealth.java
 [source, java, linenums, role='code_column']
 ----
 include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tags=SystemHealth]
@@ -152,6 +153,7 @@ Create the `InventoryHealth` class.
 `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`
 ---- 
 
+InventoryHealth.java
 [source, java, linenums, role='code_column']
 ----
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java[tags=**]
@@ -173,6 +175,7 @@ If you are curious about the injected [hotspot=17 file=0]`inventoryConfig` objec
 you want more information on MicroProfile Config, see 
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices].
 
+CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
 include::finish/resources/CustomConfigSource.json[tags=**]
@@ -196,6 +199,7 @@ changed to `DOWN` as a result. Point to the `http://localhost:9080/inventory/sys
 that the `inventory` service is indeed in maintenance. Set the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
 property back to `false` once you are done.
 
+CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
 include::finish/resources/CustomConfigSource.json[tags=**]
@@ -216,6 +220,7 @@ Create the `HealthTest` class.
 `src/test/java/it/io/openliberty/guides/health/HealthTest.java`
 ---- 
 
+HealthTest.java
 [source, java, linenums, role='code_column']
 ----
 include::finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java[tags=**]
@@ -237,6 +242,7 @@ have introduced a bug into the code. These tests will run automatically as a par
 process when you run the `mvn install` command. You can also run these tests separately from the build
 by using the `mvn verify` command, but first make sure that the server is stopped.
 
+CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
 include::finish/resources/CustomConfigSource.json[tags=**]
