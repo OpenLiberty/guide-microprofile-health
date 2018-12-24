@@ -50,6 +50,7 @@ necessary to report health status by using MicroProfile Health.
 // Getting Started
 // =================================================================================================
 
+[role=command]
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
@@ -181,6 +182,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 // Building and running the application
 // =================================================================================================
 
+[role=command]
 include::{common-includes}/mvnbuild.adoc[]
 
 While the server is running, navigate to the `http://localhost:9080/health` URL to find the the health
