@@ -264,6 +264,9 @@ SystemEndpointTest.java
 include::finish/src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java[tags=!copyright]
 ----
 
+[role='command']
+include::{common-includes}/mvncompile.adoc[]
+
 // =================================================================================================
 // Running the tests
 // =================================================================================================
