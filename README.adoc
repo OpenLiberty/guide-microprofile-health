@@ -119,7 +119,7 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 
 [role="code_command hotspot=10-21", subs="quotes"] 
 ---- 
-Create the `SystemHealth` class.
+#Create the `SystemHealth` class.#
 `src/main/java/io/openliberty/guides/system/SystemHealth.java`
 ---- 
 
@@ -151,7 +151,7 @@ health checks.
 
 [role="code_command hotspot=15-50 file=0", subs="quotes"] 
 ---- 
-Create the `InventoryHealth` class.
+#Create the `InventoryHealth` class.#
 `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`
 ---- 
 
@@ -219,7 +219,7 @@ validate the health of the `system` and `inventory` services.
 
 [role="code_command hotspot=9-55 file=0", subs="quotes"] 
 ---- 
-Create the `HealthTest` class.
+#Create the `HealthTest` class.#
 `src/test/java/it/io/openliberty/guides/health/HealthTest.java`
 ---- 
 
