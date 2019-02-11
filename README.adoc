@@ -99,7 +99,7 @@ mvn liberty:stop-server
 Navigate to the `start` directory to begin.
 
 A health report will be generated automatically for all services that enable MicroProfile Health. The
-[hotspot=9]`mpHealth` feature has already been enabled for you in the [hotspot=1-15]`src/main/liberty/config/server.xml` 
+[hotspot=9]`mpHealth` feature has already been enabled for you in the [hotspot]`src/main/liberty/config/server.xml` 
 file.
 
 All services must provide an implementation of the `HealthCheck` interface, which will be used to
@@ -117,7 +117,7 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 
 === Adding a health check to the system service
 
-[role="code_command hotspot=10-21", subs="quotes"] 
+[role="code_command hotspot", subs="quotes"] 
 ---- 
 #Create the `SystemHealth` class.#
 `src/main/java/io/openliberty/guides/system/SystemHealth.java`
@@ -149,7 +149,7 @@ health checks.
 
 === Adding a health check to the inventory service
 
-[role="code_command hotspot=15-50 file=0", subs="quotes"] 
+[role="code_command hotspot file=0", subs="quotes"] 
 ---- 
 #Create the `InventoryHealth` class.#
 `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`
@@ -163,7 +163,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.ja
 
 This time, you are checking whether or not the service is in maintenance or if it's down. 
 For simplicity, the custom [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` 
-MicroProfile Config property defined in the [hotspot=1-4 file=1]`resources/CustomConfigSource.json` 
+MicroProfile Config property defined in the [hotspot file=1]`resources/CustomConfigSource.json` 
 file is used to indicate whether the service is in maintenance or not. This file has already 
 been created for you. To check if the service is down, simply make a HTTP GET request to 
 the `system` service and check the status returned by the response. You make a GET request 
@@ -194,7 +194,7 @@ While the server is running, navigate to the http://localhost:9080/health URL to
 report on the two services.
 
 Put the `inventory` service in maintenance by setting the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
-property to `true` in the [hotspot=1-4]`resources/CustomConfigSource.json` file. Because 
+property to `true` in the [hotspot]`resources/CustomConfigSource.json` file. Because 
 this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health 
 URL you will see that the state of the `inventory` service has changed to `DOWN`. The 
 overall state of the application has also changed to `DOWN` as a result. Point to the 
@@ -217,7 +217,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 You will implement two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
 validate the health of the `system` and `inventory` services.
 
-[role="code_command hotspot=9-55 file=0", subs="quotes"] 
+[role="code_command hotspot file=0", subs="quotes"] 
 ---- 
 #Create the `HealthTest` class.#
 `src/test/java/it/io/openliberty/guides/health/HealthTest.java`
@@ -239,8 +239,8 @@ property to `true` and then compares the generated health report with the actual
 the service.
 
 A few more tests have been included to verify the basic functionalitiy of the `system` and `inventory`
-services. They can be found under the [hotspot=1-191 file=2]`src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java`
-and [hotspot=1-35 file=3]`src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java` files. 
+services. They can be found under the [hotspot file=2]`src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java`
+and [hotspot file=3]`src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java` files. 
 If a test failure occurs, then you might have introduced a bug into the code. These tests 
 will run automatically as a part of the Maven build process when you run the `mvn install` 
 command. You can also run these tests separately from the build by using the `mvn verify` 
