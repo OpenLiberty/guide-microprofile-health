@@ -190,15 +190,15 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 [role='command']
 include::{common-includes}/mvnbuild.adoc[]
 
-While the server is running, navigate to the http://localhost:9080/health URL to find the the health
+While the server is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find the the health
 report on the two services.
 
 Put the `inventory` service in maintenance by setting the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
 property to `true` in the [hotspot]`resources/CustomConfigSource.json` file. Because 
-this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health 
+this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health[http://localhost:9080/health^] 
 URL you will see that the state of the `inventory` service has changed to `DOWN`. The 
 overall state of the application has also changed to `DOWN` as a result. Point to the 
-http://localhost:9080/inventory/systems URL to verify that the `inventory` service is 
+http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^] URL to verify that the `inventory` service is 
 indeed in maintenance. Set the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
 property back to `false` once you are done.
 
