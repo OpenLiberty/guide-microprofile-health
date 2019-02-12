@@ -175,7 +175,7 @@ or not the `inventory` service is healthy.
 
 If you are curious about the injected [hotspot=17 file=0]`inventoryConfig` object or if 
 you want more information on MicroProfile Config, see 
-https://openliberty.io/guides/microprofile-config.html[Configuring microservices].
+https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
