@@ -74,11 +74,11 @@ mvn install liberty:start-server
 
 The `system` and `inventory` services can be found at the following URLs:
 
-- http://localhost:9080/system/properties
+- http://localhost:9080/system/properties[http://localhost:9080/system/properties^]
 
-- http://localhost:9080/inventory/systems
+- http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
 
-Visit the http://localhost:9080/health URL to see the health report of the two services as well as the overall
+Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the health report of the two services as well as the overall
 health status of the application. One check shows the state of the `system` service, and the other shows the state of
 the `inventory` service. As you might expect, both services are in the `UP` state, and the overall health status of
 the application is `UP`.
@@ -117,7 +117,7 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 
 === Adding a health check to the system service
 
-[role="code_command hotspot", subs="quotes"] 
+[role="code_command", subs="quotes"] 
 ---- 
 #Create the `SystemHealth` class.#
 `src/main/java/io/openliberty/guides/system/SystemHealth.java`
@@ -132,7 +132,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tag
 The [hotspot=8]`@Health` annotation indicates that this particular bean implements the 
 [hotspot=10]`HealthCheck` interface. By pairing this annotation with the [hotspot=9]`ApplicationScoped` 
 context from the Contexts and Dependency Injections API, the bean is discovered
-automatically when the http://localhost:9080/health endpoint receives a request.
+automatically when the http://localhost:9080/health[http://localhost:9080/health^] endpoint receives a request.
 
 The [hotspot=12-20]`call()` method is used to return the health status of a particular service. 
 In this case, you are simply checking if the server name is [hotspot=13]`defaultServer` and 
@@ -149,7 +149,7 @@ health checks.
 
 === Adding a health check to the inventory service
 
-[role="code_command hotspot file=0", subs="quotes"] 
+[role="code_command file=0", subs="quotes"] 
 ---- 
 #Create the `InventoryHealth` class.#
 `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`
@@ -217,7 +217,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 You will implement two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
 validate the health of the `system` and `inventory` services.
 
-[role="code_command hotspot file=0", subs="quotes"] 
+[role="code_command file=0", subs="quotes"] 
 ---- 
 #Create the `HealthTest` class.#
 `src/test/java/it/io/openliberty/guides/health/HealthTest.java`
