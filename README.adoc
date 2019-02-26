@@ -309,4 +309,4 @@ health report.
 Feel free to try one of the related MicroProfile guides. They demonstrate additional 
 technologies that you can learn and expand on top of what you built here.
 
-include::https://raw.githubusercontent.com/OpenLiberty/guides-common/multipane/attribution.adoc[subs="attributes"]
+include::{common-includes}/attribution.adoc[subs="attributes"]
