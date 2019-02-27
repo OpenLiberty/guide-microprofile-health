@@ -117,7 +117,7 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 
 === Adding a health check to the system service
 
-[role="code_command", subs="quotes"] 
+[role="code_command hotspot", subs="quotes"] 
 ---- 
 #Create the `SystemHealth` class.#
 `src/main/java/io/openliberty/guides/system/SystemHealth.java`
@@ -149,7 +149,7 @@ health checks.
 
 === Adding a health check to the inventory service
 
-[role="code_command file=0", subs="quotes"] 
+[role="code_command hotspot file=0", subs="quotes"] 
 ---- 
 #Create the `InventoryHealth` class.#
 `src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`
@@ -217,7 +217,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 You will implement two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
 validate the health of the `system` and `inventory` services.
 
-[role="code_command file=0", subs="quotes"] 
+[role="code_command hotspot file=0", subs="quotes"] 
 ---- 
 #Create the `HealthTest` class.#
 `src/test/java/it/io/openliberty/guides/health/HealthTest.java`
@@ -264,8 +264,6 @@ SystemEndpointTest.java
 include::finish/src/test/java/it/io/openliberty/guides/system/SystemEndpointTest.java[tags=!copyright]
 ----
 
-[role='command']
-include::{common-includes}/mvncompile.adoc[]
 
 // =================================================================================================
 // Running the tests
