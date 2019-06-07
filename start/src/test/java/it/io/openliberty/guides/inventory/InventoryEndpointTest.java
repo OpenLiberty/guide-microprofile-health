@@ -143,7 +143,7 @@ public class InventoryEndpointTest {
 
     String obj = badResponse.readEntity(String.class);
 
-    boolean isError = obj.contains("ERROR");
+    boolean isError = obj.contains("error");
     assertTrue("badhostname is not a valid host but it didn't raise an error",
                isError);
 
