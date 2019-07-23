@@ -32,7 +32,7 @@ public class HealthTestUtil {
 
   private static String port;
   private static String baseUrl;
-  private final static String HEALTH_ENDPOINT = "health";
+  private final static String HEALTH_ENDPOINT = "health/live";
   public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_inMaintenance\":false";
   public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_inMaintenance\":true";
 
@@ -60,7 +60,7 @@ public class HealthTestUtil {
     for (Object obj : servicesStates) {
       if (obj instanceof JsonObject) {
         if (service.equals(((JsonObject) obj).getString("name"))) {
-          state = ((JsonObject) obj).getString("state");
+          state = ((JsonObject) obj).getString("status");
         }
       }
     }

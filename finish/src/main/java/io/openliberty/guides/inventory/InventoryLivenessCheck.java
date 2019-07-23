@@ -19,46 +19,31 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.eclipse.microprofile.health.Health;
+
+import java.lang.management.MemoryMXBean;
+import java.lang.management.ManagementFactory;
+
+import org.eclipse.microprofile.health.Liveness;
+
+import io.openliberty.guides.system.SystemResource;
+
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
-@Health
+@Liveness
 @ApplicationScoped
-public class InventoryHealth implements HealthCheck {
-  @Inject
-  InventoryConfig config;
-
-  public boolean isHealthy() {
-    if (config.isInMaintenance()) {
-      return false;
-    }
-    try {
-      String url = InventoryUtils.buildUrl("http", "localhost",
-          Integer.parseInt(System.getProperty("default.http.port")),
-          "/system/properties");
-      Client client = ClientBuilder.newClient();
-      Response response = client.target(url).request(MediaType.APPLICATION_JSON)
-                                .get();
-      if (response.getStatus() != 200) {
-        return false;
-      }
-      return true;
-    } catch (Exception e) {
-      return false;
-    }
-  }
-
+public class InventoryLivenessCheck implements HealthCheck {
+ 
   @Override
   public HealthCheckResponse call() {
-    if (!isHealthy()) {
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                                .withData("services", "not available").down()
-                                .build();
-    }
-    return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                              .withData("services", "available").up().build();
-  }
+      MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
+      long memUsed = memBean.getHeapMemoryUsage().getUsed();
+      long memMax = memBean.getHeapMemoryUsage().getMax();
 
+      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
+                                .withData("memory used", memUsed)
+                                .withData("memory max", memMax)
+                                .state(memUsed < memMax * 0.9).build();
+  }
 }
 // end::InventoryHealth[]
