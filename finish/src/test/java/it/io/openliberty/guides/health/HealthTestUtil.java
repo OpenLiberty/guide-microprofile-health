@@ -32,7 +32,6 @@ public class HealthTestUtil {
 
   private static String port;
   private static String baseUrl;
-  private final static String HEALTH_ENDPOINT = "health/live";
   public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_inMaintenance\":false";
   public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_inMaintenance\":true";
 
@@ -41,8 +40,8 @@ public class HealthTestUtil {
     baseUrl = "http://localhost:" + port + "/";
   }
 
-  public static JsonArray connectToHealthEnpoint(int expectedResponseCode) {
-    String healthURL = baseUrl + HEALTH_ENDPOINT;
+  public static JsonArray connectToHealthEnpoint(int expectedResponseCode, String endpoint) {
+    String healthURL = baseUrl + endpoint;
     Client client = ClientBuilder.newClient().register(JsrJsonpProvider.class);
     Response response = client.target(healthURL).request().get();
     assertEquals("Response code is not matching " + healthURL,

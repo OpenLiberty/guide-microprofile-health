@@ -24,11 +24,11 @@ public class SystemReadinessCheck implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
-      return HealthCheckResponse.named(SystemResource.class.getSimpleName())
+      return HealthCheckResponse.named(SystemResource.class.getSimpleName() + "Readiness")
                                 .withData("default server", "not available").down()
                                 .build();
     }
-    return HealthCheckResponse.named(SystemResource.class.getSimpleName())
+    return HealthCheckResponse.named(SystemResource.class.getSimpleName() + "Readiness")
                               .withData("default server", "available").up().build();
   }
 }

@@ -38,8 +38,7 @@ public class InventoryReadinessCheck implements HealthCheck {
           Integer.parseInt(System.getProperty("default.http.port")),
           "/system/properties");
       Client client = ClientBuilder.newClient();
-      Response response = client.target(url).request(MediaType.APPLICATION_JSON)
-                                .get();
+      Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
       if (response.getStatus() != 200) {
         return false;
       }
@@ -52,11 +51,11 @@ public class InventoryReadinessCheck implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!isHealthy()) {
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
+      return HealthCheckResponse.named(InventoryResource.class.getSimpleName() + "Readiness")
                                 .withData("services", "not available").down()
                                 .build();
     }
-    return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
+    return HealthCheckResponse.named(InventoryResource.class.getSimpleName() + "Readiness")
                               .withData("services", "available").up().build();
   }
 

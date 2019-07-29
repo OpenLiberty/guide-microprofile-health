@@ -17,40 +17,68 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import javax.json.JsonArray;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class HealthTest {
 
     private JsonArray servicesStates;
-    private static HashMap<String, String> dataWhenServicesUP;
-    private static HashMap<String, String> dataWhenInventoryDown;
+    private static HashMap<String, String> endpointData;
+ 
+    private String HEALTH_ENDPOINT = "/health";
+    private String READINESS_ENDPOINT = "/health/ready";
+    private String LIVENES_ENDPOINT = "/health/live";
 
-    static {
-        dataWhenServicesUP = new HashMap<String, String>();
-        dataWhenInventoryDown = new HashMap<String, String>();
-
-        dataWhenServicesUP.put("SystemResource", "UP");
-        dataWhenServicesUP.put("InventoryResource", "UP");
-
-        dataWhenInventoryDown.put("SystemResource", "UP");
-        dataWhenInventoryDown.put("InventoryResource", "DOWN");
+    @Before
+    public void setup() {
+        endpointData = new HashMap<String, String>();
     }
 
     @Test
     public void testIfServicesAreUp() {
-        servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
-        checkStates(dataWhenServicesUP, servicesStates);
+        endpointData.put("SystemResourceReadiness", "UP");
+        endpointData.put("SystemResourceLiveness", "UP");
+        endpointData.put("InventoryResourceReadiness", "UP");
+        endpointData.put("InventoryResourceLiveness", "UP");
+
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
+        checkStates(endpointData, servicesStates);
+    }
+
+    @Test
+    public void testReadinessEndpoint() {
+        endpointData.put("SystemResourceReadiness", "UP");
+        endpointData.put("InventoryResourceReadiness", "UP");
+
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
+        checkStates(endpointData, servicesStates);
+    }
+
+    @Test
+    public void testLivenessEndpoint() {
+        endpointData.put("SystemResourceLiveness", "UP");
+        endpointData.put("InventoryResourceLiveness", "UP");
+
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
+        checkStates(endpointData, servicesStates);
     }
 
     @Test
     public void testIfInventoryServiceIsDown() {
-        servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
-        checkStates(dataWhenServicesUP, servicesStates);
+        endpointData.put("SystemResourceReadiness", "UP");
+        endpointData.put("SystemResourceLiveness", "UP");
+        endpointData.put("InventoryResourceReadiness", "UP");
+        endpointData.put("InventoryResourceLiveness", "UP");
+
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
+        checkStates(endpointData, servicesStates);
+
+        endpointData.put("InventoryResourceReadiness", "DOWN");
         HealthTestUtil.changeInventoryProperty(HealthTestUtil.INV_MAINTENANCE_FALSE, 
                                                HealthTestUtil.INV_MAINTENANCE_TRUE);
-        servicesStates = HealthTestUtil.connectToHealthEnpoint(503);
-        checkStates(dataWhenInventoryDown, servicesStates);
-    }
+        servicesStates = HealthTestUtil.connectToHealthEnpoint(503, HEALTH_ENDPOINT);
+        checkStates(endpointData, servicesStates);
+   }
 
     private void checkStates(HashMap<String, String> testData, JsonArray servStates) {
         testData.forEach((service, expectedState) -> {
