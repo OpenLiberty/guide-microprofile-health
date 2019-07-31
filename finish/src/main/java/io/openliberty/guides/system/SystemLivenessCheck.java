@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-// tag::SystemHealth[]
+// tag::SystemLivenessCheck[]
 package io.openliberty.guides.system;
 
 import java.lang.management.ManagementFactory;
@@ -37,4 +37,4 @@ public class SystemLivenessCheck implements HealthCheck {
                               .state(memUsed < memMax * 0.9).build();
   }
 }
-// end::SystemHealth[]
+// end::SystemLivenessCheck[]

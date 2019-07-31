@@ -138,7 +138,7 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 SystemReadinessCheck.java
 [source, java, linenums, role='code_column']
 ----
-include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[tags=SystemHealth]
+include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[tags=SystemReadinessCheck]
 ----
 
 The [hotspot=8 file=0]`@Readiness` annotation indicates that this is a readiness health check procedure. 
@@ -164,7 +164,7 @@ health checks.
 SystemLivenessCheck.java
 [source, java, linenums, role='code_column']
 ----
-include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[tags=SystemHealth]
+include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[tags=SystemLivenessCheck]
 ----
 
 The [hotspot=11 file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
@@ -186,7 +186,7 @@ is being used, a status of `DOWN` will be returned.
 InventoryReadinessCheck.java
 [source, java, linenums, role='code_column']
 ----
-include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[tags=InventoryHealth]
+include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[tags=InventoryReadinessCheck]
 ----
 
 This time, you are checking whether or not the service is in maintenance or if it's down. 
@@ -214,7 +214,7 @@ https://openliberty.io/guides/microprofile-config.html[Configuring microservices
 InventoryLivenessCheck.java
 [source, java, linenums, role='code_column']
 ----
-include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java[tags=InventoryHealth]
+include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java[tags=InventoryLivenessCheck]
 ----
 
 Just like the `system` liveness check, you are checking the heap memory usage. If more 

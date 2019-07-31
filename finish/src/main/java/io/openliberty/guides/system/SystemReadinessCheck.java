@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-// tag::SystemHealth[]
+// tag::SystemReadinessCheck[]
 package io.openliberty.guides.system;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -32,4 +32,4 @@ public class SystemReadinessCheck implements HealthCheck {
                               .withData("default server", "available").up().build();
   }
 }
-// end::SystemHealth[]
+// end::SystemReadinessCheck[]

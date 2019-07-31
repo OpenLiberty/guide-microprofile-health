@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-// tag::InventoryHealth[]
+// tag::InventoryReadinessCheck[]
 package io.openliberty.guides.inventory;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -60,4 +60,4 @@ public class InventoryReadinessCheck implements HealthCheck {
   }
 
 }
-// end::InventoryHealth[]
+// end::InventoryReadinessCheck[]

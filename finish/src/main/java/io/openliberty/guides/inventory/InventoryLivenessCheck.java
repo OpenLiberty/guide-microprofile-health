@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-// tag::InventoryHealth[]
+// tag::InventoryLivenessCheck[]
 package io.openliberty.guides.inventory;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -39,4 +39,4 @@ public class InventoryLivenessCheck implements HealthCheck {
                                 .state(memUsed < memMax * 0.9).build();
   }
 }
-// end::InventoryHealth[]
+// end::InventoryLivenessCheck[]
