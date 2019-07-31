@@ -42,10 +42,11 @@ orchestrator can then use the health statuses to make decisions.
 A service checks its own health by performing necessary self-checks and then reports its overall status by
 implementing the API provided by MicroProfile Health. A self-check can be a check on anything that the service needs, such
 as a dependency, a successful connection to an endpoint, a system property, a database connection, or
-the availability of required resources.
+the availability of required resources. Microprofile offers checks for both liveness and readiness.
 
-You will add self-checks to the `system` and `inventory` services, which have been provided for you, and implement what is
-necessary to report health status by using MicroProfile Health.
+You will add liveness and readiness checks to the `system` and `inventory` services, which 
+have been provided for you, and implement what is necessary to report health status by 
+using MicroProfile Health.
 
 // =================================================================================================
 // Getting Started
@@ -78,10 +79,16 @@ The `system` and `inventory` services can be found at the following URLs:
 
 - http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
 
-Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the health report of the two services as well as the overall
-health status of the application. One check shows the state of the `system` service, and the other shows the state of
-the `inventory` service. As you might expect, both services are in the `UP` state, and the overall health status of
-the application is `UP`.
+Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the 
+overall health status of the application as well as the aggregated data of the liveness
+and readiness checks. Two checks show the state of the `system` service, and the other two
+show the state of the `inventory` service. As you might expect, both services are in the 
+`UP` state, and the overall health status of the application is `UP`.
+
+You can also access the `/health/ready` endpoint by visiting the http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
+URL to view the data from the readiness health checks. Similarily, access the `/health/live`
+endpoint by visiting the http://localhost:9080/health/live[http://localhost:9080/health/live^]  
+URL to view the data from the liveness health checks.
 
 When you are done checking out the services, stop the Open Liberty server by running the following command:
 
@@ -103,7 +110,12 @@ A health report will be generated automatically for all services that enable Mic
 file.
 
 All services must provide an implementation of the `HealthCheck` interface, which will be used to
-verify their health.
+verify their health. MicroProfile Health offers health checks for both readiness and liveness. 
+A readiness check allows third-party services, such as Kubernetes, to know if the microservice 
+is ready to process requests. For example, verifying a database connection. A liveness check 
+allows third-party services to determine if the microservice is running. If the liveness check
+fails, this means that the application can be terminated. For example, if the application 
+runs out of memory. 
 
 server.xml 
 [source, xml, linenums, role='code_column'] 
@@ -112,27 +124,27 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 ---- 
 
 // =================================================================================================
-// Adding a health check to the system service
+// Adding health checks to the system service
 // =================================================================================================
 
-=== Adding a health check to the system service
+=== Adding health checks to the system service
 
 [role="code_command hotspot", subs="quotes"] 
 ---- 
-#Create the `SystemHealth` class.#
+#Create the `SystemReadinessCheck` class.#
 `src/main/java/io/openliberty/guides/system/SystemHealth.java`
 ---- 
 
-SystemHealth.java
+SystemReadinessCheck.java
 [source, java, linenums, role='code_column']
 ----
-include::finish/src/main/java/io/openliberty/guides/system/SystemHealth.java[tags=SystemHealth]
+include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[tags=SystemHealth]
 ----
 
-The [hotspot=8]`@Health` annotation indicates that this particular bean implements the 
-[hotspot=10]`HealthCheck` interface. By pairing this annotation with the [hotspot=9]`ApplicationScoped` 
-context from the Contexts and Dependency Injections API, the bean is discovered
-automatically when the http://localhost:9080/health[http://localhost:9080/health^] endpoint receives a request.
+The [hotspot=8 file=0]`@Readiness` annotation indicates that this is a readiness health check procedure. 
+By pairing this annotation with the [hotspot=9]`ApplicationScoped` context from the Contexts and 
+Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health[http://localhost:9080/health^] 
+endpoint receives a request.
 
 The [hotspot=12-20]`call()` method is used to return the health status of a particular service. 
 In this case, you are simply checking if the server name is [hotspot=13]`defaultServer` and 
@@ -143,22 +155,38 @@ method. In a real development environment, you would want to orchestrate much mo
 health checks.
 
 
+[role="code_command hotspot", subs="quotes"] 
+---- 
+#Create the `SystemLivenessCheck` class.#
+`src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java`
+---- 
+
+SystemLivenessCheck.java
+[source, java, linenums, role='code_column']
+----
+include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[tags=SystemHealth]
+----
+
+The [hotspot=11 file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
+In this case, you are checking the heap memory usage. If more than 90% of the maximum memory
+is being used, a status of `DOWN` will be returned.  
+
 // =================================================================================================
-// Adding a health check to the inventory service
+// Adding health checks to the inventory service
 // =================================================================================================
 
-=== Adding a health check to the inventory service
+=== Adding health checks to the inventory service
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
-#Create the `InventoryHealth` class.#
-`src/main/java/io/openliberty/guides/inventory/InventoryHealth.java`
+#Create the `InventoryReadinessCheck` class.#
+`src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java`
 ---- 
 
-InventoryHealth.java
+InventoryReadinessCheck.java
 [source, java, linenums, role='code_column']
 ----
-include::finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java[tags=InventoryHealth]
+include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[tags=InventoryHealth]
 ----
 
 This time, you are checking whether or not the service is in maintenance or if it's down. 
@@ -177,6 +205,21 @@ If you are curious about the injected [hotspot=17 file=0]`inventoryConfig` objec
 you want more information on MicroProfile Config, see 
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
+[role="code_command hotspot file=0", subs="quotes"] 
+---- 
+#Create the `InventoryLivenessCheck` class.#
+`src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java`
+---- 
+
+InventoryLivenessCheck.java
+[source, java, linenums, role='code_column']
+----
+include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java[tags=InventoryHealth]
+----
+
+Just like the `system` liveness check, you are checking the heap memory usage. If more 
+than 90% of the maximum memory is being used, a status of `DOWN` will be returned.  
+
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
@@ -190,8 +233,12 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 [role='command']
 include::{common-includes}/mvnbuild.adoc[]
 
-While the server is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find the the health
-report on the two services.
+While the server is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find
+the aggregated liveness and readiness health reports on the two services.
+
+You can also navigate to http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
+URL to view the readiness health report or the http://localhost:9080/health/live[http://localhost:9080/health/live^] 
+URL to view the liveness health report.
 
 Put the `inventory` service in maintenance by setting the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
 property to `true` in the [hotspot]`resources/CustomConfigSource.json` file. Because 
