@@ -155,7 +155,7 @@ method. In a real development environment, you would want to orchestrate much mo
 health checks.
 
 
-[role="code_command hotspot", subs="quotes"] 
+[role="code_command hotspot file=1", subs="quotes"] 
 ---- 
 #Create the `SystemLivenessCheck` class.#
 `src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java`
@@ -190,22 +190,22 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadiness
 ----
 
 This time, you are checking whether or not the service is in maintenance or if it's down. 
-For simplicity, the custom [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` 
-MicroProfile Config property defined in the [hotspot file=1]`resources/CustomConfigSource.json` 
+For simplicity, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance` 
+MicroProfile Config property defined in the [hotspot file=2]`resources/CustomConfigSource.json` 
 file is used to indicate whether the service is in maintenance or not. This file has already 
 been created for you. To check if the service is down, simply make a HTTP GET request to 
 the `system` service and check the status returned by the response. You make a GET request 
 to the `system` service rather than the `inventory` service because the `inventory` service 
 depends on the `system` service. In other words, the `inventory` service wouldn't work if 
 the `system` service is down. If the status is not 200, then the service is not running. 
-Based on these two factors, the [hotspot=19-37 file=0]`isHealthy()` method returns whether 
+Based on these two factors, the [hotspot=19-36 file=0]`isHealthy()` method returns whether 
 or not the `inventory` service is healthy.
 
 If you are curious about the injected [hotspot=17 file=0]`inventoryConfig` object or if 
 you want more information on MicroProfile Config, see 
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
-[role="code_command hotspot file=0", subs="quotes"] 
+[role="code_command hotspot file=1", subs="quotes"] 
 ---- 
 #Create the `InventoryLivenessCheck` class.#
 `src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java`
@@ -278,9 +278,9 @@ include::finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java[ta
 
 Let's break down the test cases:
 
-- The [hotspot=27-30 file=0]`testIfServicesAreUp()` test case compares the generated health report 
+- The [hotspot=25-33 file=0]`testIfServicesAreUp()` test case compares the generated health report 
 with the actual status of the services.
-- The [hotspot=33-40 file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service 
+- The [hotspot=54-68 file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service 
 in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` 
 property to `true` and then compares the generated health report with the actual status of 
 the service.
