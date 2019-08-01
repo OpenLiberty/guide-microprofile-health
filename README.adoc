@@ -280,9 +280,9 @@ Let's break down the test cases:
 
 - The [hotspot=25-33 file=0]`testIfServicesAreUp()` test case compares the generated health report 
 with the actual status of the services. 
-- The [hotspot=28-34 file=0]`testReadiness()` test case compares the generated health report for the 
+- The [hotspot=36-42 file=0]`testReadiness()` test case compares the generated health report for the 
 readiness checks with the actual status of the services. 
-- The [hotspot=28-34 file=0]`testLiveness()` test case compares the generated health report for the 
+- The [hotspot=45-51 file=0]`testLiveness()` test case compares the generated health report for the 
 liveness checks with the actual status of the services. 
 - The [hotspot=54-68 file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service 
 in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` 
