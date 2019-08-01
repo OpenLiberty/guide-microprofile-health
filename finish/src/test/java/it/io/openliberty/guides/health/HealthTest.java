@@ -46,7 +46,7 @@ public class HealthTest {
     }
 
     @Test
-    public void testReadinessEndpoint() {
+    public void testReadiness() {
         endpointData.put("SystemResourceReadiness", "UP");
         endpointData.put("InventoryResourceReadiness", "UP");
 
@@ -55,7 +55,7 @@ public class HealthTest {
     }
 
     @Test
-    public void testLivenessEndpoint() {
+    public void testLiveness() {
         endpointData.put("SystemResourceLiveness", "UP");
         endpointData.put("InventoryResourceLiveness", "UP");
 

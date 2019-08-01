@@ -132,7 +132,7 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 [role="code_command hotspot", subs="quotes"] 
 ---- 
 #Create the `SystemReadinessCheck` class.#
-`src/main/java/io/openliberty/guides/system/SystemHealth.java`
+`src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java`
 ---- 
 
 SystemReadinessCheck.java
@@ -261,8 +261,8 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 
 == Testing health checks
 
-You will implement two test methods, `testIfServicesAreUp()` and `testIfInventoryServiceIsDown()`, to
-validate the health of the `system` and `inventory` services.
+You will implement several test methods, `testIfServicesAreUp()`, `testReadiness`, `testLiveness` and 
+`testIfInventoryServiceIsDown()`, to validate the health of the `system` and `inventory` services.
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
@@ -279,7 +279,11 @@ include::finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java[ta
 Let's break down the test cases:
 
 - The [hotspot=25-33 file=0]`testIfServicesAreUp()` test case compares the generated health report 
-with the actual status of the services.
+with the actual status of the services. 
+- The [hotspot=28-34 file=0]`testReadiness()` test case compares the generated health report for the 
+readiness checks with the actual status of the services. 
+- The [hotspot=28-34 file=0]`testLiveness()` test case compares the generated health report for the 
+liveness checks with the actual status of the services. 
 - The [hotspot=54-68 file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service 
 in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` 
 property to `true` and then compares the generated health report with the actual status of 
