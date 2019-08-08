@@ -17,8 +17,8 @@
 :page-related-guides: ['microprofile-config', 'microprofile-metrics', 'cdi-intro', 'rest-intro']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-:page-seo-title: Checking the health of microservices using MicroProfile Health Check
-:page-seo-description: A tutorial on how to report the health status of Java microservices by implementing readiness and liveness checks using MicroProfile Health Check.
+:page-seo-title: Checking the health of microservices by using MicroProfile Health Check
+:page-seo-description: A tutorial on how to report the health status of Java microservices by implementing readiness and liveness checks by using MicroProfile Health Check.
 :guide-author: Open Liberty
 = Adding health reports to microservices
 
@@ -82,13 +82,13 @@ The `system` and `inventory` services can be found at the following URLs:
 - http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
 
 Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the 
-overall health status of the application as well as the aggregated data of the liveness
+overall health status of the application, as well as the aggregated data of the liveness
 and readiness checks. Two checks show the state of the `system` service, and the other two
-show the state of the `inventory` service. As you might expect, both services are in the 
-`UP` state, and the overall health status of the application is `UP`.
+checks show the state of the `inventory` service. As you might expect, both services are in the 
+`UP` state, and the overall health status of the application is in the `UP` state.
 
 You can also access the `/health/ready` endpoint by visiting the http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
-URL to view the data from the readiness health checks. Similarily, access the `/health/live`
+URL to view the data from the readiness health checks. Similarly, access the `/health/live`
 endpoint by visiting the http://localhost:9080/health/live[http://localhost:9080/health/live^]  
 URL to view the data from the liveness health checks.
 
@@ -112,12 +112,12 @@ A health report will be generated automatically for all services that enable Mic
 file.
 
 All services must provide an implementation of the `HealthCheck` interface, which will be used to
-verify their health. MicroProfile Health offers health checks for both readiness and liveness. 
-A readiness check allows third-party services, such as Kubernetes, to know if the microservice 
-is ready to process requests. For example, checking dependencies such as a database connection. 
-A liveness check allows third-party services to determine if the microservice is running. 
-If the liveness check fails, this means that the application can be terminated. For example, 
-if the application runs out of memory. 
+verify their health. MicroProfile Health offers health checks for both readiness and liveness.
+A readiness check allows third-party services, such as Kubernetes, to determine whether a microservice
+is ready to process requests. For example, a readiness check might check dependencies, 
+such as database connections. A liveness check allows third-party services to determine 
+whether a microservice is running. If the liveness check fails, the application can be 
+terminated. For example, a liveness check might fail if the application runs out of memory.
 
 server.xml 
 [source, xml, linenums, role='code_column'] 
@@ -143,7 +143,7 @@ SystemReadinessCheck.java
 include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[tags=SystemReadinessCheck]
 ----
 
-The [hotspot=8 file=0]`@Readiness` annotation indicates that this is a readiness health check procedure. 
+The [hotspot=8 file=0]`@Readiness` annotation indicates that this particular bean is a readiness health check procedure. 
 By pairing this annotation with the [hotspot=9]`ApplicationScoped` context from the Contexts and 
 Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health[http://localhost:9080/health^] 
 endpoint receives a request.
@@ -219,8 +219,8 @@ InventoryLivenessCheck.java
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java[tags=InventoryLivenessCheck]
 ----
 
-Just like the `system` liveness check, you are checking the heap memory usage. If more 
-than 90% of the maximum memory is being used, a status of `DOWN` will be returned.  
+As with the `system` liveness check, you are checking the heap memory usage. If more 
+than 90% of the maximum memory is being used, a `DOWN` status is returned.  
 
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
@@ -238,8 +238,8 @@ include::{common-includes}/mvnbuild.adoc[]
 While the server is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find
 the aggregated liveness and readiness health reports on the two services.
 
-You can also navigate to http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
-URL to view the readiness health report or the http://localhost:9080/health/live[http://localhost:9080/health/live^] 
+You can also navigate to the http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
+URL to view the readiness health report, or the http://localhost:9080/health/live[http://localhost:9080/health/live^] 
 URL to view the liveness health report.
 
 Put the `inventory` service in maintenance by setting the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
@@ -263,7 +263,7 @@ include::finish/resources/CustomConfigSource.json[tags=**]
 
 == Testing health checks
 
-You will implement several test methods, `testIfServicesAreUp()`, `testReadiness`, `testLiveness` and 
+You will implement several test methods, `testIfServicesAreUp()`, `testReadiness()`, `testLiveness()`, and 
 `testIfInventoryServiceIsDown()`, to validate the health of the `system` and `inventory` services.
 
 [role="code_command hotspot file=0", subs="quotes"] 
@@ -288,8 +288,8 @@ readiness checks with the actual status of the services.
 liveness checks with the actual status of the services. 
 - The [hotspot=54-68 file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service 
 in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` 
-property to `true` and then compares the generated health report with the actual status of 
-the service.
+property to `true` and comparing the generated health report with the actual status of 
+the services.
 
 A few more tests have been included to verify the basic functionalitiy of the `system` and `inventory`
 services. They can be found under the [hotspot file=2]`src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java`
