@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-// tag::InventoryHealth[]
+// tag::InventoryReadinessCheck[]
 package io.openliberty.guides.inventory;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,13 +19,13 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.eclipse.microprofile.health.Health;
+import org.eclipse.microprofile.health.Readiness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
-@Health
+@Readiness
 @ApplicationScoped
-public class InventoryHealth implements HealthCheck {
+public class InventoryReadinessCheck implements HealthCheck {
   @Inject
   InventoryConfig config;
 
@@ -38,8 +38,7 @@ public class InventoryHealth implements HealthCheck {
           Integer.parseInt(System.getProperty("default.http.port")),
           "/system/properties");
       Client client = ClientBuilder.newClient();
-      Response response = client.target(url).request(MediaType.APPLICATION_JSON)
-                                .get();
+      Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
       if (response.getStatus() != 200) {
         return false;
       }
@@ -52,13 +51,13 @@ public class InventoryHealth implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
     if (!isHealthy()) {
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
+      return HealthCheckResponse.named(InventoryResource.class.getSimpleName() + "Readiness")
                                 .withData("services", "not available").down()
                                 .build();
     }
-    return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
+    return HealthCheckResponse.named(InventoryResource.class.getSimpleName() + "Readiness")
                               .withData("services", "available").up().build();
   }
 
 }
-// end::InventoryHealth[]
+// end::InventoryReadinessCheck[]

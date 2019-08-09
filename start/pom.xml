@@ -74,7 +74,7 @@
     <!-- tag::health[] -->
     <dependency>
         <groupId>io.openliberty.features</groupId>
-        <artifactId>mpHealth-1.0</artifactId>
+        <artifactId>mpHealth-2.0</artifactId>
         <type>esa</type>
         <scope>provided</scope>
     </dependency>
