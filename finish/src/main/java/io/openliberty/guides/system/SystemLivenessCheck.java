@@ -20,8 +20,9 @@ import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.health.Liveness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
-
+// tag::Liveness[]
 @Liveness
+// end::Liveness[]
 @ApplicationScoped
 public class SystemLivenessCheck implements HealthCheck {
 

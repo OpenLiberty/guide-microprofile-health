@@ -17,19 +17,30 @@ import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.health.Readiness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
-
+// tag::Readiness[]
 @Readiness
+// end::Readiness[]
+// tag::ApplicationScoped[]
 @ApplicationScoped
+// end::ApplicationScoped[]
 public class SystemReadinessCheck implements HealthCheck {
   @Override
+  // tag::HealthCheckResponse[]
   public HealthCheckResponse call() {
+    // tag::defaultServer[]
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
+    // end::defaultServer[]
+      // tag::HealthCheckResponse-DOWN[]
       return HealthCheckResponse.named(SystemResource.class.getSimpleName() + "Readiness")
                                 .withData("default server", "not available").down()
                                 .build();
+      // end::HealthCheckResponse-DOWN[]
     }
+    // tag::HealthCheckResponse-UP[]
     return HealthCheckResponse.named(SystemResource.class.getSimpleName() + "Readiness")
                               .withData("default server", "available").up().build();
+    // end::HealthCheckResponse-UP[]
   }
+  // end::HealthCheckResponse[]
 }
 // end::SystemReadinessCheck[]

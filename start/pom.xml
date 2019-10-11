@@ -9,7 +9,7 @@
   </parent>
 
   <groupId>io.openliberty.guides</groupId>
-  <artifactId>microprofile-health</artifactId>
+  <artifactId>guide-microprofile-health</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
