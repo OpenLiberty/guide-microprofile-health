@@ -148,11 +148,11 @@ By pairing this annotation with the [hotspot=ApplicationScoped]`ApplicationScope
 Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health[http://localhost:9080/health^] 
 endpoint receives a request.
 
-The [hotspot= HealthCheckResponse]`call()` method is used to return the health status of a particular service. 
+The [hotspot=HealthCheckResponse]`call()` method is used to return the health status of a particular service. 
 In this case, you are simply checking if the server name is [hotspot=defaultServer]`defaultServer` and 
-returning [hotspot= HealthCheckResponse-UP]`UP` if it is, and [hotspot= HealthCheckResponse-DOWN]`DOWN` otherwise. The 
-[hotspot= HealthCheckResponse]`HealthCheckResponse.named()` method is used to indicate what service the health 
-check is done for. Overall, this is a very simple implementation of the [hotspot= HealthCheckResponse]`call()` 
+returning [hotspot=HealthCheckResponse-UP]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN]`DOWN` otherwise. The 
+[hotspot=HealthCheckResponse]`HealthCheckResponse.named()` method is used to indicate what service the health 
+check is done for. Overall, this is a very simple implementation of the [hotspot=HealthCheckResponse]`call()` 
 method. In a real development environment, you would want to orchestrate much more meaningful 
 health checks.
 
