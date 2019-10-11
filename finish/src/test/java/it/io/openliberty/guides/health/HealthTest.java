@@ -67,7 +67,7 @@ public class HealthTest {
         servicesStates = HealthTestUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
         checkStates(endpointData, servicesStates);
     }
-    // tag::testLiveness[]
+    // end::testLiveness[]
 
     @Test
     // tag::testIfInventoryServiceIsDown[]
