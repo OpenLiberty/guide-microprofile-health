@@ -17,6 +17,7 @@ import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.health.Readiness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
+
 // tag::Readiness[]
 @Readiness
 // end::Readiness[]
