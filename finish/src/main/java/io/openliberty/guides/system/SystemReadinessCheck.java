@@ -26,13 +26,15 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 // end::ApplicationScoped[]
 public class SystemReadinessCheck implements HealthCheck {
   @Override
-  // tag::HealthCheckResponse[]
+// tag::HealthCheckResponse[]
   public HealthCheckResponse call() {
     // tag::defaultServer[]
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
     // end::defaultServer[]
       // tag::HealthCheckResponse-DOWN[]
+      // tag::HealthCheckResponse-named[]
       return HealthCheckResponse.named(SystemResource.class.getSimpleName() + "Readiness")
+      // end::HealthCheckResponse-named[]
                                 .withData("default server", "not available").down()
                                 .build();
       // end::HealthCheckResponse-DOWN[]
@@ -42,6 +44,6 @@ public class SystemReadinessCheck implements HealthCheck {
                               .withData("default server", "available").up().build();
     // end::HealthCheckResponse-UP[]
   }
-  // end::HealthCheckResponse[]
+// end::HealthCheckResponse[]
 }
 // end::SystemReadinessCheck[]

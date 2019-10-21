@@ -30,6 +30,7 @@ public class InventoryReadinessCheck implements HealthCheck {
   // tag::inventoryConfig[]
   InventoryConfig config;
   // end::inventoryConfig[]
+  
   // tag::isHealthy[]
   public boolean isHealthy() {
     if (config.isInMaintenance()) {
