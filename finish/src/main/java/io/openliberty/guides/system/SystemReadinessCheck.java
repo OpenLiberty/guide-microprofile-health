@@ -26,7 +26,7 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 // end::ApplicationScoped[]
 public class SystemReadinessCheck implements HealthCheck {
   @Override
-// tag::HealthCheckResponse[]
+// tag::healthCheckResponse[]
   public HealthCheckResponse call() {
     // tag::defaultServer[]
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
@@ -44,6 +44,6 @@ public class SystemReadinessCheck implements HealthCheck {
                               .withData("default server", "available").up().build();
     // end::HealthCheckResponse-UP[]
   }
-// end::HealthCheckResponse[]
+// end::healthCheckResponse[]
 }
 // end::SystemReadinessCheck[]
