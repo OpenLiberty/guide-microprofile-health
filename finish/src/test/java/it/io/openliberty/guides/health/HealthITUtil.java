@@ -1,6 +1,6 @@
 // tag::comment[]
 /*******************************************************************************
- * Copyright (c) 2018 IBM Corporation and others.
+ * Copyright (c) 2018, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,7 @@
 // tag::HealthTestUtil[]
 package it.io.openliberty.guides.health;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 
-public class HealthTestUtil {
+public class HealthITUtil {
 
   private static String port;
   private static String baseUrl;
@@ -36,25 +36,25 @@ public class HealthTestUtil {
   public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_inMaintenance\":true";
 
   static {
-    port = System.getProperty("liberty.test.port");
+    port = System.getProperty("default.http.port");
     baseUrl = "http://localhost:" + port + "/";
   }
 
-  public static JsonArray connectToHealthEnpoint(int expectedResponseCode, String endpoint) {
+  public static JsonArray connectToHealthEnpoint(int expectedResponseCode,
+      String endpoint) {
     String healthURL = baseUrl + endpoint;
     Client client = ClientBuilder.newClient().register(JsrJsonpProvider.class);
     Response response = client.target(healthURL).request().get();
-    assertEquals("Response code is not matching " + healthURL,
-                 expectedResponseCode, response.getStatus());
+    assertEquals(expectedResponseCode, response.getStatus(),
+        "Response code is not matching " + healthURL);
     JsonArray servicesStates = response.readEntity(JsonObject.class)
-                                       .getJsonArray("checks");
+        .getJsonArray("checks");
     response.close();
     client.close();
     return servicesStates;
   }
 
-  public static String getActualState(String service,
-      JsonArray servicesStates) {
+  public static String getActualState(String service, JsonArray servicesStates) {
     String state = "";
     for (Object obj : servicesStates) {
       if (obj instanceof JsonObject) {
