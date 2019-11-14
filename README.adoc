@@ -301,20 +301,20 @@ You will implement several test methods, `testIfServicesAreUp()`, `testReadiness
 ----
 
 HealthIT.java
-[source, java, linenums, role='code_column']
+[source, java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/test/java/it/io/openliberty/guides/health/HealthIT.java[tags=HealthTest]
+include::finish/src/test/java/it/io/openliberty/guides/health/HealthIT.java[]
 ----
 
 Let's break down the test cases:
 
-- The [hotspot=25-33 file=0]`testIfServicesAreUp()` test case compares the generated health report
+- The [hotspot=testIfServicesAreUp file=0]`testIfServicesAreUp()` test case compares the generated health report
 with the actual status of the services.
-- The [hotspot=36-42 file=0]`testReadiness()` test case compares the generated health report for the
+- The [hotspot=testReadiness file=0]`testReadiness()` test case compares the generated health report for the
 readiness checks with the actual status of the services.
-- The [hotspot=45-51 file=0]`testLiveness()` test case compares the generated health report for the
+- The [hotspot=testLiveness file=0]`testLiveness()` test case compares the generated health report for the
 liveness checks with the actual status of the services.
-- The [hotspot=54-68 file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service
+- The [hotspot=testIfInventoryServiceIsDown file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service
 in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance`
 property to `true` and comparing the generated health report with the actual status of
 the services.
@@ -370,9 +370,6 @@ You will see the following output:
 [INFO] Running it.io.openliberty.guides.system.SystemEndpointIT
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in it.io.openliberty.guides.system.SystemEndpointIT
 [INFO] Running it.io.openliberty.guides.inventory.InventoryEndpointIT
-[INFO] [WARNING ] Interceptor for {http://client.inventory.guides.openliberty.io/}SystemClient has thrown exception, unwinding now
-[INFO] Could not send Message.
-[INFO] [err] The specified host is unknown.
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s - in it.io.openliberty.guides.inventory.InventoryEndpointIT
 [INFO]
 [INFO] Results:

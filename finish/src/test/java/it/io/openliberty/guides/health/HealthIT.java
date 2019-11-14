@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-// tag::HealthTest[]
+// tag::HealthIT[]
 package it.io.openliberty.guides.health;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,6 +38,7 @@ public class HealthIT {
   }
 
   @Test
+  // tag::testIfServicesAreUp[]
   public void testIfServicesAreUp() {
     endpointData.put("SystemResourceReadiness", "UP");
     endpointData.put("SystemResourceLiveness", "UP");
@@ -47,8 +48,10 @@ public class HealthIT {
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
+  // end::testIfServicesAreUp[]
 
   @Test
+  // tag::testReadiness[]
   public void testReadiness() {
     endpointData.put("SystemResourceReadiness", "UP");
     endpointData.put("InventoryResourceReadiness", "UP");
@@ -56,8 +59,10 @@ public class HealthIT {
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
+  // end::testReadiness[]
 
   @Test
+  // tag::testLiveness[]
   public void testLiveness() {
     endpointData.put("SystemResourceLiveness", "UP");
     endpointData.put("InventoryResourceLiveness", "UP");
@@ -65,8 +70,10 @@ public class HealthIT {
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
+  // end::testLiveness[]
 
   @Test
+  // tag::testIfInventoryServiceIsDown[]
   public void testIfInventoryServiceIsDown() {
     endpointData.put("SystemResourceReadiness", "UP");
     endpointData.put("SystemResourceLiveness", "UP");
@@ -82,6 +89,7 @@ public class HealthIT {
     servicesStates = HealthITUtil.connectToHealthEnpoint(503, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
+  // end::testIfInventoryServiceIsDown[]
 
   private void checkStates(HashMap<String, String> testData, JsonArray servStates) {
     testData.forEach((service, expectedState) -> {
@@ -96,4 +104,4 @@ public class HealthIT {
   }
 
 }
-// end::HealthTest[]
+// end::HealthIT[]
