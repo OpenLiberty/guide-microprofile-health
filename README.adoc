@@ -319,15 +319,11 @@ in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory
 property to `true` and comparing the generated health report with the actual status of
 the services.
 
-A few more tests have been included to verify the basic functionalitiy of the `system` and `inventory`
+A few more tests have been included to verify the basic functionality of the `system` and `inventory`
 services. They can be found under the [hotspot file=2]`src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointIT.java`
 and [hotspot file=3]`src/test/java/it/io/openliberty/guides/system/SystemEndpointIT.java` files.
-If a test failure occurs, then you might have introduced a bug into the code.
-
-These tests
-will run automatically as a part of the Maven build process when you run the `mvn install`
-command. You can also run these tests separately from the build by using the `mvn verify`
-command, but first make sure that the server is stopped.
+If a test failure occurs, then you might have introduced a bug into the code. These tests
+will run automatically as a part of the integration test suite.
 
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
