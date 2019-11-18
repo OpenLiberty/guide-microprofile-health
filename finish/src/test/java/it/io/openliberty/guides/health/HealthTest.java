@@ -35,6 +35,7 @@ public class HealthTest {
     }
 
     @Test
+    // tag::testIfServicesAreUp[]
     public void testIfServicesAreUp() {
         endpointData.put("SystemResourceReadiness", "UP");
         endpointData.put("SystemResourceLiveness", "UP");
@@ -44,8 +45,10 @@ public class HealthTest {
         servicesStates = HealthTestUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
         checkStates(endpointData, servicesStates);
     }
+    // end::testIfServicesAreUp[]
 
     @Test
+    // tag::testReadiness[]
     public void testReadiness() {
         endpointData.put("SystemResourceReadiness", "UP");
         endpointData.put("InventoryResourceReadiness", "UP");
@@ -53,8 +56,10 @@ public class HealthTest {
         servicesStates = HealthTestUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
         checkStates(endpointData, servicesStates);
     }
+    // end::testReadiness[]
 
     @Test
+    // tag::testLiveness[]
     public void testLiveness() {
         endpointData.put("SystemResourceLiveness", "UP");
         endpointData.put("InventoryResourceLiveness", "UP");
@@ -62,8 +67,10 @@ public class HealthTest {
         servicesStates = HealthTestUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
         checkStates(endpointData, servicesStates);
     }
+    // end::testLiveness[]
 
     @Test
+    // tag::testIfInventoryServiceIsDown[]
     public void testIfInventoryServiceIsDown() {
         endpointData.put("SystemResourceReadiness", "UP");
         endpointData.put("SystemResourceLiveness", "UP");
@@ -79,6 +86,7 @@ public class HealthTest {
         servicesStates = HealthTestUtil.connectToHealthEnpoint(503, HEALTH_ENDPOINT);
         checkStates(endpointData, servicesStates);
    }
+   // end::testIfInventoryServiceIsDown[]
 
     private void checkStates(HashMap<String, String> testData, JsonArray servStates) {
         testData.forEach((service, expectedState) -> {

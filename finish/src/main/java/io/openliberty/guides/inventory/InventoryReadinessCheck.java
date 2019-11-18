@@ -27,8 +27,11 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 @ApplicationScoped
 public class InventoryReadinessCheck implements HealthCheck {
   @Inject
+  // tag::inventoryConfig[]
   InventoryConfig config;
-
+  // end::inventoryConfig[]
+  
+  // tag::isHealthy[]
   public boolean isHealthy() {
     if (config.isInMaintenance()) {
       return false;
@@ -47,6 +50,7 @@ public class InventoryReadinessCheck implements HealthCheck {
       return false;
     }
   }
+  // end::isHealthy[]
 
   @Override
   public HealthCheckResponse call() {
