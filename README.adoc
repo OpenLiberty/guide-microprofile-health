@@ -96,7 +96,7 @@ Navigate to the `start` directory to begin.
 include::{common-includes}/devmode-start.adoc[]
 
 A health report will be generated automatically for all services that enable MicroProfile Health. The
-[hotspot=9]`mpHealth` feature has already been enabled for you in the [hotspot]`src/main/liberty/config/server.xml`
+[hotspot=mpHealth]`mpHealth` feature has already been enabled for you in the [hotspot]`src/main/liberty/config/server.xml` 
 file.
 
 All services must provide an implementation of the `HealthCheck` interface, which will be used to
@@ -110,7 +110,7 @@ terminated. For example, a liveness check might fail if the application runs out
 server.xml
 [source, xml, linenums, role='code_column']
 ----
-include::finish/src/main/liberty/config/server.xml[tags=**]
+include::finish/src/main/liberty/config/server.xml[]
 ----
 
 // =================================================================================================
@@ -126,22 +126,22 @@ include::finish/src/main/liberty/config/server.xml[tags=**]
 ----
 
 SystemReadinessCheck.java
-[source, java, linenums, role='code_column']
+[source, java, linenums, role='code_column hide_tags=copyright tags=SystemReadinessCheck']
 ----
-include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[tags=SystemReadinessCheck]
+include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[]
 ----
 
-The [hotspot=8 file=0]`@Readiness` annotation indicates that this particular bean is a readiness health check procedure.
-By pairing this annotation with the [hotspot=9]`ApplicationScoped` context from the Contexts and
-Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health[http://localhost:9080/health^]
+The [hotspot=Readiness file=0]`@Readiness` annotation indicates that this particular bean is a readiness health check procedure. 
+By pairing this annotation with the [hotspot=ApplicationScoped]`ApplicationScoped` context from the Contexts and 
+Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health[http://localhost:9080/health^] 
 endpoint receives a request.
 
-The [hotspot=12-20]`call()` method is used to return the health status of a particular service.
-In this case, you are simply checking if the server name is [hotspot=13]`defaultServer` and
-returning [hotspot=18-19]`UP` if it is, and [hotspot=14-16]`DOWN` otherwise. The
-[hotspot=14]`HealthCheckResponse.named()` method is used to indicate what service the health
-check is done for. Overall, this is a very simple implementation of the [hotspot=12-20]`call()`
-method. In a real development environment, you would want to orchestrate much more meaningful
+The [hotspot=healthCheckResponse]`call()` method is used to return the health status of a particular service. 
+In this case, you are simply checking if the server name is [hotspot=defaultServer]`defaultServer` and 
+returning [hotspot=HealthCheckResponse-UP]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN]`DOWN` otherwise. The 
+[hotspot=HealthCheckResponse-named]`HealthCheckResponse.named()` method is used to indicate what service the health 
+check is done for. Overall, this is a very simple implementation of the [hotspot=healthCheckResponse]`call()` 
+method. In a real development environment, you would want to orchestrate much more meaningful 
 health checks.
 
 
@@ -152,12 +152,12 @@ health checks.
 ----
 
 SystemLivenessCheck.java
-[source, java, linenums, role='code_column']
+[source, java, linenums, role='code_column hide_tags=copyright tags=SystemLivenessCheck']
 ----
-include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[tags=SystemLivenessCheck]
+include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[]
 ----
 
-The [hotspot=11 file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
+The [hotspot=Liveness file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
 In this case, you are checking the heap memory usage. If more than 90% of the maximum memory
 is being used, a status of `DOWN` will be returned.
 
@@ -174,25 +174,25 @@ is being used, a status of `DOWN` will be returned.
 ----
 
 InventoryReadinessCheck.java
-[source, java, linenums, role='code_column']
+[source, java, linenums, role='code_column hide_tags=copyright tags=InventoryReadinessCheck']
 ----
-include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[tags=InventoryReadinessCheck]
+include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[]
 ----
 
-This time, you are checking whether or not the service is in maintenance or if it's down.
-For simplicity, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance`
-MicroProfile Config property defined in the [hotspot file=2]`resources/CustomConfigSource.json`
-file is used to indicate whether the service is in maintenance or not. This file has already
-been created for you. To check if the service is down, simply make a HTTP GET request to
-the `system` service and check the status returned by the response. You make a GET request
-to the `system` service rather than the `inventory` service because the `inventory` service
-depends on the `system` service. In other words, the `inventory` service wouldn't work if
-the `system` service is down. If the status is not 200, then the service is not running.
-Based on these two factors, the [hotspot=19-36 file=0]`isHealthy()` method returns whether
+This time, you are checking whether or not the service is in maintenance or if it's down. 
+For simplicity, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance` 
+MicroProfile Config property defined in the [hotspot file=2]`resources/CustomConfigSource.json` 
+file is used to indicate whether the service is in maintenance or not. This file has already 
+been created for you. To check if the service is down, simply make a HTTP GET request to 
+the `system` service and check the status returned by the response. You make a GET request 
+to the `system` service rather than the `inventory` service because the `inventory` service 
+depends on the `system` service. In other words, the `inventory` service wouldn't work if 
+the `system` service is down. If the status is not 200, then the service is not running. 
+Based on these two factors, the [hotspot=isHealthy file=0]`isHealthy()` method returns whether 
 or not the `inventory` service is healthy.
 
-If you are curious about the injected [hotspot=17 file=0]`inventoryConfig` object or if
-you want more information on MicroProfile Config, see
+If you are curious about the injected [hotspot=inventoryConfig file=0]`inventoryConfig` object or if 
+you want more information on MicroProfile Config, see 
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
 [role="code_command hotspot file=1", subs="quotes"]
@@ -202,9 +202,9 @@ https://openliberty.io/guides/microprofile-config.html[Configuring microservices
 ----
 
 InventoryLivenessCheck.java
-[source, java, linenums, role='code_column']
+[source, java, linenums, role='code_column hide_tags=copyright tags=InventoryLivenessCheck']
 ----
-include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java[tags=InventoryLivenessCheck]
+include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java[]
 ----
 
 As with the `system` liveness check, you are checking the heap memory usage. If more
@@ -213,7 +213,7 @@ than 90% of the maximum memory is being used, a `DOWN` status is returned.
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
-include::finish/resources/CustomConfigSource.json[tags=**]
+include::finish/resources/CustomConfigSource.json[]
 ----
 
 // =================================================================================================
@@ -242,7 +242,7 @@ property back to `false` once you are done.
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
-include::finish/resources/CustomConfigSource.json[tags=**]
+include::finish/resources/CustomConfigSource.json[]
 ----
 
 // =================================================================================================
@@ -261,7 +261,7 @@ You will implement several test methods, `testIfServicesAreUp()`, `testReadiness
 ----
 
 HealthIT.java
-[source, java, linenums, role='code_column hide_tags=copyright']
+[source, java, linenums, role='code_column hide_tags=copyright tags=HealthTest']
 ----
 include::finish/src/test/java/it/io/openliberty/guides/health/HealthIT.java[]
 ----
@@ -288,19 +288,19 @@ will run automatically as a part of the integration test suite.
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
-include::finish/resources/CustomConfigSource.json[tags=**]
+include::finish/resources/CustomConfigSource.json[]
 ----
 
 InventoryEndpointIT.java
-[source, Java, linenums, role='code_column']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointIT.java[tags=**;!copyright]
+include::finish/src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java[]
 ----
 
 SystemEndpointIT.java
-[source, Java, linenums, role='code_column']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/test/java/it/io/openliberty/guides/system/SystemEndpointIT.java[tags=!copyright]
+include::finish/src/test/java/it/io/openliberty/guides/system/SystemEndpointIT.java[]
 ----
 
 
