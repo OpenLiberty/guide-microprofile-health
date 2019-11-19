@@ -294,7 +294,7 @@ include::finish/resources/CustomConfigSource.json[]
 InventoryEndpointIT.java
 [source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointTest.java[]
+include::finish/src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointIT.java[]
 ----
 
 SystemEndpointIT.java
