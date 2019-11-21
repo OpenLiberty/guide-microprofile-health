@@ -27,15 +27,17 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 @ApplicationScoped
 public class InventoryReadinessCheck implements HealthCheck {
   @Inject
+  // tag::inventoryConfig[]
   InventoryConfig config;
-
+  // end::inventoryConfig[]
+  
+  // tag::isHealthy[]
   public boolean isHealthy() {
     if (config.isInMaintenance()) {
       return false;
     }
     try {
-      String url = InventoryUtils.buildUrl("http", "localhost",
-          Integer.parseInt(System.getProperty("default.http.port")),
+      String url = InventoryUtils.buildUrl("http", "localhost", config.getPortNumber(),
           "/system/properties");
       Client client = ClientBuilder.newClient();
       Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
@@ -47,16 +49,18 @@ public class InventoryReadinessCheck implements HealthCheck {
       return false;
     }
   }
+  // end::isHealthy[]
 
   @Override
   public HealthCheckResponse call() {
     if (!isHealthy()) {
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName() + "Readiness")
-                                .withData("services", "not available").down()
-                                .build();
+      return HealthCheckResponse
+          .named(InventoryResource.class.getSimpleName() + "Readiness")
+          .withData("services", "not available").down().build();
     }
-    return HealthCheckResponse.named(InventoryResource.class.getSimpleName() + "Readiness")
-                              .withData("services", "available").up().build();
+    return HealthCheckResponse
+        .named(InventoryResource.class.getSimpleName() + "Readiness")
+        .withData("services", "available").up().build();
   }
 
 }
