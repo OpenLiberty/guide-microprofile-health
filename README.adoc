@@ -251,8 +251,7 @@ include::finish/resources/CustomConfigSource.json[]
 
 == Testing health checks
 
-You will implement several test methods, `testIfServicesAreUp()`, `testReadiness()`, `testLiveness()`, and
-`testIfInventoryServiceIsDown()`, to validate the health of the `system` and `inventory` services.
+You will implement several test methods to validate the health of the `system` and `inventory` services.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
