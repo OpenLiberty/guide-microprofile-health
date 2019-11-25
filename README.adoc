@@ -47,7 +47,7 @@ as a dependency, a successful connection to an endpoint, a system property, a da
 the availability of required resources. MicroProfile offers checks for both liveness and readiness.
 
 You will add liveness and readiness checks to the `system` and `inventory` services, which
-have been provided for you, and implement what is necessary to report health status by
+are provided for you, and implement what is necessary to report health status by
 using MicroProfile Health.
 
 // =================================================================================================
@@ -159,7 +159,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.j
 
 The [hotspot=Liveness file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
 In this case, you are checking the heap memory usage. If more than 90% of the maximum memory
-is being used, a status of `DOWN` will be returned.
+is being used, a status of `DOWN` is returned.
 
 // =================================================================================================
 // Adding health checks to the inventory service
@@ -182,14 +182,14 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadiness
 This time, you are checking whether or not the service is in maintenance or if it's down.
 For simplicity, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance`
 MicroProfile Config property defined in the [hotspot file=2]`resources/CustomConfigSource.json`
-file is used to indicate whether the service is in maintenance or not. This file has already
-been created for you. To check if the service is down, simply make a HTTP GET request to
-the `system` service and check the status returned by the response. You make a GET request
+file is used to indicate whether the service is in maintenance or not. This file was already
+created for you. To check whether the service is down, make an HTTP GET request to
+the `system` service and check the status that is returned by the response. You make a GET request
 to the `system` service rather than the `inventory` service because the `inventory` service
-depends on the `system` service. In other words, the `inventory` service wouldn't work if
+depends on the `system` service. In other words, the `inventory` service doesn't work if
 the `system` service is down. If the status is not 200, then the service is not running.
 Based on these two factors, the [hotspot=isHealthy file=0]`isHealthy()` method returns whether
-or not the `inventory` service is healthy.
+the `inventory` service is healthy.
 
 If you are curious about the injected [hotspot=inventoryConfig file=0]`inventoryConfig` object or if
 you want more information on MicroProfile Config, see
@@ -233,11 +233,11 @@ URL to view the liveness health report.
 Put the `inventory` service in maintenance by setting the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
 property to `true` in the [hotspot]`resources/CustomConfigSource.json` file. Because
 this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health[http://localhost:9080/health^]
-URL you will see that the state of the `inventory` service has changed to `DOWN`. The
-overall state of the application has also changed to `DOWN` as a result. Point to the
+URL to see that the state of the `inventory` service changed to `DOWN`. The
+overall state of the application also changed to `DOWN` as a result. Go to the
 http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^] URL to verify that the `inventory` service is
 indeed in maintenance. Set the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
-property back to `false` once you are done.
+property back to `false` after you are done.
 
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
@@ -278,11 +278,11 @@ in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory
 property to `true` and comparing the generated health report with the actual status of
 the services.
 
-A few more tests have been included to verify the basic functionality of the `system` and `inventory`
+A few more tests were included to verify the basic functionality of the `system` and `inventory`
 services. They can be found under the [hotspot file=2]`src/test/java/it/io/openliberty/guides/inventory/InventoryEndpointIT.java`
 and [hotspot file=3]`src/test/java/it/io/openliberty/guides/system/SystemEndpointIT.java` files.
 If a test failure occurs, then you might have introduced a bug into the code. These tests
-will run automatically as a part of the integration test suite.
+run automatically as a part of the integration test suite.
 
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
@@ -310,7 +310,7 @@ include::finish/src/test/java/it/io/openliberty/guides/system/SystemEndpointIT.j
 [role='command']
 include::{common-includes}/devmode-test.adoc[]
 
-You will see the following output:
+You see the following output:
 
 [source, role="no_copy"]
 ----
@@ -332,7 +332,7 @@ You will see the following output:
 To see whether the tests detect a failure, manually change the configuration of
 [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` from `false` to `true`
 in the `resources/CustomConfigSource.json` file. Rerun the tests to see a test failure occur.
-You will see a test failure occur because the initial status of the `inventory` service is `DOWN`.
+The test failure occurs because the initial status of the `inventory` service is `DOWN`.
 
 [role='command']
 include::{common-includes}/devmode-quit.adoc[]
