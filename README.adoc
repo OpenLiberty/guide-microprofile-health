@@ -17,8 +17,8 @@
 :page-related-guides: ['microprofile-config', 'microprofile-metrics', 'cdi-intro', 'rest-intro']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-:page-seo-title: Checking the health of microservices by using MicroProfile Health Check
-:page-seo-description: A tutorial on how to report the health status of Java microservices by implementing readiness and liveness checks by using MicroProfile Health Check.
+:page-seo-title: Checking the health of Java microservices by using Eclipse MicroProfile Health Check
+:page-seo-description: A getting started tutorial and an example on how to monitor and report the health status of Java microservices by implementing readiness and liveness checks using Eclipse MicroProfile Health.
 :guide-author: Open Liberty
 = Adding health reports to microservices
 
