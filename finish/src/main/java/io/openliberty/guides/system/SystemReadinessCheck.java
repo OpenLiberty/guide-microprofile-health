@@ -32,16 +32,17 @@ public class SystemReadinessCheck implements HealthCheck {
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
     // end::defaultServer[]
       // tag::HealthCheckResponse-DOWN[]
-      // tag::HealthCheckResponse-named[]
-      return HealthCheckResponse.named(SystemResource.class.getSimpleName() + "Readiness")
-      // end::HealthCheckResponse-named[]
-                                .withData("default server", "not available").down()
+      // tag::HealthCheckResponse-builder[]
+      return HealthCheckResponse.builder().name(SystemResource.class.getSimpleName() + "Readiness")
+      // end::HealthCheckResponse-builder[]
+                                .down("default server", "not available")
                                 .build();
       // end::HealthCheckResponse-DOWN[]
     }
     // tag::HealthCheckResponse-UP[]
-    return HealthCheckResponse.named(SystemResource.class.getSimpleName() + "Readiness")
-                              .withData("default server", "available").up().build();
+    return HealthCheckResponse.builder().name(SystemResource.class.getSimpleName() + "Readiness")
+                              .up("default server", "available")
+                              .build();
     // end::HealthCheckResponse-UP[]
   }
 // end::healthCheckResponse[]
