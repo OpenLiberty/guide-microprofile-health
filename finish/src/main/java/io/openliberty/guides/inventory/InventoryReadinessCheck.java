@@ -56,11 +56,11 @@ public class InventoryReadinessCheck implements HealthCheck {
     if (!isHealthy()) {
       return HealthCheckResponse
           .builder().name(InventoryResource.class.getSimpleName() + "Readiness")
-          .down("services", "not available").build();
+          .down("services", "not available");
     }
     return HealthCheckResponse
         .named(InventoryResource.class.getSimpleName() + "Readiness")
-        .up("services", "available").build();
+        .up("services", "available");
   }
 
 }

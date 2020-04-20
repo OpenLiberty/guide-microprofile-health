@@ -36,15 +36,13 @@ public class SystemReadinessCheck implements HealthCheck {
       return HealthCheckResponse.builder().name(SystemResource.class.getSimpleName() 
       + "Readiness")
       // end::HealthCheckResponse-builder[]
-                                .down("default server", "not available")
-                                .build();
+                                .down("default server", "not available");
       // end::HealthCheckResponse-DOWN[]
     }
     // tag::HealthCheckResponse-UP[]
     return HealthCheckResponse.builder().name(SystemResource.class.getSimpleName() 
     + "Readiness")
-                              .up("default server", "available")
-                              .build();
+                              .up("default server", "available");
     // end::HealthCheckResponse-UP[]
   }
 // end::healthCheckResponse[]
