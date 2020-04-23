@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2019 IBM Corporation and others.
+ * Copyright (c) 2018, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -55,10 +55,10 @@ public class InventoryReadinessCheck implements HealthCheck {
   public HealthCheckResponse call() {
     if (!isHealthy()) {
       return HealthCheckResponse
-          .down(InventoryResource.class.getSimpleName() + "Readiness " + "services " + "not available");
+          .down(InventoryResource.class.getSimpleName() + " readiness check indicates services are not available");
     }
     return HealthCheckResponse
-        .up(InventoryResource.class.getSimpleName() + "Readiness " + "services " + "available");
+        .up(InventoryResource.class.getSimpleName() + " readiness check indicates services are available");
   }
 
 }
