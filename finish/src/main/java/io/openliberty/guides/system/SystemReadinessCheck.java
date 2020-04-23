@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2020 IBM Corporation and others.
+ * Copyright (c) 2018, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,17 +32,15 @@ public class SystemReadinessCheck implements HealthCheck {
     if (!System.getProperty("wlp.server.name").equals("defaultServer")) {
     // end::defaultServer[]
       // tag::HealthCheckResponse-DOWN[]
-      // tag::HealthCheckResponse-builder[]
-      return HealthCheckResponse.builder().name(SystemResource.class.getSimpleName() 
-      + "Readiness")
-      // end::HealthCheckResponse-builder[]
-                                .down("default server", "not available");
+      // tag::HealthCheckResponse-named[]
+      return HealthCheckResponse.down(SystemResource.class.getSimpleName() + "Readiness for " + "default server " + "is not available");
+      // end::HealthCheckResponse-named[]
+                               // .down("default server", "not available");
       // end::HealthCheckResponse-DOWN[]
     }
     // tag::HealthCheckResponse-UP[]
-    return HealthCheckResponse.builder().name(SystemResource.class.getSimpleName() 
-    + "Readiness")
-                              .up("default server", "available");
+    return HealthCheckResponse.up(SystemResource.class.getSimpleName() + "Readiness for " + "default server " + "is available");
+                              //.up("default server", "available");
     // end::HealthCheckResponse-UP[]
   }
 // end::healthCheckResponse[]
