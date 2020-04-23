@@ -33,14 +33,12 @@ public class SystemReadinessCheck implements HealthCheck {
     // end::defaultServer[]
       // tag::HealthCheckResponse-DOWN[]
       // tag::HealthCheckResponse-named[]
-      return HealthCheckResponse.down(SystemResource.class.getSimpleName() + "Readiness for " + "default server " + "is not available");
+      return HealthCheckResponse.down(SystemResource.class.getSimpleName() + " readiness check indicates service is not available");
       // end::HealthCheckResponse-named[]
-                               // .down("default server", "not available");
       // end::HealthCheckResponse-DOWN[]
     }
     // tag::HealthCheckResponse-UP[]
-    return HealthCheckResponse.up(SystemResource.class.getSimpleName() + "Readiness for " + "default server " + "is available");
-                              //.up("default server", "available");
+    return HealthCheckResponse.up(SystemResource.class.getSimpleName() + " readiness check indicates services is available");
     // end::HealthCheckResponse-UP[]
   }
 // end::healthCheckResponse[]
