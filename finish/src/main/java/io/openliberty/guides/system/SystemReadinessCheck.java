@@ -38,7 +38,7 @@ public class SystemReadinessCheck implements HealthCheck {
       // end::HealthCheckResponse-DOWN[]
     }
     // tag::HealthCheckResponse-UP[]
-    return HealthCheckResponse.up(SystemResource.class.getSimpleName() + " readiness check indicates services is available");
+    return HealthCheckResponse.up(SystemResource.class.getSimpleName() + " readiness check indicates service is available");
     // end::HealthCheckResponse-UP[]
   }
 // end::healthCheckResponse[]
