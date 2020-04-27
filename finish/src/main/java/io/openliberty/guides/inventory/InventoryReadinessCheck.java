@@ -55,10 +55,10 @@ public class InventoryReadinessCheck implements HealthCheck {
   public HealthCheckResponse call() {
     if (!isHealthy()) {
       return HealthCheckResponse
-          .down(InventoryResource.class.getSimpleName() + " readiness check indicates service is not available");
+          .down(InventoryResource.class.getSimpleName() + "Readiness Check");
     }
     return HealthCheckResponse
-        .up(InventoryResource.class.getSimpleName() + " readiness check indicates service is available");
+        .up(InventoryResource.class.getSimpleName() + "Readiness Check");
   }
 
 }
