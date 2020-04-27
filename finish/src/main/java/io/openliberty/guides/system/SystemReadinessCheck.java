@@ -25,6 +25,9 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 @ApplicationScoped
 // end::ApplicationScoped[]
 public class SystemReadinessCheck implements HealthCheck {
+
+  private static final String readinessCheck = SystemResource.class.getSimpleName() + " Readiness Check";
+
   @Override
 // tag::healthCheckResponse[]
   public HealthCheckResponse call() {
@@ -33,12 +36,12 @@ public class SystemReadinessCheck implements HealthCheck {
     // end::defaultServer[]
       // tag::HealthCheckResponse-DOWN[]
       // tag::HealthCheckResponse-named[]
-      return HealthCheckResponse.down(SystemResource.class.getSimpleName() + "Readiness Check");
+      return HealthCheckResponse.down(readinessCheck);
       // end::HealthCheckResponse-named[]
       // end::HealthCheckResponse-DOWN[]
     }
     // tag::HealthCheckResponse-UP[]
-    return HealthCheckResponse.up(SystemResource.class.getSimpleName() + "Readiness Check");
+    return HealthCheckResponse.up(readinessCheck);
     // end::HealthCheckResponse-UP[]
   }
 // end::healthCheckResponse[]
