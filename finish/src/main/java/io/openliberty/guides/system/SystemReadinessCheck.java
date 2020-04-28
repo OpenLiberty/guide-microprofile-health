@@ -27,7 +27,7 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 public class SystemReadinessCheck implements HealthCheck {
 
   private static final String readinessCheck = SystemResource.class.getSimpleName() 
-                                              + " Readiness Check";
+                                               + " Readiness Check";
 
   @Override
 // tag::healthCheckResponse[]
