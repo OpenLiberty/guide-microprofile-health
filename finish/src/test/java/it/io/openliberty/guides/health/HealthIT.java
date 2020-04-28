@@ -40,10 +40,10 @@ public class HealthIT {
   @Test
   // tag::testIfServicesAreUp[]
   public void testIfServicesAreUp() {
-    endpointData.put("SystemResourceReadiness", "UP");
-    endpointData.put("SystemResourceLiveness", "UP");
-    endpointData.put("InventoryResourceReadiness", "UP");
-    endpointData.put("InventoryResourceLiveness", "UP");
+    endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Liveness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
@@ -53,8 +53,8 @@ public class HealthIT {
   @Test
   // tag::testReadiness[]
   public void testReadiness() {
-    endpointData.put("SystemResourceReadiness", "UP");
-    endpointData.put("InventoryResourceReadiness", "UP");
+    endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Readiness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
     checkStates(endpointData, servicesStates);
@@ -64,8 +64,8 @@ public class HealthIT {
   @Test
   // tag::testLiveness[]
   public void testLiveness() {
-    endpointData.put("SystemResourceLiveness", "UP");
-    endpointData.put("InventoryResourceLiveness", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Liveness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
     checkStates(endpointData, servicesStates);
@@ -75,15 +75,15 @@ public class HealthIT {
   @Test
   // tag::testIfInventoryServiceIsDown[]
   public void testIfInventoryServiceIsDown() {
-    endpointData.put("SystemResourceReadiness", "UP");
-    endpointData.put("SystemResourceLiveness", "UP");
-    endpointData.put("InventoryResourceReadiness", "UP");
-    endpointData.put("InventoryResourceLiveness", "UP");
+    endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Liveness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
 
-    endpointData.put("InventoryResourceReadiness", "DOWN");
+    endpointData.put("InventoryResource Readiness Check", "DOWN");
     HealthITUtil.changeInventoryProperty(HealthITUtil.INV_MAINTENANCE_FALSE,
         HealthITUtil.INV_MAINTENANCE_TRUE);
     servicesStates = HealthITUtil.connectToHealthEnpoint(503, HEALTH_ENDPOINT);
