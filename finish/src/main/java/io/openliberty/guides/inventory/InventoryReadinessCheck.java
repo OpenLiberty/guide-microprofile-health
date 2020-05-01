@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2019 IBM Corporation and others.
+ * Copyright (c) 2018, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,10 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 @Readiness
 @ApplicationScoped
 public class InventoryReadinessCheck implements HealthCheck {
+
+  private static final String readinessCheck = InventoryResource.class.getSimpleName() 
+                                               + " Readiness Check";
+
   @Inject
   // tag::inventoryConfig[]
   InventoryConfig config;
@@ -55,12 +59,10 @@ public class InventoryReadinessCheck implements HealthCheck {
   public HealthCheckResponse call() {
     if (!isHealthy()) {
       return HealthCheckResponse
-          .named(InventoryResource.class.getSimpleName() + "Readiness")
-          .withData("services", "not available").down().build();
+          .down(readinessCheck);
     }
     return HealthCheckResponse
-        .named(InventoryResource.class.getSimpleName() + "Readiness")
-        .withData("services", "available").up().build();
+        .up(readinessCheck);
   }
 
 }
