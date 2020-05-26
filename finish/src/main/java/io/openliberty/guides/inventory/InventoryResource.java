@@ -48,9 +48,9 @@ public class InventoryResource {
       Properties props = manager.get(hostname, inventoryConfig.getPortNumber());
       // end::config-port[]
       if (props == null) {
+        // unknown hostname or the resource may not be running on the host machine
         return Response.status(Response.Status.NOT_FOUND)
-                       .entity(
-                           "{ \"error\" : \"Unknown hostname or the resource may not be running on the host machine\" }")
+                       .entity(new Properties())
                        .build();
       }
 
@@ -60,7 +60,8 @@ public class InventoryResource {
     } else {
       // tag::email[]
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-                     .entity("{ \"error\" : \"Service is currently in maintenance.\" }").build();
+                     .entity("{ \"error\" : \"Service is currently in maintenance.\" }")
+                     .build();
       // end::email[]
     }
   }
@@ -72,7 +73,8 @@ public class InventoryResource {
       return Response.ok(manager.list()).build();
     } else {
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-                     .entity("{ \"error\" : \"Service is currently in maintenance.\" }").build();
+                     .entity("{ \"error\" : \"Service is currently in maintenance.\" }")
+                     .build();
     }
   }
 
