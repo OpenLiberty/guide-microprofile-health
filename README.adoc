@@ -140,7 +140,7 @@ The [hotspot=healthCheckResponse]`call()` method is used to return the health st
 In this case, you are simply checking if the server name is [hotspot=defaultServer]`defaultServer` and
 returning [hotspot=HealthCheckResponse-UP]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN]`DOWN` otherwise.  
 Overall, this is a very simple implementation of the [hotspot=healthCheckResponse]`call()`
-method. In a real development environment, you would want to orchestrate much more meaningful
+method. For a real environment, you would want to orchestrate much more meaningful
 health checks.
 
 
