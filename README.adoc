@@ -178,14 +178,21 @@ InventoryReadinessCheck.java
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[]
 ----
 
-This readiness check will check to see if the `inventory` service is in maintenance.
-The [hotspot=isHealthy file=0]`isHealthy()` method returns the readiness status of the `inventory`
-service. A custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance`
-MicroProfile Config property has been defined for you in the [hotspot file=2]`resources/CustomConfigSource.json` file, which indicates whether the `inventory` service is in maintenance or not. Since the `inventory` service in your application depends on the `system` service, it will be unhealthy if the `system` service is down. For this reason, the status of the `system` service is also checked.
+In the [hotspot=isHealthy file=0]`isHealthy()` method, 
+you will report the `inventory` service as not ready if the service is in maintenance or if its dependant service is unavailable.
 
-To check whether the service is up, make an HTTP GET request to the `system` service and check the status that is returned by the response. If the status code is not `200`, then the `system` service is not running. Upon receiving a successful response, the [hotspot=isHealthy file=0]`isHealthy()` method returns a healthy `UP` state for the `inventory` service since the MicroProfile Config maintenance property is defined as [hotspot=3 file=2]`false` and is defined in your readiness check as an [hotspot=inventoryConfig file=0]`inventoryConfig` object.
+For simplicity and simulation, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance`
+MicroProfile Config property defined in the [hotspot file=2]`resources/CustomConfigSource.json`
+file is used to indicate whether the service is in maintenance or not. This file was already
+created for you.
 
-To learn more about MicroProfile Config and its properties, see https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
+Moreover, the readiness health check procedure makes an HTTP GET request to the `system` service and check its status.
+If the request is successful, the `inventory` service is healthy and ready since its dependant service is available.
+Otherwise, the `inventory` service is not ready and an unhealthy readiness status is returned.
+
+If you are curious about the injected [hotspot=inventoryConfig file=0]`inventoryConfig` object or if
+you want learn more about MicroProfile Config, see
+https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
 [role="code_command hotspot file=1", subs="quotes"]
 ----
