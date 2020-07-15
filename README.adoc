@@ -186,7 +186,7 @@ MicroProfile Config property defined in the [hotspot file=2]`resources/CustomCon
 file is used to indicate whether the service is in maintenance or not. This file was already
 created for you.
 
-Moreover, the readiness health check procedure makes an HTTP GET request to the `system` service and check its status.
+Moreover, the readiness health check procedure makes an HTTP [hotspot=getRequest]`GET` request to the `system` service and check its status.
 If the request is successful, the `inventory` service is healthy and ready since its dependant service is available.
 Otherwise, the `inventory` service is not ready and an unhealthy readiness status is returned.
 
