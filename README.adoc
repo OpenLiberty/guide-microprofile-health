@@ -313,6 +313,8 @@ You see the following output:
 
 [source, role="no_copy"]
 ----
+[INFO] Running it.io.openliberty.guides.health.HealthIT
+[INFO] [WARNING ] CWMH0052W: The class com.ibm.ws.microprofile.health.impl.HealthCheckResponseImpl implementing HealthCheckResponse in the guide-microprofile-health application in module guide-microprofile-health.war, reported a DOWN status with data Optional[{}].
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
@@ -321,12 +323,17 @@ You see the following output:
 [INFO] Running it.io.openliberty.guides.system.SystemEndpointIT
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in it.io.openliberty.guides.system.SystemEndpointIT
 [INFO] Running it.io.openliberty.guides.inventory.InventoryEndpointIT
+[WARNING ] Interceptor for {http://client.inventory.guides.openliberty.io/}SystemClient has thrown exception, unwinding now
+[INFO] Could not send Message.
+[INFO] [err] The specified host is unknown.
 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s - in it.io.openliberty.guides.inventory.InventoryEndpointIT
 [INFO]
 [INFO] Results:
 [INFO]
 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
 ----
+
+The warning messages are expected. The first results from [hotspot=testIfInventoryServiceIsDown file=0]`testIfInventoryServiceIsDown()` making a request to a service that is down due to being in maintenance. The second warning results from a request to a bad or an unknown host name.
 
 To see whether the tests detect a failure, manually change the configuration of
 [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` from `false` to `true`
