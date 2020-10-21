@@ -332,7 +332,7 @@ You see the following output:
 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
 ----
 
-The warning messages are expected. The first warning results from [hotspot=testIfInventoryServiceIsDown file=0]`testIfInventoryServiceIsDown()` making a request to a service that is down due to being in maintenance. The second warning and error results from a request to a bad or an unknown host name. This request is made in the test [hotspot=testUnknownHost file=4]`testUnknownHost()` from [hotspot file=4]`InventoryEndpointIT`.
+The warning messages are expected. The first warning results from [hotspot=testIfInventoryServiceIsDown file=0]`testIfInventoryServiceIsDown()` making a request to a service that is down due to being in maintenance. The second warning and error results from a request to a bad or an unknown host name. This request is made in the test [hotspot=testUnknownHost file=5]`testUnknownHost()` from [hotspot file=5]`InventoryEndpointIT`.
 
 
 InventoryEndpointIT.java
