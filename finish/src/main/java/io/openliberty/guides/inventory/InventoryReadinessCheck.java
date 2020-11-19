@@ -44,7 +44,9 @@ public class InventoryReadinessCheck implements HealthCheck {
       String url = InventoryUtils.buildUrl("http", "localhost", config.getPortNumber(),
           "/system/properties");
       Client client = ClientBuilder.newClient();
+      // tag::getRequest[]
       Response response = client.target(url).request(MediaType.APPLICATION_JSON).get();
+      // end::getRequest[]
       if (response.getStatus() != 200) {
         return false;
       }
