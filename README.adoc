@@ -183,7 +183,7 @@ you report the `inventory` service as not ready if the service is in maintenance
 
 For simplicity, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance`
 MicroProfile Config property, which is defined in the [hotspot file=2]`resources/CustomConfigSource.json`
-file is used to indicate whether the service is in maintenance. This file was already
+file, is used to indicate whether the service is in maintenance. This file was already
 created for you.
 
 Moreover, the readiness health check procedure makes an HTTP [hotspot=getRequest]`GET` request to the `system` service and checks its status.
