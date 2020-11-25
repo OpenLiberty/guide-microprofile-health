@@ -335,8 +335,6 @@ You see the following output:
 
 The warning messages are expected. The first warning results from a request to a service that is under maintenance. This request is made in the `testIfInventoryServiceIsDown()` test from the `InventoryEndpointIT` integration test. The second warning and error results from a request to a bad or an unknown hostname. This request is made in the `testUnknownHost()` test from the `InventoryEndpointIT` integration test.
 
-
-
 To see whether the tests detect a failure, manually change the configuration of
 [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` from `false` to `true`
 in the `resources/CustomConfigSource.json` file. Rerun the tests to see a test failure occur.
