@@ -85,7 +85,7 @@ URL to view the data from the liveness health checks.
 include::{common-includes}/twyb-end.adoc[]
 
 // =================================================================================================
-// Adding health checks to microservice
+// Adding health checks to microservices
 // =================================================================================================
 
 == Adding health checks to microservices
@@ -140,7 +140,7 @@ The [hotspot=healthCheckResponse]`call()` method is used to return the health st
 In this case, you are simply checking if the server name is [hotspot=defaultServer]`defaultServer` and
 returning [hotspot=HealthCheckResponse-UP]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN]`DOWN` otherwise.  
 Overall, this is a very simple implementation of the [hotspot=healthCheckResponse]`call()`
-method. In a real development environment, you would want to orchestrate much more meaningful
+method. In a real environment, you would want to orchestrate more meaningful
 health checks.
 
 
@@ -178,20 +178,20 @@ InventoryReadinessCheck.java
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[]
 ----
 
-This time, you are checking whether or not the service is in maintenance or if it's down.
+In the [hotspot=isHealthy file=0]`isHealthy()` method, 
+you report the `inventory` service as not ready if the service is in maintenance or if its dependant service is unavailable.
+
 For simplicity, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance`
-MicroProfile Config property defined in the [hotspot file=2]`resources/CustomConfigSource.json`
-file is used to indicate whether the service is in maintenance or not. This file was already
-created for you. To check whether the service is down, make an HTTP GET request to
-the `system` service and check the status that is returned by the response. You make a GET request
-to the `system` service rather than the `inventory` service because the `inventory` service
-depends on the `system` service. In other words, the `inventory` service doesn't work if
-the `system` service is down. If the status is not 200, then the service is not running.
-Based on these two factors, the [hotspot=isHealthy file=0]`isHealthy()` method returns whether
-the `inventory` service is healthy.
+MicroProfile Config property, which is defined in the [hotspot file=2]`resources/CustomConfigSource.json`
+file, is used to indicate whether the service is in maintenance. This file was already
+created for you.
+
+Moreover, the readiness health check procedure makes an HTTP [hotspot=getRequest]`GET` request to the `system` service and checks its status.
+If the request is successful, the `inventory` service is healthy and ready because its dependant service is available.
+Otherwise, the `inventory` service is not ready and an unhealthy readiness status is returned.
 
 If you are curious about the injected [hotspot=inventoryConfig file=0]`inventoryConfig` object or if
-you want more information on MicroProfile Config, see
+you want to learn more about MicroProfile Config, see
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
 [role="code_command hotspot file=1", subs="quotes"]
