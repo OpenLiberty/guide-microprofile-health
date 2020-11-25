@@ -333,7 +333,7 @@ You see the following output:
 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
 ----
 
-The warning messages are expected. The first warning results from a request to a service that is under maintenance. This request is made in the `testIfInventoryServiceIsDown()` test from `InventoryEndpointIT` integration test. The second warning and error results from a request to a bad or an unknown host name. This request is made in the `testUnknownHost()` test from `InventoryEndpointIT` integration test.
+The warning messages are expected. The first warning results from a request to a service that is under maintenance. This request is made in the `testIfInventoryServiceIsDown()` test from `InventoryEndpointIT` integration test. The second warning and error results from a request to a bad or an unknown hostname. This request is made in the `testUnknownHost()` test from `InventoryEndpointIT` integration test.
 
 
 
