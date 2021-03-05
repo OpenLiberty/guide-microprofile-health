@@ -99,7 +99,7 @@ curl http://localhost:9080/inventory/systems
 ```
 {: codeblock}
 
-Visit the ** http://localhost:9080/health ** URL to see the
+Visit the http://localhost:9080/health URL to see the
 overall health status of the application, as well as the aggregated data of the liveness
 and readiness checks. Run the following curl command:
 ```
@@ -111,14 +111,14 @@ Two checks show the state of the **system** service, and the other two
 checks show the state of the **inventory** service. As you might expect, both services are in the
 **UP** state, and the overall health status of the application is in the **UP** state.
 
-You can also access the **/health/ready** endpoint by visiting the ** http://localhost:9080/health/ready **
+You can also access the **/health/ready** endpoint by visiting the http://localhost:9080/health/ready
 URL to view the data from the readiness health checks. Run the following curl command:
 ```
 curl http://localhost:9080/health/ready
 ```
 {: codeblock}
 
-Similarly, access the **/health/live** endpoint by visiting the ** http://localhost:9080/health/live **
+Similarly, access the **/health/live** endpoint by visiting the http://localhost:9080/health/live
 URL to view the data from the liveness health checks. Run the following curl command:
 ```
 curl http://localhost:9080/health/live
@@ -200,7 +200,7 @@ endif::[]
 ifdef::cloud-hosted[]
 The **@Readiness** annotation indicates that this particular bean is a readiness health check procedure.
 By pairing this annotation with the **ApplicationScoped** context from the Contexts and
-Dependency Injections API, the bean is discovered automatically when the ** http://localhost:9080/health **
+Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health
 endpoint receives a request. Run the following curl command:
 ```
 curl http://localhost:9080/health
@@ -347,7 +347,7 @@ property to **true** in the **resources/CustomConfigSource.json** file.
 ```
 {: codeblock}
 
-Because this configuration file is picked up dynamically, simply refresh the ** http://localhost:9080/health **
+Because this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health
 URL to see that the state of the **inventory** service changed to **DOWN**. Run the following curl command:
 ```
 curl http://localhost:9080/health
