@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2020 IBM Corporation and others.
+// Copyright (c) 2018, 2021 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -64,6 +64,8 @@ include::{common-includes}/gitclone.adoc[]
 [role='command']
 include::{common-includes}/twyb-intro.adoc[]
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 The `system` and `inventory` services can be found at the following URLs:
 
 - http://localhost:9080/system/properties[http://localhost:9080/system/properties^]
@@ -80,6 +82,49 @@ You can also access the `/health/ready` endpoint by visiting the http://localhos
 URL to view the data from the readiness health checks. Similarly, access the `/health/live`
 endpoint by visiting the http://localhost:9080/health/live[http://localhost:9080/health/live^]
 URL to view the data from the liveness health checks.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Open another command-line session by selecting **Terminal** > **New Terminal** from the menu of the IDE.
+To access the **system** service, run the following curl command:
+```
+curl http://localhost:9080/system/properties
+```
+{: codeblock}
+
+To access the **inventory** service, run the following curl command:
+```
+curl http://localhost:9080/inventory/systems
+```
+{: codeblock}
+
+Visit the http://localhost:9080/health URL to see the
+overall health status of the application, as well as the aggregated data of the liveness
+and readiness checks. Run the following curl command:
+```
+curl http://localhost:9080/health
+```
+{: codeblock}
+
+Two checks show the state of the **system** service, and the other two
+checks show the state of the **inventory** service. As you might expect, both services are in the
+**UP** state, and the overall health status of the application is in the **UP** state.
+
+You can also access the **/health/ready** endpoint by visiting the http://localhost:9080/health/ready
+URL to view the data from the readiness health checks. Run the following curl command:
+```
+curl http://localhost:9080/health/ready
+```
+{: codeblock}
+
+Similarly, access the **/health/live** endpoint by visiting the http://localhost:9080/health/live
+URL to view the data from the liveness health checks. Run the following curl command:
+```
+curl http://localhost:9080/health/live
+```
+{: codeblock}
+endif::[]
 
 [role='command']
 include::{common-includes}/twyb-end.adoc[]
@@ -90,7 +135,19 @@ include::{common-includes}/twyb-end.adoc[]
 
 == Adding health checks to microservices
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 Navigate to the `start` directory to begin.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+To begin, run the following command to navigate to the **start** directory:
+```
+cd /home/project/guide-microprofile-health/start
+```
+{: codeblock}
+endif::[]
 
 [role='command']
 include::{common-includes}/devmode-start.adoc[]
@@ -131,10 +188,26 @@ SystemReadinessCheck.java
 include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[]
 ----
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 The [hotspot=Readiness file=0]`@Readiness` annotation indicates that this particular bean is a readiness health check procedure.
 By pairing this annotation with the [hotspot=ApplicationScoped]`ApplicationScoped` context from the Contexts and
 Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health[http://localhost:9080/health^]
 endpoint receives a request.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+The **@Readiness** annotation indicates that this particular bean is a readiness health check procedure.
+By pairing this annotation with the **ApplicationScoped** context from the Contexts and
+Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health
+endpoint receives a request. Run the following curl command:
+```
+curl http://localhost:9080/health
+```
+{: codeblock}
+endif::[]
+
 
 The [hotspot=healthCheckResponse]`call()` method is used to return the health status of a particular service.
 In this case, you are simply checking if the server name is [hotspot=defaultServer]`defaultServer` and
@@ -222,6 +295,8 @@ include::finish/resources/CustomConfigSource.json[]
 [role='command']
 include::{common-includes}/devmode-build.adoc[]
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 While the server is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find
 the aggregated liveness and readiness health reports on the two services.
 
@@ -237,6 +312,67 @@ overall state of the application also changed to `DOWN` as a result. Go to the
 http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^] URL to verify that the `inventory` service is
 indeed in maintenance. Set the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
 property back to `false` after you are done.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+While the server is running, run the following curl command to find
+the aggregated liveness and readiness health reports on the two services:
+```
+curl http://localhost:9080/health
+```
+{: codeblock}
+
+You can also run the following curl command to view the readiness health report:
+```
+curl http://localhost:9080/health/ready
+```
+{: codeblock}
+
+or run the following curl command to view the liveness health report:
+```
+curl http://localhost:9080/health/live
+```
+{: codeblock}
+
+Put the **inventory** service in maintenance by setting the **`io_openliberty_guides_inventory_inMaintenance`**
+property to **true** in the **resources/CustomConfigSource.json** file. 
+
+> From the menu of the IDE, select 
+ **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json
+
+```
+{"config_ordinal":500,
+"io_openliberty_guides_system_inMaintenance":true}
+```
+{: codeblock}
+
+Because this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health
+URL to see that the state of the **inventory** service changed to **DOWN**. Run the following curl command:
+```
+curl http://localhost:9080/health
+```
+{: codeblock}
+
+The overall state of the application also changed to **DOWN** as a result. Run the following curl command
+ to verify that the **inventory** service is indeed in maintenance:
+```
+curl http://localhost:9080/inventory/systems
+```
+{: codeblock}
+
+Set the **`io_openliberty_guides_inventory_inMaintenance`**
+property back to **false** after you are done.
+
+> From the menu of the IDE, select 
+ **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json
+
+```
+{"config_ordinal":500,
+"io_openliberty_guides_system_inMaintenance":false}
+```
+{: codeblock}
+endif::[]
 
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
