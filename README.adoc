@@ -192,7 +192,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.
 ifndef::cloud-hosted[]
 The [hotspot=Readiness file=0]`@Readiness` annotation indicates that this particular bean is a readiness health check procedure.
 By pairing this annotation with the [hotspot=ApplicationScoped]`ApplicationScoped` context from the Contexts and
-Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health[http://localhost:9080/health^]
+Dependency Injections API, the bean is discovered automatically when the `\http://localhost:9080/health`
 endpoint receives a request.
 endif::[]
 
