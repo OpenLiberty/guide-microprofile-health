@@ -399,13 +399,13 @@ include::finish/src/test/java/it/io/openliberty/guides/health/HealthIT.java[]
 
 Let's break down the test cases:
 
-- The [hotspot=testIfServicesAreUp file=0]`testIfServicesAreUp()` test case compares the generated health report
+* The [hotspot=testIfServicesAreUp file=0]`testIfServicesAreUp()` test case compares the generated health report
 with the actual status of the services.
-- The [hotspot=testReadiness file=0]`testReadiness()` test case compares the generated health report for the
+* The [hotspot=testReadiness file=0]`testReadiness()` test case compares the generated health report for the
 readiness checks with the actual status of the services.
-- The [hotspot=testLiveness file=0]`testLiveness()` test case compares the generated health report for the
+* The [hotspot=testLiveness file=0]`testLiveness()` test case compares the generated health report for the
 liveness checks with the actual status of the services.
-- The [hotspot=testIfInventoryServiceIsDown file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service
+* The [hotspot=testIfInventoryServiceIsDown file=0]`testIfInventoryServiceIsDown()` test case puts the `inventory` service
 in maintenance by setting the [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance`
 property to `true` and comparing the generated health report with the actual status of
 the services.
