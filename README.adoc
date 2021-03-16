@@ -338,8 +338,10 @@ property to **true** in the **resources/CustomConfigSource.json** file.
  **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json
 
 ```
-{"config_ordinal":500,
-"io_openliberty_guides_system_inMaintenance":true}
+{
+  "config_ordinal":700,
+  "io_openliberty_guides_system_inMaintenance":true
+}
 ```
 {: codeblock}
 
@@ -364,8 +366,10 @@ property back to **false** after you are done.
  **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json
 
 ```
-{"config_ordinal":500,
-"io_openliberty_guides_system_inMaintenance":false}
+{
+  "config_ordinal":700,
+  "io_openliberty_guides_system_inMaintenance":false
+}
 ```
 {: codeblock}
 endif::[]
