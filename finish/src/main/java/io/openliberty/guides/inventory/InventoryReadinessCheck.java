@@ -29,7 +29,6 @@ public class InventoryReadinessCheck implements HealthCheck {
 
   private static final String READINESS_CHECK = InventoryResource.class.getSimpleName() 
                                                + " Readiness Check";
-
   @Inject
   // tag::inventoryConfig[]
   InventoryConfig config;

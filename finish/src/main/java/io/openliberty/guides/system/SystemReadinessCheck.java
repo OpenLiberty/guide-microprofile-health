@@ -28,7 +28,6 @@ public class SystemReadinessCheck implements HealthCheck {
 
   private static final String READINESS_CHECK = SystemResource.class.getSimpleName() 
                                                + " Readiness Check";
-
   @Override
 // tag::healthCheckResponse[]
   public HealthCheckResponse call() {

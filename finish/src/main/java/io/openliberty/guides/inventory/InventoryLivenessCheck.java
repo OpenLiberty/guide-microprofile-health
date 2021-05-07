@@ -26,14 +26,14 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 @Liveness
 @ApplicationScoped
 public class InventoryLivenessCheck implements HealthCheck {
- 
   @Override
   public HealthCheckResponse call() {
       MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
       long memUsed = memBean.getHeapMemoryUsage().getUsed();
       long memMax = memBean.getHeapMemoryUsage().getMax();
 
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName() + " Liveness Check")
+      return HealthCheckResponse.named(InventoryResource.class.getSimpleName() 
+                                       + " Liveness Check")
                                 .withData("memory used", memUsed)
                                 .withData("memory max", memMax)
                                 .status(memUsed < memMax * 0.9).build();
