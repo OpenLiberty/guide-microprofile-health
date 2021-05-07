@@ -68,9 +68,9 @@ include::{common-includes}/twyb-intro.adoc[]
 ifndef::cloud-hosted[]
 The `system` and `inventory` services can be found at the following URLs:
 
-- http://localhost:9080/system/properties[http://localhost:9080/system/properties^]
+* http://localhost:9080/system/properties[http://localhost:9080/system/properties^]
 
-- http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
+* http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
 
 Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the
 overall health status of the application, as well as the aggregated data of the liveness

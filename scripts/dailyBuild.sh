@@ -1,10 +1,8 @@
 #!/bin/bash
-while getopts t:d:b:u: flag; do
+while getopts t:d flag; do
     case "${flag}" in
     t) DATE="${OPTARG}" ;;
     d) DRIVER="${OPTARG}" ;;
-    b) BUILD="${OPTARG}" ;;
-    u) DOCKER_USERNAME="${OPTARG}" ;;
     *) echo "Invalid option";;
     esac
 done
