@@ -36,7 +36,7 @@ public class InventoryLivenessCheck implements HealthCheck {
                                        + " Liveness Check")
                                 .withData("memory used", memUsed)
                                 .withData("memory max", memMax)
-                                .status(memUsed < memMax * 0.9).build();
+                                .state(memUsed < memMax * 0.9).build();
   }
 }
 // end::InventoryLivenessCheck[]
