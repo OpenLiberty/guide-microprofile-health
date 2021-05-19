@@ -68,9 +68,9 @@ include::{common-includes}/twyb-intro.adoc[]
 ifndef::cloud-hosted[]
 The `system` and `inventory` services can be found at the following URLs:
 
-- http://localhost:9080/system/properties[http://localhost:9080/system/properties^]
+* http://localhost:9080/system/properties[http://localhost:9080/system/properties^]
 
-- http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
+* http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
 
 Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the
 overall health status of the application, as well as the aggregated data of the liveness
@@ -150,7 +150,7 @@ cd /home/project/guide-microprofile-health/start
 endif::[]
 
 [role='command']
-include::{common-includes}/devmode-start.adoc[]
+include::{common-includes}/devmode-lmp33-start.adoc[]
 
 A health report will be generated automatically for all services that enable MicroProfile Health. The
 [hotspot=mpHealth]`mpHealth` feature has already been enabled for you in the [hotspot]`src/main/liberty/config/server.xml`

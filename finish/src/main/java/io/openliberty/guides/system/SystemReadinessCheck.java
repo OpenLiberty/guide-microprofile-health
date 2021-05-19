@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2020 IBM Corporation and others.
+ * Copyright (c) 2018, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,9 +26,8 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 // end::ApplicationScoped[]
 public class SystemReadinessCheck implements HealthCheck {
 
-  private static final String readinessCheck = SystemResource.class.getSimpleName() 
+  private static final String READINESS_CHECK = SystemResource.class.getSimpleName()
                                                + " Readiness Check";
-
   @Override
 // tag::healthCheckResponse[]
   public HealthCheckResponse call() {
@@ -37,12 +36,12 @@ public class SystemReadinessCheck implements HealthCheck {
     // end::defaultServer[]
       // tag::HealthCheckResponse-DOWN[]
       // tag::HealthCheckResponse-named[]
-      return HealthCheckResponse.down(readinessCheck);
+      return HealthCheckResponse.down(READINESS_CHECK);
       // end::HealthCheckResponse-named[]
       // end::HealthCheckResponse-DOWN[]
     }
     // tag::HealthCheckResponse-UP[]
-    return HealthCheckResponse.up(readinessCheck);
+    return HealthCheckResponse.up(READINESS_CHECK);
     // end::HealthCheckResponse-UP[]
   }
 // end::healthCheckResponse[]
