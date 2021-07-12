@@ -183,7 +183,7 @@ include::finish/src/main/liberty/config/server.xml[]
 ----
 
 SystemReadinessCheck.java
-[source, java, linenums, role='code_column hide_tags=copyright tags=SystemReadinessCheck']
+[source, java, linenums, role='code_column tags=SystemReadinessCheck hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java[]
 ----
@@ -220,7 +220,7 @@ health checks.
 ----
 
 SystemLivenessCheck.java
-[source, java, linenums, role='code_column hide_tags=copyright tags=SystemLivenessCheck']
+[source, java, linenums, role='code_column tags=SystemLivenessCheck hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[]
 ----
@@ -242,7 +242,7 @@ is being used, a status of `DOWN` is returned.
 ----
 
 InventoryReadinessCheck.java
-[source, java, linenums, role='code_column hide_tags=copyright tags=InventoryReadinessCheck']
+[source, java, linenums, role='code_column tags=InventoryReadinessCheck hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[]
 ----
@@ -270,7 +270,7 @@ https://openliberty.io/guides/microprofile-config.html[Configuring microservices
 ----
 
 InventoryLivenessCheck.java
-[source, java, linenums, role='code_column hide_tags=copyright tags=InventoryLivenessCheck']
+[source, java, linenums, role='code_column tags=InventoryLivenessCheck hide_tags=copyright']
 ----
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java[]
 ----
@@ -395,7 +395,7 @@ You will implement several test methods to validate the health of the `system` a
 ----
 
 HealthIT.java
-[source, java, linenums, role='code_column hide_tags=copyright tags=HealthIT']
+[source, java, linenums, role='code_column tags=HealthIT hide_tags=copyright']
 ----
 include::finish/src/test/java/it/io/openliberty/guides/health/HealthIT.java[]
 ----
