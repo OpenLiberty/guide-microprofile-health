@@ -290,7 +290,22 @@ If you are curious about the injected [hotspot=inventoryConfig file=0]`inventory
 you want to learn more about MicroProfile Config, see
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
-[role="code_command hotspot file=1", subs="quotes"]
+[role="code_command hotspot file=1", subs="quotes"] 
+---- 
+#Create the `InventoryStartupCheck` class.#
+`inventory/src/main/java/io/openliberty/guides/inventory/InventoryStartupCheck.java`
+---- 
+
+InventoryStartupCheck.java
+[source, Java, linenums, role='code_column hide_tags=copyright']
+----
+include::finish/inventory/src/main/java/io/openliberty/guides/inventory/InventoryStartupCheck.java[]
+----
+
+This startup check verifies that the cpu memory usage is below 90% of the maximum memory.
+If more than 90% of the maximum memory is used, a status of `DOWN` will be returned. 
+
+[role="code_command hotspot file=2", subs="quotes"]
 ----
 #Create the `InventoryLivenessCheck` class.#
 `src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java`
