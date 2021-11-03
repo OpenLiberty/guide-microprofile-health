@@ -46,7 +46,7 @@ implementing the API provided by MicroProfile Health. A self-check can be a chec
 as a dependency, a successful connection to an endpoint, a system property, a database connection, or
 the availability of required resources. MicroProfile offers checks for both liveness and readiness.
 
-You will add liveness and readiness checks to the `system` and `inventory` services, which
+You will add liveness, startup and readiness checks to the `system` and `inventory` services, which
 are provided for you, and implement what is necessary to report health status by
 using MicroProfile Health.
 
@@ -74,12 +74,13 @@ The `system` and `inventory` services can be found at the following URLs:
 
 Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the
 overall health status of the application, as well as the aggregated data of the liveness
-and readiness checks. Two checks show the state of the `system` service, and the other two
+and readiness checks. Three checks show the state of the `system` service, and the other three
 checks show the state of the `inventory` service. As you might expect, both services are in the
 `UP` state, and the overall health status of the application is in the `UP` state.
 
-You can also access the `/health/ready` endpoint by visiting the http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
-URL to view the data from the readiness health checks. Similarly, access the `/health/live`
+Access the `/health/ready` endpoint by visiting the http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
+URL to view the data from the readiness health checks. You can also access the '/health/started' endpoint by visiting the 
+http://localhost:9080/health/started[http://localhost:9080/health/started^] URL to view the data from the startup health checks. Similarly, access the `/health/live`
 endpoint by visiting the http://localhost:9080/health/live[http://localhost:9080/health/live^]
 URL to view the data from the liveness health checks.
 endif::[]
@@ -107,14 +108,21 @@ curl -s http://localhost:9080/health | jq
 ```
 {: codeblock}
 
-Two checks show the state of the **system** service, and the other two
+Three checks show the state of the **system** service, and the other three
 checks show the state of the **inventory** service. As you might expect, both services are in the
 **UP** state, and the overall health status of the application is in the **UP** state.
 
-You can also access the **/health/ready** endpoint by visiting the http://localhost:9080/health/ready
+Access the **/health/ready** endpoint by visiting the http://localhost:9080/health/ready
 URL to view the data from the readiness health checks. Run the following curl command:
 ```
 curl -s http://localhost:9080/health/ready | jq
+```
+{: codeblock}
+
+You can also access the **/health/started** endpoint by visiting the http://localhost:9080/health/started
+URL to view the data from the startup health checks. Run the following curl command:
+```
+curl -s http://localhost:9080/health/started | jq
 ```
 {: codeblock}
 
@@ -160,9 +168,11 @@ All services must provide an implementation of the `HealthCheck` interface, whic
 verify their health. MicroProfile Health offers health checks for both readiness and liveness.
 A readiness check allows third-party services, such as Kubernetes, to determine whether a microservice
 is ready to process requests. For example, a readiness check might check dependencies,
-such as database connections. A liveness check allows third-party services to determine
-whether a microservice is running. If the liveness check fails, the application can be
-terminated. For example, a liveness check might fail if the application runs out of memory.
+such as database connections. A startup check allows applications to define startup probes that are used 
+for initial verification of the application before the Liveness probe takes over. For example,
+a startup check might check which applications require additional startup time on their first
+initialization. A liveness check allows third-party services to determinewhether a microservice is running. 
+If the liveness check fails, the application can be terminated. For example, a liveness check might fail if the application runs out of memory.
 
 server.xml
 [source, xml, linenums, role='code_column']
@@ -212,8 +222,23 @@ Overall, this is a very simple implementation of the [hotspot=healthCheckRespons
 method. In a real environment, you would want to orchestrate more meaningful
 health checks.
 
-
 [role="code_command hotspot file=1", subs="quotes"]
+----
+#Create the `SystemStartupCheck` class.#
+`src/main/java/io/openliberty/guides/system/SystemStartupCheck.java`
+----
+
+SystemStartupCheck.java
+[source, java, linenums, role='code_column tags=SystemStartupCheck hide_tags=copyright']
+----
+include::finish/src/main/java/io/openliberty/guides/system/SystemStartupCheck.java[]
+----
+
+The [hotspot=Liveness file=1]`@Startup` annotation indicates that this is a startup health check procedure.
+In this case, you are checking the cpu usage. If more than 90% of the cpu
+is being used, a status of `DOWN` is returned.
+
+[role="code_command hotspot file=2", subs="quotes"]
 ----
 #Create the `SystemLivenessCheck` class.#
 `src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java`
@@ -225,9 +250,11 @@ SystemLivenessCheck.java
 include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[]
 ----
 
-The [hotspot=Liveness file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
+The [hotspot=Liveness file=2]`@Liveness` annotation indicates that this is a liveness health check procedure.
 In this case, you are checking the heap memory usage. If more than 90% of the maximum memory
 is being used, a status of `DOWN` is returned.
+
+
 
 // =================================================================================================
 // Adding health checks to the inventory service
