@@ -44,6 +44,8 @@ public class HealthIT {
     endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Startup Check", "UP");
+    endpointData.put("InventoryResource Startup Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
