@@ -31,7 +31,6 @@ public class HealthIT {
   private String HEALTH_ENDPOINT = "health";
   private String READINESS_ENDPOINT = "health/ready";
   private String LIVENES_ENDPOINT = "health/live";
-  private String STARTUP_ENDPOINT = "health/started";
 
   @BeforeEach
   public void setup() {
@@ -42,11 +41,8 @@ public class HealthIT {
   // tag::testIfServicesAreUp[]
   public void testIfServicesAreUp() {
     endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("SystemResource Startup Check", "UP");
     endpointData.put("SystemResource Liveness Check", "UP");
-
     endpointData.put("InventoryResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Startup Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
@@ -66,17 +62,6 @@ public class HealthIT {
   // end::testReadiness[]
 
   @Test
-  // tag::testStartup[]
-  public void testStartup() {
-    endpointData.put("SystemResource Startup Check", "UP");
-    endpointData.put("InventoryResource Startup Check", "UP");
-
-    servicesStates = HealthITUtil.connectToHealthEnpoint(200, STARTUP_ENDPOINT);
-    checkStates(endpointData, servicesStates);
-  }
-  // end::testStartup[]
-
-  @Test
   // tag::testLiveness[]
   public void testLiveness() {
     endpointData.put("SystemResource Liveness Check", "UP");
@@ -91,10 +76,8 @@ public class HealthIT {
   // tag::testIfInventoryServiceIsDown[]
   public void testIfInventoryServiceIsDown() {
     endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("SystemResource Startup Check", "UP");
     endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Startup Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
