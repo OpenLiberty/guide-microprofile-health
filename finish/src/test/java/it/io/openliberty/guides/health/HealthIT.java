@@ -93,6 +93,7 @@ public class HealthIT {
     endpointData.put("SystemResource Readiness Check", "UP");
     endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("SystemResource Startup Check", "UP");
+    
     endpointData.put("InventoryResource Readiness Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
     endpointData.put("InventoryResource Startup Check", "UP");
