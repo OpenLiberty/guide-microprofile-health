@@ -90,13 +90,12 @@ public class HealthIT {
   @Test
   // tag::testIfInventoryServiceIsDown[]
   public void testIfInventoryServiceIsDown() {
-    endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP");
-    endpointData.put("SystemResource Startup Check", "UP");
-    
     endpointData.put("InventoryResource Readiness Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
     endpointData.put("InventoryResource Startup Check", "UP");
+    endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP");
+    endpointData.put("SystemResource Startup Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
