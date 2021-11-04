@@ -73,15 +73,15 @@ The `system` and `inventory` services can be found at the following URLs:
 * http://localhost:9080/inventory/systems[http://localhost:9080/inventory/systems^]
 
 Visit the http://localhost:9080/health[http://localhost:9080/health^] URL to see the
-overall health status of the application, as well as the aggregated data of the liveness
+overall health status of the application, as well as the aggregated data of the liveness, startup
 and readiness checks. Three checks show the state of the `system` service, and the other three
 checks show the state of the `inventory` service. As you might expect, both services are in the
 `UP` state, and the overall health status of the application is in the `UP` state.
 
 Access the `/health/ready` endpoint by visiting the http://localhost:9080/health/ready[http://localhost:9080/health/ready^]
-URL to view the data from the readiness health checks. You can also access the '/health/started' endpoint by visiting the 
-http://localhost:9080/health/started[http://localhost:9080/health/started^] URL to view the data from the startup health checks. Similarly, access the `/health/live`
-endpoint by visiting the http://localhost:9080/health/live[http://localhost:9080/health/live^]
+URL to view the data from the readiness health checks. You can also access the `/health/started` endpoint by visiting the 
+http://localhost:9080/health/started[http://localhost:9080/health/started^] URL to view the data from the startup health checks. 
+Similarly, access the `/health/live` endpoint by visiting the http://localhost:9080/health/live[http://localhost:9080/health/live^]
 URL to view the data from the liveness health checks.
 endif::[]
 
