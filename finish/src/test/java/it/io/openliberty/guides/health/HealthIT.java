@@ -49,7 +49,6 @@ public class HealthIT {
     endpointData.put("InventoryResource Startup Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
-    assertEquals(endpointData, servicesStates);
     checkStates(endpointData, servicesStates);
   }
   // end::testIfServicesAreUp[]
