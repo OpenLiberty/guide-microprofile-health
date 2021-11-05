@@ -33,7 +33,8 @@ public class SystemStartupCheck implements HealthCheck {
     public HealthCheckResponse call() {
         OperatingSystemMXBean bean = (com.sun.management.OperatingSystemMXBean)
         ManagementFactory.getOperatingSystemMXBean();
-        if (bean.getSystemCpuLoad() < 0.8) {
+        getCpuUsage();
+        if (bean.getProcessCpuLoad() < 0.9) {
            return HealthCheckResponse.up(STARTUP_CHECK);
         } else {
            return HealthCheckResponse.down(STARTUP_CHECK);
