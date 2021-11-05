@@ -33,10 +33,11 @@ public class InventoryStartupCheck implements HealthCheck {
     public HealthCheckResponse call() {
         OperatingSystemMXBean bean = (com.sun.management.OperatingSystemMXBean)
         ManagementFactory.getOperatingSystemMXBean();
+        String temp = String.valueOf(bean.getSystemCpuLoad() < 0.95);
         if (bean.getSystemCpuLoad() < 0.95) {
-           return HealthCheckResponse.up(String.valueOf(bean.getSystemCpuLoad() < 0.95));
+           return HealthCheckResponse.up(temp);
         } else {
-           return HealthCheckResponse.down(String.valueOf(bean.getSystemCpuLoad() < 0.95));
+           return HealthCheckResponse.down(temp);
         }
     }
 }
