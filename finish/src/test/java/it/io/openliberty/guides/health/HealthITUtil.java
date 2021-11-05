@@ -74,7 +74,7 @@ public class HealthITUtil {
           + "/resources/CustomConfigSource.json";
       BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
       String line = "";
-      String oldContent = ""
+      String oldContent = "";
       String newContent = "";
       while ((line = reader.readLine()) != null) {
         oldContent += line + "\r\n";
