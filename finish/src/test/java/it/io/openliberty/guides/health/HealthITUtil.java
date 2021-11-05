@@ -1,4 +1,4 @@
-// tag::comment[]
+// tag::copyright[]
 /*******************************************************************************
  * Copyright (c) 2018, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
@@ -9,7 +9,7 @@
  * Contributors:
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
-// end::comment[]
+// end::copyright[]
 // tag::HealthTestUtil[]
 package it.io.openliberty.guides.health;
 
@@ -32,7 +32,7 @@ public class HealthITUtil {
 
   private static String port;
   private static String baseUrl;
-  public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_" 
+  public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_"
                                                    + "inMaintenance\":false";
   public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_"
                                                   +  "inMaintenance\":true";
