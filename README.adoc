@@ -248,9 +248,9 @@ endpoint receives a request.
 endif::[]
 
 
-The [hotspot=healthCheckResponse]`call()` method is used to return the health status of a particular service.
-In this case, you are simply checking if the server name is [hotspot=defaultServer]`defaultServer` and
-returning [hotspot=HealthCheckResponse-UP]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN]`DOWN` otherwise.  
+The [hotspot=healthCheckResponse file=2]`call()` method is used to return the health status of a particular service.
+In this case, you are simply checking if the server name is [hotspot=defaultServer file=2]`defaultServer` and
+returning [hotspot=HealthCheckResponse-UP file=2]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN file=2]`DOWN` otherwise.  
 Overall, this is a very simple implementation of the [hotspot=healthCheckResponse]`call()`
 method. In a real environment, you would want to orchestrate more meaningful
 health checks.
