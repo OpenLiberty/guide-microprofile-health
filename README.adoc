@@ -234,7 +234,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.
 // static guide instructions:
 ifndef::cloud-hosted[]
 The [hotspot=Readiness file=2]`@Readiness` annotation indicates that this particular bean is a readiness health check procedure.
-By pairing this annotation with the [hotspot=ApplicationScoped]`ApplicationScoped` context from the Contexts and
+By pairing this annotation with the [hotspot=ApplicationScoped file=2]`ApplicationScoped` context from the Contexts and
 Dependency Injections API, the bean is discovered automatically when the `\http://localhost:9080/health`
 endpoint receives a request.
 endif::[]
@@ -355,7 +355,7 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 While the server is running, run the following curl command to find
-the aggregated liveness,startup and readiness health reports on the two services:
+the aggregated startup ,liveness and readiness health reports on the two services:
 ```
 curl -s http://localhost:9080/health | jq
 ```
