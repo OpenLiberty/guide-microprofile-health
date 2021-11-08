@@ -251,7 +251,7 @@ endif::[]
 The [hotspot=healthCheckResponse file=2]`call()` method is used to return the health status of a particular service.
 In this case, you are simply checking if the server name is [hotspot=defaultServer file=2]`defaultServer` and
 returning [hotspot=HealthCheckResponse-UP file=2]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN file=2]`DOWN` otherwise.  
-Overall, this is a very simple implementation of the [hotspot=healthCheckResponse]`call()`
+Overall, this is a very simple implementation of the [hotspot=healthCheckResponse file=2]`call()`
 method. In a real environment, you would want to orchestrate more meaningful
 health checks.
 
@@ -303,19 +303,19 @@ InventoryReadinessCheck.java
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryReadinessCheck.java[]
 ----
 
-In the [hotspot=isHealthy file=0]`isHealthy()` method, 
+In the [hotspot=isHealthy file=2]`isHealthy()` method, 
 you report the `inventory` service as not ready if the service is in maintenance or if its dependant service is unavailable.
 
-For simplicity, the custom [hotspot=3 file=2]`io_openliberty_guides_inventory_inMaintenance`
-MicroProfile Config property, which is defined in the [hotspot file=2]`resources/CustomConfigSource.json`
+For simplicity, the custom [hotspot=3 file=3]`io_openliberty_guides_inventory_inMaintenance`
+MicroProfile Config property, which is defined in the [hotspot file=3]`resources/CustomConfigSource.json`
 file, is used to indicate whether the service is in maintenance. This file was already
 created for you.
 
-Moreover, the readiness health check procedure makes an HTTP [hotspot=getRequest]`GET` request to the `system` service and checks its status.
+Moreover, the readiness health check procedure makes an HTTP [hotspot=getRequest file=2]`GET` request to the `system` service and checks its status.
 If the request is successful, the `inventory` service is healthy and ready because its dependant service is available.
 Otherwise, the `inventory` service is not ready and an unhealthy readiness status is returned.
 
-If you are curious about the injected [hotspot=inventoryConfig file=0]`inventoryConfig` object or if
+If you are curious about the injected [hotspot=inventoryConfig file=3]`inventoryConfig` object or if
 you want to learn more about MicroProfile Config, see
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
