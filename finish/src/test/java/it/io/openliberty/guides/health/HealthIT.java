@@ -58,7 +58,6 @@ public class HealthIT {
    public void testStartup() {
      endpointData.put("SystemResource Startup Check", "UP");
      endpointData.put("InventoryResource Startup Check", "UP");
-
      servicesStates = HealthITUtil.connectToHealthEnpoint(200, STARTUP_ENDPOINT);
      checkStates(endpointData, servicesStates);
    }
@@ -69,7 +68,6 @@ public class HealthIT {
    public void testLiveness() {
      endpointData.put("SystemResource Liveness Check", "UP");
      endpointData.put("InventoryResource Liveness Check", "UP");
-
      servicesStates = HealthITUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
      checkStates(endpointData, servicesStates);
    }
@@ -80,7 +78,6 @@ public class HealthIT {
   public void testReadiness() {
     endpointData.put("SystemResource Readiness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
-    
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
