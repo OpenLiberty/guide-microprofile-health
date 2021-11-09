@@ -315,7 +315,7 @@ Moreover, the readiness health check procedure makes an HTTP [hotspot=getRequest
 If the request is successful, the `inventory` service is healthy and ready because its dependant service is available.
 Otherwise, the `inventory` service is not ready and an unhealthy readiness status is returned.
 
-If you are curious about the injected [hotspot=inventoryConfig file=3]`inventoryConfig` object or if
+If you are curious about the injected [hotspot=inventoryConfig file=2]`inventoryConfig` object or if
 you want to learn more about MicroProfile Config, see
 https://openliberty.io/guides/microprofile-config.html[Configuring microservices^].
 
