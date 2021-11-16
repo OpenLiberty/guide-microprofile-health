@@ -535,7 +535,7 @@ include::{common-includes}/devmode-quit.adoc[]
 
 == Great work! You're done!
 
-You just learned how to add health checks to report the states of microservices by using
+You just learned how to add health checks to report the states of microservices by using 
 MicroProfile Health in Open Liberty. Then, you wrote tests to validate the generated
 health report.
 
