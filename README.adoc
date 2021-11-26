@@ -343,7 +343,7 @@ URL to view the liveness health report or the http://localhost:9080/health/ready
 URL to view the readiness health report.
 
 Put the `inventory` service in maintenance by setting the [hotspot=3]`io_openliberty_guides_inventory_inMaintenance`
-property to `true` in the [hotspot]`resources/CustomConfigSource.json` file. 
+property to `true` in the [hotspot]`CustomConfigSource.json` file. 
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -353,7 +353,7 @@ property to `true` in the [hotspot]`resources/CustomConfigSource.json` file.
 CustomConfigSource.json
 [source, json, linenums, role='code_column']
 ----
-include::finish/resources/CustomConfigSource.json[]
+include::finish/resources/CustomConfigSource2.json[]
 ----
 
 Because this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health[http://localhost:9080/health^]
