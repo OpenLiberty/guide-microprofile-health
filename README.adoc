@@ -216,7 +216,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.j
 ----
 
 The [hotspot=Liveness file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
-In this case, you are checking the heap memory usage. If more than 95% of the maximum memory
+In this case, you are checking the heap memory usage. If more than 90% of the maximum memory
 is being used, a status of `DOWN` is returned.
 
 [role="code_command hotspot file=2", subs="quotes"]
@@ -273,8 +273,8 @@ InventoryStartupCheck.java
 include::finish/src/main/java/io/openliberty/guides/inventory/InventoryStartupCheck.java[]
 ----
 
-This startup check verifies that the cpu memory usage is below 95% of the maximum memory.
-If more than 95% of the maximum memory is used, a status of `DOWN` will be returned. 
+This startup check verifies that the cpu usage is below 95%.
+If more than 95% of the cpu is being used, a status of `DOWN` is returned.
 
 [role="code_command hotspot file=1", subs="quotes"]
 ----
@@ -289,7 +289,7 @@ include::finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessC
 ----
 
 As with the `system` liveness check, you are checking the heap memory usage. If more
-than 95% of the maximum memory is being used, a `DOWN` status is returned.
+than 90% of the maximum memory is being used, a `DOWN` status is returned.
 
 [role="code_command hotspot file=2", subs="quotes"]
 ----
