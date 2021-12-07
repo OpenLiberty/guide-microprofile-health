@@ -27,6 +27,9 @@ mvn -Dhttp.keepAlive=false \
 #       liberty:stop              - Stop a Liberty server.
 #       failsafe:verify           - Verifies that the integration tests of an application passed.
 mvn liberty:start
+
+curl http://localhost:9080/health | jq
+
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
