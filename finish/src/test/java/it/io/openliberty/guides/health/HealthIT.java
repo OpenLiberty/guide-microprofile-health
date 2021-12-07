@@ -31,6 +31,7 @@ public class HealthIT {
   private String HEALTH_ENDPOINT = "health";
   private String READINESS_ENDPOINT = "health/ready";
   private String LIVENES_ENDPOINT = "health/live";
+  private String STARTUP_ENDPOINT = "health/started";
 
   @BeforeEach
   public void setup() {
@@ -40,8 +41,10 @@ public class HealthIT {
   @Test
   // tag::testIfServicesAreUp[]
   public void testIfServicesAreUp() {
+    endpointData.put("SystemResource Startup Check", "UP");
     endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Startup Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
 
@@ -73,8 +76,10 @@ public class HealthIT {
   @Test
   // tag::testIfInventoryServiceIsDown[]
   public void testIfInventoryServiceIsDown() {
+    endpointData.put("InventoryResource Startup Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
+    endpointData.put("SystemResource Startup Check", "UP");
     endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("SystemResource Readiness Check", "UP");
 
