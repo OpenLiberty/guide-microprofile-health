@@ -54,16 +54,6 @@ public class HealthIT {
   // end::testIfServicesAreUp[]
 
    @Test
-   // tag::testStartup[]
-   public void testStartup() {
-     endpointData.put("SystemResource Startup Check", "UP");
-     endpointData.put("InventoryResource Startup Check", "UP");
-     servicesStates = HealthITUtil.connectToHealthEnpoint(200, STARTUP_ENDPOINT);
-     checkStates(endpointData, servicesStates);
-   }
-   // end::testStartup[]
-
-   @Test
    // tag::testLiveness[]
    public void testLiveness() {
      endpointData.put("SystemResource Liveness Check", "UP");
