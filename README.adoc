@@ -459,8 +459,6 @@ Let's break down the test cases:
 
 * The [hotspot=testIfServicesAreUp file=0]`testIfServicesAreUp()` test case compares the generated health report
 with the actual status of the services.
-* The [hotspot=testStartup file=0]`testStartup()` test case compares the generatede health report for the
-startup checks with the actual status of the services.
 * The [hotspot=testLiveness file=0]`testLiveness()` test case compares the generated health report for the
 liveness checks with the actual status of the services.
 * The [hotspot=testReadiness file=0]`testReadiness()` test case compares the generated health report for the
