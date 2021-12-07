@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2021 IBM Corporation and others.
+ * Copyright (c) 2018, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,7 +31,6 @@ public class HealthIT {
   private String HEALTH_ENDPOINT = "health";
   private String READINESS_ENDPOINT = "health/ready";
   private String LIVENES_ENDPOINT = "health/live";
-  private String STARTUP_ENDPOINT = "health/started";
 
   @BeforeEach
   public void setup() {
@@ -41,47 +40,45 @@ public class HealthIT {
   @Test
   // tag::testIfServicesAreUp[]
   public void testIfServicesAreUp() {
-    endpointData.put("SystemResource Startup Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Startup Check", "UP");
-    endpointData.put("InventoryResource Liveness Check", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Liveness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
   // end::testIfServicesAreUp[]
 
-   @Test
-   // tag::testLiveness[]
-   public void testLiveness() {
-     endpointData.put("SystemResource Liveness Check", "UP");
-     endpointData.put("InventoryResource Liveness Check", "UP");
-     servicesStates = HealthITUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
-     checkStates(endpointData, servicesStates);
-   }
-   // end::testLiveness[]
-
   @Test
   // tag::testReadiness[]
   public void testReadiness() {
     endpointData.put("SystemResource Readiness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
+
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
   // end::testReadiness[]
 
   @Test
+  // tag::testLiveness[]
+  public void testLiveness() {
+    endpointData.put("SystemResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Liveness Check", "UP");
+
+    servicesStates = HealthITUtil.connectToHealthEnpoint(200, LIVENES_ENDPOINT);
+    checkStates(endpointData, servicesStates);
+  }
+  // end::testLiveness[]
+
+  @Test
   // tag::testIfInventoryServiceIsDown[]
   public void testIfInventoryServiceIsDown() {
-    endpointData.put("InventoryResource Startup Check", "UP");
-    endpointData.put("InventoryResource Liveness Check", "UP");
-    endpointData.put("InventoryResource Readiness Check", "UP");
-    endpointData.put("SystemResource Startup Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Liveness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
