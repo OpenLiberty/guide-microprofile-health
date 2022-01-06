@@ -9,8 +9,8 @@ set -euxo pipefail
 
 # LMP 3.0+ goals are listed here: https://github.com/OpenLiberty/ci.maven#goals
 
-sed -i 's/0.9/1.0/' ../finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java
-cat ../finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java
+sed -i 's/0.95/1.0/' ../finish/src/main/java/io/openliberty/guides/inventory/InventoryStartupCheck.java
+cat ../finish/src/main/java/io/openliberty/guides/inventory/InventoryStartupCheck.java
 
 ## Rebuild the application
 #       package                   - Take the compiled code and package it in its distributable format.
