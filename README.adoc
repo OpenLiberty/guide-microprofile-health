@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2021 IBM Corporation and others.
+// Copyright (c) 2018, 2022 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -44,9 +44,9 @@ orchestrator can then use the health statuses to make decisions.
 A service checks its own health by performing necessary self-checks and then reports its overall status by
 implementing the API provided by MicroProfile Health. A self-check can be a check on anything that the service needs, such
 as a dependency, a successful connection to an endpoint, a system property, a database connection, or
-the availability of required resources. MicroProfile offers checks for startup, liveness and readiness.
+the availability of required resources. MicroProfile offers checks for startup, liveness, and readiness.
 
-You will add startup, liveness and readiness checks to the `system` and `inventory` services, which
+You will add startup, liveness, and readiness checks to the `system` and `inventory` services, that
 are provided for you, and implement what is necessary to report health status by
 using MicroProfile Health.
 
@@ -164,8 +164,8 @@ A health report will be generated automatically for all services that enable Mic
 [hotspot=mpHealth]`mpHealth` feature has already been enabled for you in the [hotspot]`src/main/liberty/config/server.xml`
 file.
 
-All services must provide an implementation of the `HealthCheck` interface, which will be used to
-verify their health. MicroProfile Health offers health checks for startup, liveness and readiness.
+All services must provide an implementation of the `HealthCheck` interface, that are used to
+verify their health. MicroProfile Health offers health checks for startup, liveness, and readiness.
 A startup check allows applications to define startup probes that are used 
 for initial verification of the application before the Liveness probe takes over. For example,
 a startup check might check which applications require additional startup time on their first
@@ -307,7 +307,7 @@ In the [hotspot=isHealthy file=2]`isHealthy()` method,
 you report the `inventory` service as not ready if the service is in maintenance or if its dependant service is unavailable.
 
 For simplicity, the custom [hotspot=3 file=3]`io_openliberty_guides_inventory_inMaintenance`
-MicroProfile Config property, which is defined in the [hotspot file=3]`resources/CustomConfigSource.json`
+MicroProfile Config property, that is defined in the [hotspot file=3]`resources/CustomConfigSource.json`
 file, is used to indicate whether the service is in maintenance. This file was already
 created for you.
 
@@ -335,7 +335,7 @@ include::{common-includes}/devmode-build.adoc[]
 // static guide instructions:
 ifndef::cloud-hosted[]
 While the server is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find
-the aggregated startup, liveness and readiness health reports on the two services.
+the aggregated startup, liveness, and readiness health reports on the two services.
 
 You can also navigate to the http://localhost:9080/health/started[http://localhost:9080/health/started^]
 URL to view the startup health report, to the http://localhost:9080/health/live[http://localhost:9080/health/live^]
@@ -367,7 +367,7 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 While the server is running, run the following curl command to find
-the aggregated startup ,liveness and readiness health reports on the two services:
+the aggregated startup ,liveness, and readiness health reports on the two services:
 ```
 curl -s http://localhost:9080/health | jq
 ```
