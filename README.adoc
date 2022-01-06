@@ -400,7 +400,7 @@ property to **true** in the **resources/CustomConfigSource.json** file.
 ```
 {
   "config_ordinal":700,
-  "io_openliberty_guides_system_inMaintenance":true
+  "io_openliberty_guides_inventory_inMaintenance":true
 }
 ```
 {: codeblock}
