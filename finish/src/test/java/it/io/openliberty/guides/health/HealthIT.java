@@ -40,21 +40,6 @@ public class HealthIT {
   }
 
   @Test
-  // tag::testIfServicesAreUp[]
-  public void testIfServicesAreUp() {
-    endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP");
-    endpointData.put("InventoryResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Liveness Check", "UP");
-    endpointData.put("InventoryResource Startup Check", "UP");
-    endpointData.put("SystemResource Startup Check", "UP");
-
-    servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
-    checkStates(endpointData, servicesStates);
-  }
-  // end::testIfServicesAreUp[]
-
-  @Test
   // tag::testStartup[]
   public void testStartup() {
     endpointData.put("InventoryResource Startup Check", "UP");
@@ -88,14 +73,14 @@ public class HealthIT {
   // end::testLiveness[]
 
   @Test
-  // tag::testIfInventoryServiceIsDown[]
-  public void testIfInventoryServiceIsDown() {
-    endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP");
-    endpointData.put("InventoryResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Liveness Check", "UP");
-    endpointData.put("InventoryResource Startup Check", "UP");
+  // tag::testHealth[]
+  public void testHealth() {
     endpointData.put("SystemResource Startup Check", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP"); 
+    endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Startup Check", "UP");
+    endpointData.put("InventoryResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Readiness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
@@ -106,7 +91,7 @@ public class HealthIT {
     servicesStates = HealthITUtil.connectToHealthEnpoint(503, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
-  // end::testIfInventoryServiceIsDown[]
+  // end::testHealth[]
 
   private void checkStates(HashMap<String, String> testData, JsonArray servStates) {
     testData.forEach((service, expectedState) -> {
