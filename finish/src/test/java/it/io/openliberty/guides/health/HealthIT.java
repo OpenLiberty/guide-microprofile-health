@@ -51,17 +51,6 @@ public class HealthIT {
   // end::testStartup[]
 
   @Test
-  // tag::testReadiness[]
-  public void testReadiness() {
-    endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Readiness Check", "UP");
-
-    servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
-    checkStates(endpointData, servicesStates);
-  }
-  // end::testReadiness[]
-
-  @Test
   // tag::testLiveness[]
   public void testLiveness() {
     endpointData.put("SystemResource Liveness Check", "UP");
@@ -71,6 +60,17 @@ public class HealthIT {
     checkStates(endpointData, servicesStates);
   }
   // end::testLiveness[]
+
+  @Test
+  // tag::testReadiness[]
+  public void testReadiness() {
+    endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Readiness Check", "UP");
+
+    servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
+    checkStates(endpointData, servicesStates);
+  }
+  // end::testReadiness[]
 
   @Test
   // tag::testHealth[]
