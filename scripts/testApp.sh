@@ -9,6 +9,10 @@ set -euxo pipefail
 
 # LMP 3.0+ goals are listed here: https://github.com/OpenLiberty/ci.maven#goals
 
+sed -i 's/0.9/1.1/' ../finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java
+cat ../finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java
+sed -i 's/0.95/1.1/' ../finish/src/main/java/io/openliberty/guides/system/SystemStartupCheck.java
+cat ../finish/src/main/java/io/openliberty/guides/system/SystemStartupCheck.java
 sed -i 's/0.9/1.1/' ../finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java
 cat ../finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java
 sed -i 's/0.95/1.1/' ../finish/src/main/java/io/openliberty/guides/inventory/InventoryStartupCheck.java
