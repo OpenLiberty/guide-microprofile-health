@@ -37,6 +37,8 @@ mvn -Dhttp.keepAlive=false \
 #       failsafe:verify           - Verifies that the integration tests of an application passed.
 mvn liberty:start
 
+sleep 5
+
 curl http://localhost:9080/health | jq
 
 mvn -Dhttp.keepAlive=false \
