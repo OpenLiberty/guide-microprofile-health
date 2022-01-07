@@ -76,7 +76,7 @@ public class HealthIT {
   // tag::testHealth[]
   public void testHealth() {
     endpointData.put("SystemResource Startup Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP"); 
+    endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("SystemResource Readiness Check", "UP");
     endpointData.put("InventoryResource Startup Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");

@@ -509,18 +509,18 @@ You see the following output:
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running it.io.openliberty.guides.health.HealthIT
-[INFO] [WARNING ] CWMH0052W: The class com.ibm.ws.microprofile.health.impl.HealthCheckResponseImpl implementing HealthCheckResponse in the guide-microprofile-health application in module guide-microprofile-health.war, reported a DOWN status with data Optional[{}].
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.923 s - in it.io.openliberty.guides.health.HealthIT
+[INFO] [WARNING ] CWMMH0052W: The class io.openliberty.microprofile.health30.impl.HealthCheck30ResponseImpl implementing HealthCheckResponse in the guide-microprofile-health application in module guide-microprofile-health.war, reported a DOWN status with data Optional[{}].
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.706 s - in it.io.openliberty.guides.health.HealthIT
 [INFO] Running it.io.openliberty.guides.system.SystemEndpointIT
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in it.io.openliberty.guides.system.SystemEndpointIT
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in it.io.openliberty.guides.system.SystemEndpointIT
 [INFO] Running it.io.openliberty.guides.inventory.InventoryEndpointIT
 [INFO] [WARNING ] Interceptor for {http://client.inventory.guides.openliberty.io/}SystemClient has thrown exception, unwinding now
 [INFO] Could not send Message.
 [INFO] [err] The specified host is unknown.
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s - in it.io.openliberty.guides.inventory.InventoryEndpointIT
-[INFO]
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.171 s - in it.io.openliberty.guides.inventory.InventoryEndpointIT
+[INFO] 
 [INFO] Results:
-[INFO]
+[INFO] 
 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
 ----
 
