@@ -101,7 +101,7 @@ curl -s http://localhost:9080/inventory/systems | jq
 {: codeblock}
 
 Visit the http://localhost:9080/health URL to see the
-overall health status of the application, as well as the aggregated data of the startup, liveness
+overall health status of the application, as well as the aggregated data of the startup, liveness,
 and readiness checks. Run the following curl command:
 ```
 curl -s http://localhost:9080/health | jq
@@ -164,7 +164,7 @@ A health report will be generated automatically for all services that enable Mic
 [hotspot=mpHealth]`mpHealth` feature has already been enabled for you in the [hotspot]`src/main/liberty/config/server.xml`
 file.
 
-All services must provide an implementation of the `HealthCheck` interface, that are used to
+All services must provide an implementation of the `HealthCheck` interface, which is used to
 verify their health. MicroProfile Health offers health checks for startup, liveness, and readiness.
 A startup check allows applications to define startup probes that are used 
 for initial verification of the application before the Liveness probe takes over. For example,
@@ -233,7 +233,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.
 
 // static guide instructions:
 ifndef::cloud-hosted[]
-The [hotspot=Readiness file=2]`@Readiness` annotation indicates that this particular bean is a readiness health check procedure.
+The [hotspot=Readiness file=2]`@Readiness` annotation indicates that this bean is a readiness health check procedure.
 By pairing this annotation with the [hotspot=ApplicationScoped file=2]`ApplicationScoped` context from the Contexts and
 Dependency Injections API, the bean is discovered automatically when the `\http://localhost:9080/health`
 endpoint receives a request.
@@ -249,10 +249,10 @@ endif::[]
 
 
 The [hotspot=healthCheckResponse file=2]`call()` method is used to return the health status of a particular service.
-In this case, you are simply checking if the server name is [hotspot=defaultServer file=2]`defaultServer` and
+In this case, you are checking if the server name is [hotspot=defaultServer file=2]`defaultServer` and
 returning [hotspot=HealthCheckResponse-UP file=2]`UP` if it is, and [hotspot=HealthCheckResponse-DOWN file=2]`DOWN` otherwise. 
-Overall, this is a very simple implementation of the [hotspot=healthCheckResponse file=2]`call()`
-method. In a real environment, you would want to orchestrate more meaningful
+This example is a very simple implementation of the [hotspot=healthCheckResponse file=2]`call()`
+method. In a real environment, you would orchestrate more meaningful
 health checks.
 
 // =================================================================================================
@@ -307,8 +307,8 @@ In the [hotspot=isHealthy file=2]`isHealthy()` method,
 you report the `inventory` service as not ready if the service is in maintenance or if its dependant service is unavailable.
 
 For simplicity, the custom [hotspot=3 file=3]`io_openliberty_guides_inventory_inMaintenance`
-MicroProfile Config property, that is defined in the [hotspot file=3]`resources/CustomConfigSource.json`
-file, is used to indicate whether the service is in maintenance. This file was already
+MicroProfile Config property, which is defined in the [hotspot file=3]`resources/CustomConfigSource.json`
+file, indicates whether the service is in maintenance. This file was already
 created for you.
 
 Moreover, the readiness health check procedure makes an HTTP [hotspot=getRequest file=2]`GET` request to the `system` service and checks its status.
@@ -526,7 +526,7 @@ You see the following output:
 
 The warning messages are expected. The first warning results from a request to a service that is under maintenance. This request is made in the `testHealth()` test from the `InventoryEndpointIT` integration test. The second warning and error results from a request to a bad or an unknown hostname. This request is made in the `testUnknownHost()` test from the `InventoryEndpointIT` integration test.
 
-The tests may fail if your system's CPU or memory is high in usage. The status of the system will be `DOWN` if the CPU usage is over 95%, or the memory usage is over 90%.
+The tests might fail if your system CPU or memory use is high. The status of the system is DOWN if the CPU usage is over 95%, or the memory usage is over 90%.
 
 To see whether the tests detect a failure, manually change the configuration of
 [hotspot=3 file=1]`io_openliberty_guides_inventory_inMaintenance` from `false` to `true`
