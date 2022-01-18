@@ -199,7 +199,7 @@ SystemStartupCheck.java
 include::finish/src/main/java/io/openliberty/guides/system/SystemStartupCheck.java[]
 ----
 
-The [hotspot=Startup file=0]`@Startup` annotation indicates that this is a startup health check procedure.
+The [hotspot=Startup file=0]`@Startup` annotation indicates that this class is a startup health check procedure.
 In this case, you are checking the cpu usage. If more than 95% of the cpu
 is being used, a status of `DOWN` is returned.
 
@@ -215,7 +215,7 @@ SystemLivenessCheck.java
 include::finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java[]
 ----
 
-The [hotspot=Liveness file=1]`@Liveness` annotation indicates that this is a liveness health check procedure.
+The [hotspot=Liveness file=1]`@Liveness` annotation indicates that this class is a liveness health check procedure.
 In this case, you are checking the heap memory usage. If more than 90% of the maximum memory
 is being used, a status of `DOWN` is returned.
 
@@ -233,7 +233,7 @@ include::finish/src/main/java/io/openliberty/guides/system/SystemReadinessCheck.
 
 // static guide instructions:
 ifndef::cloud-hosted[]
-The [hotspot=Readiness file=2]`@Readiness` annotation indicates that this bean is a readiness health check procedure.
+The [hotspot=Readiness file=2]`@Readiness` annotation indicates that this class is a readiness health check procedure.
 By pairing this annotation with the [hotspot=ApplicationScoped file=2]`ApplicationScoped` context from the Contexts and
 Dependency Injections API, the bean is discovered automatically when the `\http://localhost:9080/health`
 endpoint receives a request.
@@ -241,7 +241,7 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-The **@Readiness** annotation indicates that this particular bean is a readiness health check procedure.
+The **@Readiness** annotation indicates that this class is a readiness health check procedure.
 By pairing this annotation with the **ApplicationScoped** context from the Contexts and
 Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health
 endpoint receives a request.
