@@ -1,6 +1,6 @@
-// tag::comment[]
+// tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2019 IBM Corporation and others.
+ * Copyright (c) 2018, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  * Contributors:
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
-// end::comment[]
+// end::copyright[]
 // tag::HealthTestUtil[]
 package it.io.openliberty.guides.health;
 
@@ -32,8 +32,10 @@ public class HealthITUtil {
 
   private static String port;
   private static String baseUrl;
-  public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_inMaintenance\":false";
-  public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_inMaintenance\":true";
+  public static final String INV_MAINTENANCE_FALSE = "io_openliberty_guides_inventory_"
+                                                   + "inMaintenance\":false";
+  public static final String INV_MAINTENANCE_TRUE = "io_openliberty_guides_inventory_"
+                                                  +  "inMaintenance\":true";
 
   static {
     port = System.getProperty("default.http.port");
@@ -72,7 +74,8 @@ public class HealthITUtil {
           + "/resources/CustomConfigSource.json";
       BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
       String line = "";
-      String oldContent = "", newContent = "";
+      String oldContent = "";
+      String newContent = "";
       while ((line = reader.readLine()) != null) {
         oldContent += line + "\r\n";
       }

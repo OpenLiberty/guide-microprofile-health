@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2019 IBM Corporation and others.
+ * Copyright (c) 2018, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ package it.io.openliberty.guides.health;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.beans.Transient;
 import java.util.HashMap;
 
 import javax.json.JsonArray;
@@ -31,6 +32,7 @@ public class HealthIT {
   private String HEALTH_ENDPOINT = "health";
   private String READINESS_ENDPOINT = "health/ready";
   private String LIVENES_ENDPOINT = "health/live";
+  private String STARTUP_ENDPOINT = "health/started";
 
   @BeforeEach
   public void setup() {
@@ -38,28 +40,15 @@ public class HealthIT {
   }
 
   @Test
-  // tag::testIfServicesAreUp[]
-  public void testIfServicesAreUp() {
-    endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP");
-    endpointData.put("InventoryResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Liveness Check", "UP");
+  // tag::testStartup[]
+  public void testStartup() {
+    endpointData.put("InventoryResource Startup Check", "UP");
+    endpointData.put("SystemResource Startup Check", "UP");
 
-    servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
+    servicesStates = HealthITUtil.connectToHealthEnpoint(200, STARTUP_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
-  // end::testIfServicesAreUp[]
-
-  @Test
-  // tag::testReadiness[]
-  public void testReadiness() {
-    endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("InventoryResource Readiness Check", "UP");
-
-    servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
-    checkStates(endpointData, servicesStates);
-  }
-  // end::testReadiness[]
+  // end::testStartup[]
 
   @Test
   // tag::testLiveness[]
@@ -73,12 +62,25 @@ public class HealthIT {
   // end::testLiveness[]
 
   @Test
-  // tag::testIfInventoryServiceIsDown[]
-  public void testIfInventoryServiceIsDown() {
+  // tag::testReadiness[]
+  public void testReadiness() {
     endpointData.put("SystemResource Readiness Check", "UP");
-    endpointData.put("SystemResource Liveness Check", "UP");
     endpointData.put("InventoryResource Readiness Check", "UP");
+
+    servicesStates = HealthITUtil.connectToHealthEnpoint(200, READINESS_ENDPOINT);
+    checkStates(endpointData, servicesStates);
+  }
+  // end::testReadiness[]
+
+  @Test
+  // tag::testHealth[]
+  public void testHealth() {
+    endpointData.put("SystemResource Startup Check", "UP");
+    endpointData.put("SystemResource Liveness Check", "UP");
+    endpointData.put("SystemResource Readiness Check", "UP");
+    endpointData.put("InventoryResource Startup Check", "UP");
     endpointData.put("InventoryResource Liveness Check", "UP");
+    endpointData.put("InventoryResource Readiness Check", "UP");
 
     servicesStates = HealthITUtil.connectToHealthEnpoint(200, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
@@ -89,7 +91,7 @@ public class HealthIT {
     servicesStates = HealthITUtil.connectToHealthEnpoint(503, HEALTH_ENDPOINT);
     checkStates(endpointData, servicesStates);
   }
-  // end::testIfInventoryServiceIsDown[]
+  // end::testHealth[]
 
   private void checkStates(HashMap<String, String> testData, JsonArray servStates) {
     testData.forEach((service, expectedState) -> {

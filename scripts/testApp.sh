@@ -9,6 +9,11 @@ set -euxo pipefail
 
 # LMP 3.0+ goals are listed here: https://github.com/OpenLiberty/ci.maven#goals
 
+sed -i 's/0.9/1.1/' ../finish/src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java
+sed -i 's/0.95/1.1/' ../finish/src/main/java/io/openliberty/guides/system/SystemStartupCheck.java
+sed -i 's/0.9/1.1/' ../finish/src/main/java/io/openliberty/guides/inventory/InventoryLivenessCheck.java
+sed -i 's/0.95/1.1/' ../finish/src/main/java/io/openliberty/guides/inventory/InventoryStartupCheck.java
+
 ## Rebuild the application
 #       package                   - Take the compiled code and package it in its distributable format.
 #       liberty:create            - Create a Liberty server.
@@ -27,6 +32,11 @@ mvn -Dhttp.keepAlive=false \
 #       liberty:stop              - Stop a Liberty server.
 #       failsafe:verify           - Verifies that the integration tests of an application passed.
 mvn liberty:start
+
+sleep 20
+
+curl http://localhost:9080/health | jq
+
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
