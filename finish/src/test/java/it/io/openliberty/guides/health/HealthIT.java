@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.beans.Transient;
 import java.util.HashMap;
 
-import javax.json.JsonArray;
+import jakarta.json.JsonArray;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
