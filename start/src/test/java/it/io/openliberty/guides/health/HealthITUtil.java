@@ -32,9 +32,9 @@ public class HealthITUtil {
 
   private static String port;
   private static String baseUrl;
-  public static final String INV_MAINTENANCE_FALSE = 
+  public static final String INV_MAINTENANCE_FALSE =
   "io_openliberty_guides_inventory_inMaintenance\":false";
-  public static final String INV_MAINTENANCE_TRUE = 
+  public static final String INV_MAINTENANCE_TRUE =
   "io_openliberty_guides_inventory_inMaintenance\":true";
 
   static {
@@ -74,7 +74,7 @@ public class HealthITUtil {
           + "/resources/CustomConfigSource.json";
       BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
       String line = "";
-      String oldContent = ""; 
+      String oldContent = "";
       String newContent = "";
       while ((line = reader.readLine()) != null) {
         oldContent += line + "\r\n";
