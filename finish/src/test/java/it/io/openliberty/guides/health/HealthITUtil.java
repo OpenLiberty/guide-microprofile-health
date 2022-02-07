@@ -44,7 +44,7 @@ public class HealthITUtil {
   public static JsonArray connectToHealthEnpoint(int expectedResponseCode,
       String endpoint) {
     String healthURL = baseUrl + endpoint;
-    Client client = ClientBuilder.newClient().register(JsrJsonpProvider.class);
+    Client client = ClientBuilder.newClient();
     Response response = client.target(healthURL).request().get();
     assertEquals(expectedResponseCode, response.getStatus(),
         "Response code is not matching " + healthURL);
