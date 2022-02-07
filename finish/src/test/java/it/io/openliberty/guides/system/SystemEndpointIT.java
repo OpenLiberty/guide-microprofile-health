@@ -20,7 +20,6 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
 
-import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.jupiter.api.Test;
 
 public class SystemEndpointIT {
@@ -31,7 +30,6 @@ public class SystemEndpointIT {
     String url = "http://localhost:" + port + "/";
 
     Client client = ClientBuilder.newClient();
-    client.register(JsrJsonpProvider.class);
 
     WebTarget target = client.target(url + "system/properties");
     Response response = target.request().get();
