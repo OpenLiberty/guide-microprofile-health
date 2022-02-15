@@ -20,7 +20,6 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
 
-
 import org.junit.jupiter.api.Test;
 
 public class SystemEndpointIT {
@@ -43,5 +42,6 @@ public class SystemEndpointIT {
         "The system property for the local and remote JVM should match");
 
     response.close();
+    client.close();
   }
 }

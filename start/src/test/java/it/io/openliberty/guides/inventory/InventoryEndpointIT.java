@@ -52,7 +52,6 @@ public class InventoryEndpointIT {
   @BeforeEach
   public void setup() {
     client = ClientBuilder.newClient();
-    
   }
 
   @AfterEach
