@@ -71,42 +71,36 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Open another command-line session by selecting **Terminal** > **New Terminal** from the menu of the IDE. To access the **system** service, run the following curl command:
-```
+```bash
 curl -s http://localhost:9080/system/properties | jq
 ```
-{: codeblock}
 
-To access the **inventory** service, run the following curl command:
-```
+To access the ***inventory*** service, run the following curl command:
+```bash
 curl -s http://localhost:9080/inventory/systems | jq
 ```
-{: codeblock}
 
 Visit the http://localhost:9080/health URL to see the overall health status of the application, as well as the aggregated data of the startup, liveness, and readiness checks. Run the following curl command:
-```
+```bash
 curl -s http://localhost:9080/health | jq
 ```
-{: codeblock}
 
-Three checks show the state of the **system** service, and the other three checks show the state of the **inventory** service. As you might expect, all services are in the **UP** state, and the overall health status of the application is in the **UP** state.
+Three checks show the state of the ***system*** service, and the other three checks show the state of the ***inventory*** service. As you might expect, all services are in the **UP** state, and the overall health status of the application is in the ***UP*** state.
 
-Access the **/health/started** endpoint by visiting the http://localhost:9080/health/started URL to view the data from the startup health checks. Run the following curl command:
-```
+Access the ***/health/started*** endpoint by visiting the http://localhost:9080/health/started URL to view the data from the startup health checks. Run the following curl command:
+```bash
 curl -s http://localhost:9080/health/started | jq
 ```
-{: codeblock}
 
-You can also access the **/health/live** endpoint by visiting the http://localhost:9080/health/live URL to view the data from the liveness health checks. Run the following curl command:
-```
+You can also access the ***/health/live*** endpoint by visiting the http://localhost:9080/health/live URL to view the data from the liveness health checks. Run the following curl command:
+```bash
 curl -s http://localhost:9080/health/live | jq
 ```
-{: codeblock}
 
-Similarly, access the **/health/ready** endpoint by visiting the http://localhost:9080/health/ready URL to view the data from the readiness health checks. Run the following curl command:
-```
+Similarly, access the ***/health/ready*** endpoint by visiting the http://localhost:9080/health/ready URL to view the data from the readiness health checks. Run the following curl command:
+```bash
 curl -s http://localhost:9080/health/ready | jq
 ```
-{: codeblock}
 endif::[]
 
 [role='command']
@@ -125,11 +119,10 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-To begin, run the following command to navigate to the **start** directory:
-```
+To begin, run the following command to navigate to the ***start*** directory:
+```bash
 cd /home/project/guide-microprofile-health/start
 ```
-{: codeblock}
 endif::[]
 
 [role='command']
@@ -198,7 +191,7 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-The **@Readiness** annotation indicates that this class is a readiness health check procedure. By pairing this annotation with the **ApplicationScoped** context from the Contexts and Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health endpoint receives a request.
+The ***@Readiness*** annotation indicates that this class is a readiness health check procedure. By pairing this annotation with the ***ApplicationScoped*** context from the Contexts and Dependency Injections API, the bean is discovered automatically when the http://localhost:9080/health endpoint receives a request.
 endif::[]
 
 
@@ -297,66 +290,63 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 While the server is running, run the following curl command to find the aggregated startup ,liveness, and readiness health reports on the two services:
-```
+```bash
 curl -s http://localhost:9080/health | jq
 ```
-{: codeblock}
 
 You can also run the following curl command to view the startup health report:
-```
+```bash
 curl -s http://localhost:9080/health/started | jq
 ```
-{: codeblock}
 
 or run the following curl command to view the liveness health report:
-```
+```bash
 curl -s http://localhost:9080/health/live | jq
 ```
-{: codeblock}
 
 or run the following curl command to view the readiness health report:
-```
+```bash
 curl -s http://localhost:9080/health/ready | jq
 ```
-{: codeblock}
 
-Put the **inventory** service in maintenance by setting the ***io_openliberty_guides_inventory_inMaintenance*** property to **true** in the **resources/CustomConfigSource.json** file. 
+Put the ***inventory*** service in maintenance by setting the ***io_openliberty_guides_inventory_inMaintenance*** property to ***true*** in the ***resources/CustomConfigSource.json*** file. 
 
 > From the menu of the IDE, select 
- **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json
+ **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json, or click the following button
 
-```
+::openFile{path="/home/project/guide-microprofile-health/start/resources/CustomConfigSource.json"}
+
+```text
 {
   "config_ordinal":700,
   "io_openliberty_guides_inventory_inMaintenance":true
 }
 ```
-{: codeblock}
 
-Because this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health URL to see that the state of the **inventory** service changed to **DOWN**. Run the following curl command:
-```
+Because this configuration file is picked up dynamically, simply refresh the http://localhost:9080/health URL to see that the state of the **inventory** service changed to ***DOWN***. Run the following curl command:
+```bash
 curl -s http://localhost:9080/health | jq
 ```
-{: codeblock}
 
-The overall state of the application also changed to **DOWN** as a result. Run the following curl command to verify that the **inventory** service is indeed in maintenance:
-```
+The overall state of the application also changed to ***DOWN*** as a result. Run the following curl command to verify that the **inventory** service is indeed in maintenance:
+```bash
 curl -s http://localhost:9080/inventory/systems | jq
 ```
-{: codeblock}
 
 Set the ***io_openliberty_guides_inventory_inMaintenance*** property back to **false** after you are done.
 
 > From the menu of the IDE, select 
- **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json
+ **File** > **Open** > guide-microprofile-health/start/resources/CustomConfigSource.json, or click the following button
 
-```
+::openFile{path="/home/project/guide-microprofile-health/start/resources/CustomConfigSource.json"}
+
+```text
 {
   "config_ordinal":700,
   "io_openliberty_guides_system_inMaintenance":false
 }
 ```
-{: codeblock}
+
 endif::[]
 
 // =================================================================================================
