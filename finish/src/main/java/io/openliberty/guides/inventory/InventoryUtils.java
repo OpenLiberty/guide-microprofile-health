@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017, 2018 IBM Corporation and others.
+ * Copyright (c) 2017, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ import java.net.URL;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.net.MalformedURLException;
-import javax.ws.rs.ProcessingException;
+import jakarta.ws.rs.ProcessingException;
 import java.util.Properties;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
@@ -35,7 +35,7 @@ public class InventoryUtils {
       SystemClient customRestClient = RestClientBuilder.newBuilder()
                                                        .baseUrl(customURL)
                                                        .register(
-                                                           UnknownUrlExceptionMapper.class)
+                                                        UnknownUrlExceptionMapper.class)
                                                        .build(SystemClient.class);
       return customRestClient.getProperties();
     } catch (ProcessingException ex) {
@@ -61,7 +61,7 @@ public class InventoryUtils {
   // tag::doc[]
   /**
    * Builds the URI string to the system service for a particular host.
-   * 
+   *
    * @param protocol
    *          - http or https.
    * @param host
