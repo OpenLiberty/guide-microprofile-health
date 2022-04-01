@@ -13,7 +13,7 @@
 // tag::InventoryLivenessCheck[]
 package io.openliberty.guides.inventory;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.lang.management.MemoryMXBean;
 import java.lang.management.ManagementFactory;
