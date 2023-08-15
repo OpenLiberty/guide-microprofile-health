@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2022 IBM Corporation and others.
+// Copyright (c) 2018, 2023 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -267,7 +267,7 @@ include::{common-includes}/devmode-build.adoc[]
 
 // static guide instructions:
 ifndef::cloud-hosted[]
-While the server is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find the aggregated startup, liveness, and readiness health reports on the two services.
+While the Liberty is running, navigate to the http://localhost:9080/health[http://localhost:9080/health^] URL to find the aggregated startup, liveness, and readiness health reports on the two services.
 
 You can also navigate to the http://localhost:9080/health/started[http://localhost:9080/health/started^] URL to view the startup health report, to the http://localhost:9080/health/live[http://localhost:9080/health/live^] URL to view the liveness health report or the http://localhost:9080/health/ready[http://localhost:9080/health/ready^] URL to view the readiness health report.
 
@@ -289,7 +289,7 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-While the server is running, run the following curl command to find the aggregated startup ,liveness, and readiness health reports on the two services:
+While the Liberty is running, run the following curl command to find the aggregated startup ,liveness, and readiness health reports on the two services:
 ```bash
 curl -s http://localhost:9080/health | jq
 ```
