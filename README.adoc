@@ -53,7 +53,7 @@ include::{common-includes}/gitclone.adoc[]
 // =================================================================================================
 
 [role='command']
-include::{common-includes}/twyb-intro.adoc[]
+include::{common-includes}/twyb-intro-mvnw.adoc[]
 
 // static guide instructions:
 ifndef::cloud-hosted[]
@@ -104,7 +104,7 @@ curl -s http://localhost:9080/health/ready | jq
 endif::[]
 
 [role='command']
-include::{common-includes}/twyb-end.adoc[]
+include::{common-includes}/twyb-end-mvnw.adoc[]
 
 // =================================================================================================
 // Adding health checks to microservices
@@ -126,7 +126,7 @@ cd /home/project/guide-microprofile-health/start
 endif::[]
 
 [role='command']
-include::{common-includes}/devmode-lmp33-start.adoc[]
+include::{common-includes}/devmode-mvnw-start.adoc[]
 
 A health report will be generated automatically for all services that enable MicroProfile Health. The [hotspot=mpHealth]`mpHealth` feature has already been enabled for you in the [hotspot]`src/main/liberty/config/server.xml` file.
 
