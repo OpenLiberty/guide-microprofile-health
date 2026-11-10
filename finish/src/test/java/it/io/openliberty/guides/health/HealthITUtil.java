@@ -57,9 +57,9 @@ public class HealthITUtil {
   public static String getActualState(String service, JsonArray servicesStates) {
     String state = "";
     for (Object obj : servicesStates) {
-      if (obj instanceof JsonObject object) {
-        if (service.equals(object.getString("name"))) {
-          state = object.getString("status");
+      if (obj instanceof JsonObject) {
+        if (service.equals(((JsonObject) obj).getString("name"))) {
+          state = ((JsonObject) obj).getString("status");
         }
       }
     }
